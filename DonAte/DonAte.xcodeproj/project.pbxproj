@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+
 		D5C18CE22EDDBE160069A61B /* DonAte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonAte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -17,6 +18,7 @@
 				Info.plist,
 			);
 			target = D5C18CE12EDDBE160069A61B /* DonAte */;
+
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -32,7 +34,7 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		D5C18CDF2EDDBE160069A61B /* Frameworks */ = {
+		D5C18CAE2EDDBA430069A61B /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -42,18 +44,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D5C18CD92EDDBE160069A61B = {
+		D5C18CA82EDDBA430069A61B = {
 			isa = PBXGroup;
 			children = (
-				D5C18CE42EDDBE160069A61B /* DonAte */,
-				D5C18CE32EDDBE160069A61B /* Products */,
+				D5C18CB32EDDBA430069A61B /* DonAte */,
+				D5C18CB22EDDBA430069A61B /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		D5C18CE32EDDBE160069A61B /* Products */ = {
+		D5C18CB22EDDBA430069A61B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D5C18CE22EDDBE160069A61B /* DonAte.app */,
+				D5C18CB12EDDBA430069A61B /* DonAte.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -61,64 +63,64 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D5C18CE12EDDBE160069A61B /* DonAte */ = {
+		D5C18CB02EDDBA430069A61B /* DonAte */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D5C18CF52EDDBE170069A61B /* Build configuration list for PBXNativeTarget "DonAte" */;
+			buildConfigurationList = D5C18CC42EDDBA440069A61B /* Build configuration list for PBXNativeTarget "DonAte" */;
 			buildPhases = (
-				D5C18CDE2EDDBE160069A61B /* Sources */,
-				D5C18CDF2EDDBE160069A61B /* Frameworks */,
-				D5C18CE02EDDBE160069A61B /* Resources */,
+				D5C18CAD2EDDBA430069A61B /* Sources */,
+				D5C18CAE2EDDBA430069A61B /* Frameworks */,
+				D5C18CAF2EDDBA430069A61B /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				D5C18CE42EDDBE160069A61B /* DonAte */,
+				D5C18CB32EDDBA430069A61B /* DonAte */,
 			);
 			name = DonAte;
 			packageProductDependencies = (
 			);
 			productName = DonAte;
-			productReference = D5C18CE22EDDBE160069A61B /* DonAte.app */;
+			productReference = D5C18CB12EDDBA430069A61B /* DonAte.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		D5C18CDA2EDDBE160069A61B /* Project object */ = {
+		D5C18CA92EDDBA430069A61B /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1640;
 				TargetAttributes = {
-					D5C18CE12EDDBE160069A61B = {
+					D5C18CB02EDDBA430069A61B = {
 						CreatedOnToolsVersion = 16.4;
 					};
 				};
 			};
-			buildConfigurationList = D5C18CDD2EDDBE160069A61B /* Build configuration list for PBXProject "DonAte" */;
+			buildConfigurationList = D5C18CAC2EDDBA430069A61B /* Build configuration list for PBXProject "DonAte" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
-			mainGroup = D5C18CD92EDDBE160069A61B;
+			mainGroup = D5C18CA82EDDBA430069A61B;
 			minimizedProjectReferenceProxies = 1;
 			preferredProjectObjectVersion = 77;
-			productRefGroup = D5C18CE32EDDBE160069A61B /* Products */;
+			productRefGroup = D5C18CB22EDDBA430069A61B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D5C18CE12EDDBE160069A61B /* DonAte */,
+				D5C18CB02EDDBA430069A61B /* DonAte */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		D5C18CE02EDDBE160069A61B /* Resources */ = {
+		D5C18CAF2EDDBA430069A61B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -128,7 +130,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		D5C18CDE2EDDBE160069A61B /* Sources */ = {
+		D5C18CAD2EDDBA430069A61B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -138,7 +140,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		D5C18CF62EDDBE170069A61B /* Debug */ = {
+		D5C18CC52EDDBA440069A61B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -165,7 +167,7 @@
 			};
 			name = Debug;
 		};
-		D5C18CF72EDDBE170069A61B /* Release */ = {
+		D5C18CC62EDDBA440069A61B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -192,7 +194,7 @@
 			};
 			name = Release;
 		};
-		D5C18CF82EDDBE170069A61B /* Debug */ = {
+		D5C18CC72EDDBA440069A61B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -255,7 +257,7 @@
 			};
 			name = Debug;
 		};
-		D5C18CF92EDDBE170069A61B /* Release */ = {
+		D5C18CC82EDDBA440069A61B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -314,25 +316,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5C18CDD2EDDBE160069A61B /* Build configuration list for PBXProject "DonAte" */ = {
+		D5C18CAC2EDDBA430069A61B /* Build configuration list for PBXProject "DonAte" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5C18CF82EDDBE170069A61B /* Debug */,
-				D5C18CF92EDDBE170069A61B /* Release */,
+				D5C18CC72EDDBA440069A61B /* Debug */,
+				D5C18CC82EDDBA440069A61B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D5C18CF52EDDBE170069A61B /* Build configuration list for PBXNativeTarget "DonAte" */ = {
+		D5C18CC42EDDBA440069A61B /* Build configuration list for PBXNativeTarget "DonAte" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D5C18CF62EDDBE170069A61B /* Debug */,
-				D5C18CF72EDDBE170069A61B /* Release */,
+				D5C18CC52EDDBA440069A61B /* Debug */,
+				D5C18CC62EDDBA440069A61B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = D5C18CDA2EDDBE160069A61B /* Project object */;
+	rootObject = D5C18CA92EDDBA430069A61B /* Project object */;
 }
