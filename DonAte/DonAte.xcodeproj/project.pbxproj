@@ -7,24 +7,26 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		D5C18CB12EDDBA430069A61B /* DonAte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonAte.app; sourceTree = BUILT_PRODUCTS_DIR; };
+
+		D5C18CE22EDDBE160069A61B /* DonAte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonAte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		D5C18CC32EDDBA440069A61B /* Exceptions for "DonAte" folder in "DonAte" target */ = {
+		D5C18CF42EDDBE170069A61B /* Exceptions for "DonAte" folder in "DonAte" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
 			);
-			target = D5C18CB02EDDBA430069A61B /* DonAte */;
+			target = D5C18CE12EDDBE160069A61B /* DonAte */;
+
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		D5C18CB32EDDBA430069A61B /* DonAte */ = {
+		D5C18CE42EDDBE160069A61B /* DonAte */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				D5C18CC32EDDBA440069A61B /* Exceptions for "DonAte" folder in "DonAte" target */,
+				D5C18CF42EDDBE170069A61B /* Exceptions for "DonAte" folder in "DonAte" target */,
 			);
 			path = DonAte;
 			sourceTree = "<group>";
