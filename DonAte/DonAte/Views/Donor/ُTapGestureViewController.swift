@@ -15,7 +15,8 @@ class _TapGestureViewController: UIViewController {
 
         // Do any additional setup after loading the view.
     }
-    
+    //identifiers
+    //IB theres functions and variables
     @IBAction func gestureTap(_ sender: Any) {
         
         performSegue(withIdentifier: "gestureTap", sender: nil)
