@@ -67,10 +67,10 @@
             </objects>
             <point key="canvasLocation" x="4473" y="-420"/>
         </scene>
-        <!--View Controller-->
+        <!--Tap Gesture View Controller-->
         <scene sceneID="Bno-SY-15L">
             <objects>
-                <viewController id="ztb-hd-4bH" sceneMemberID="viewController">
+                <viewController id="ztb-hd-4bH" customClass="_TapGestureViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N61-GG-64E">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -84,14 +84,35 @@
                                     <outletCollection property="gestureRecognizers" destination="0oJ-tk-7u3" appends="YES" id="J0A-uz-28N"/>
                                 </connections>
                             </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vuI-73-Ab3">
+                                <rect key="frame" x="96" y="479" width="200" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBrownColor"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qbs-zb-qIF" appends="YES" id="enG-Sq-1iA"/>
+                                </connections>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="otg-JW-dFA"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="n8P-lE-Y7d"/>
+                    <connections>
+                        <segue destination="Gqm-2V-eHs" kind="show" identifier="gestureTap" id="8Ra-GF-PyE"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ism-Th-qfm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="0oJ-tk-7u3"/>
+                <tapGestureRecognizer id="0oJ-tk-7u3" userLabel="Blue">
+                    <connections>
+                        <action selector="gestureTap:" destination="ztb-hd-4bH" id="fAJ-OP-HHa"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="qbs-zb-qIF">
+                    <connections>
+                        <action selector="tapGesture2:" destination="ztb-hd-4bH" id="ojD-dU-13P"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="6150.3816793893129" y="-373.23943661971833"/>
         </scene>
@@ -105,6 +126,7 @@
                         <viewLayoutGuide key="safeArea" id="O99-hc-uFt"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="DVI-pj-flr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iic-hE-d41" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -315,6 +337,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
