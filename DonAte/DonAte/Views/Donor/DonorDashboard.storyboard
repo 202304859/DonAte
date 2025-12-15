@@ -8,21 +8,107 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Donor Dashboard Controller-->
+        <!--DonAte-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController id="Y6W-OH-hqX" customClass="DonorDashboardController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E7h-zJ-L8X">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="164"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="21A-Zc-9UV"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="E7h-zJ-L8X" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="2dM-Dm-Upy"/>
+                            <constraint firstAttribute="trailing" secondItem="E7h-zJ-L8X" secondAttribute="trailing" id="8F6-gi-8T9"/>
+                            <constraint firstItem="E7h-zJ-L8X" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="9Ot-rs-06J"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gPZ-68-AfJ"/>
+                    <navigationItem key="navigationItem" title="DonAte" leftItemsSupplementBackButton="YES" id="gPZ-68-AfJ">
+                        <barButtonItem key="leftBarButtonItem" title="logo" id="9Vo-vp-IT0"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1900" y="-2.1126760563380285"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="cVF-Id-e5g">
+            <objects>
+                <viewController id="BTr-dl-uto" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="f9R-GY-fSm">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ykg-no-hmE">
+                                <rect key="frame" x="103" y="246" width="200" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="o0c-Bh-H3r" appends="YES" id="D1M-Zu-jkU"/>
+                                </connections>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="CXo-5t-tou"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="rra-Gs-GSz"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ntz-K9-RVt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="o0c-Bh-H3r"/>
+            </objects>
+            <point key="canvasLocation" x="4473" y="-420"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Bno-SY-15L">
+            <objects>
+                <viewController id="ztb-hd-4bH" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="N61-GG-64E">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KxB-uH-NMy">
+                                <rect key="frame" x="96" y="302" width="200" height="110"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="linkColor"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="0oJ-tk-7u3" appends="YES" id="J0A-uz-28N"/>
+                                </connections>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="otg-JW-dFA"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="n8P-lE-Y7d"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ism-Th-qfm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0oJ-tk-7u3"/>
+            </objects>
+            <point key="canvasLocation" x="6150.3816793893129" y="-373.23943661971833"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="DMt-bq-X4J">
+            <objects>
+                <viewController id="Gqm-2V-eHs" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gks-r0-18f">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="O99-hc-uFt"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iic-hE-d41" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7013" y="-382"/>
         </scene>
         <!--Donor Tab Bar Controller-->
         <scene sceneID="nsx-JZ-1SZ">
@@ -46,11 +132,11 @@
             </objects>
             <point key="canvasLocation" x="47" y="-2"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="vtD-q4-Lff">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="By5-MI-wq5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="homekit" catalog="system" id="Gb5-oz-ctb"/>
+                    <tabBarItem key="tabBarItem" title="" image="homekit" catalog="system" id="Gb5-oz-ctb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LTb-4O-Hlh">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -105,11 +191,11 @@
             </objects>
             <point key="canvasLocation" x="3497" y="789"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="aHe-lo-FK4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NJn-uY-uap" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="magnifyingglass" catalog="system" id="1nY-6a-lqh"/>
+                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="1nY-6a-lqh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TTi-Xv-2b1">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -124,11 +210,11 @@
             </objects>
             <point key="canvasLocation" x="-697" y="789"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="uaA-Qh-zLY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yh4-9T-AeE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="plus.circle" catalog="system" id="cyv-gU-vdf"/>
+                    <tabBarItem key="tabBarItem" title="" image="plus.circle" catalog="system" id="cyv-gU-vdf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xVZ-an-FtU">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -143,11 +229,11 @@
             </objects>
             <point key="canvasLocation" x="399" y="789"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="IxN-bb-jhQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sjX-Yu-ZD6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="bell" catalog="system" id="heo-aj-Upu"/>
+                    <tabBarItem key="tabBarItem" title="" image="bell" catalog="system" id="heo-aj-Upu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rc5-ra-E25">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -162,11 +248,11 @@
             </objects>
             <point key="canvasLocation" x="1645" y="789"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="9HB-hj-VSl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jld-SP-Dao" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="person" catalog="system" id="lVY-4L-8fq"/>
+                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="lVY-4L-8fq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FcK-qe-LGc">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -181,6 +267,42 @@
             </objects>
             <point key="canvasLocation" x="2857" y="789"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="y02-Dt-Y49">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xPV-NI-BI5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="qhV-Qd-cHa">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BTr-dl-uto" kind="relationship" relationship="rootViewController" id="0uV-pG-Jna"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qnT-Uc-tuu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3560" y="-420"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nys-pg-jE4">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="iJl-xx-Lca" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="phq-jP-x77">
+                        <rect key="frame" x="0.0" y="118" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="ztb-hd-4bH" kind="relationship" relationship="rootViewController" id="O0g-1V-o7x"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BNB-Wh-6pt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5223.6641221374048" y="-373.23943661971833"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bell" catalog="system" width="125" height="128"/>
@@ -188,6 +310,9 @@
         <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <systemColor name="linkColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
