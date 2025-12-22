@@ -6,13 +6,23 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+      /*  let alert = UIAlertController(
+               title: "Loaded",
+               message: "LoginViewController is linked correctly",
+               preferredStyle: .alert
+           )
 
-        // Do any additional setup after loading the view.
+           alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+           present(alert, animated: true) */
+        //the above was just to test if the viewController is correctly linked to the storyboard. i have trust issues.
+        
     }
     
 
