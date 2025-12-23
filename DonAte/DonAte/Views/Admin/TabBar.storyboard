@@ -3,14 +3,15 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="PGw-Zn-a9B">
             <objects>
                 <navigationController id="XW2-Gj-7ea" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Adp-VG-ow3"/>
+                    <tabBarItem key="tabBarItem" title="" image="NotificationTabItem" landscapeImage="NotificationTabItem" largeContentSizeImage="NotificationTabItem" selectedImage="NotificationTabItemSelected" id="Adp-VG-ow3"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NSH-0U-AXe">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -20,11 +21,11 @@
             </objects>
             <point key="canvasLocation" x="-393" y="1513"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="81o-bG-ixd">
             <objects>
                 <navigationController id="lyE-FJ-RiS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="gtj-Fe-LmN"/>
+                    <tabBarItem key="tabBarItem" title="" image="ProfileTabItem" landscapeImage="ProfileTabItem" largeContentSizeImage="ProfileTabItem" selectedImage="ProfileTabItemSelected" id="gtj-Fe-LmN"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="k1I-Eh-LXg">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -38,7 +39,7 @@
         <scene sceneID="f7R-Oq-7df">
             <objects>
                 <navigationController id="dTO-eq-7Vi" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="HomeTabItem" id="UVO-ls-ohv"/>
+                    <tabBarItem key="tabBarItem" title="" image="HomeTabItem" landscapeImage="HomeTabItem" largeContentSizeImage="HomeTabItem" selectedImage="HomeTabItemSelected" id="UVO-ls-ohv"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cqB-2U-JXw">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -71,11 +72,11 @@
             </objects>
             <point key="canvasLocation" x="-1732" y="1977"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="a8h-Cr-WAj">
             <objects>
                 <navigationController id="lvS-C1-Mi1" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="KfX-L5-T5G"/>
+                    <tabBarItem key="tabBarItem" title="" image="DonationsTabItem" landscapeImage="DonationsTabItem" largeContentSizeImage="DonationsTabItem" selectedImage="DonationsTabItemSelected" id="KfX-L5-T5G"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QdJ-qu-rvf">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -89,7 +90,7 @@
         <scene sceneID="wm9-hC-Eo8">
             <objects>
                 <navigationController id="oJZ-sA-4rs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="UserTabItem" id="m9M-LN-Rjh"/>
+                    <tabBarItem key="tabBarItem" title="" image="UsersTabItem" landscapeImage="UsersTabItem" selectedImage="UsersTabItemSelected" id="m9M-LN-Rjh"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JgN-Bu-z5X">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -110,7 +111,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Pki-EN-Zxb" customClass="AdminCustomTabBar" customModule="DonAte" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="Color 2"/>
                     </tabBar>
                     <connections>
                         <segue destination="dTO-eq-7Vi" kind="relationship" relationship="viewControllers" id="BGd-dP-FlM"/>
@@ -126,7 +129,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="DonationsTabItem" width="54.666667938232422" height="63"/>
+        <image name="DonationsTabItemSelected" width="55" height="63"/>
         <image name="HomeTabItem" width="54.666667938232422" height="63"/>
-        <image name="UserTabItem" width="54.666667938232422" height="63"/>
+        <image name="HomeTabItemSelected" width="54.666667938232422" height="63"/>
+        <image name="NotificationTabItem" width="54.666667938232422" height="63"/>
+        <image name="NotificationTabItemSelected" width="54.666667938232422" height="63"/>
+        <image name="ProfileTabItem" width="54.666667938232422" height="63"/>
+        <image name="ProfileTabItemSelected" width="54.666667938232422" height="63"/>
+        <image name="UsersTabItem" width="54.666667938232422" height="63"/>
+        <image name="UsersTabItemSelected" width="54.666667938232422" height="63"/>
+        <namedColor name="Color 2">
+            <color red="1" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>
