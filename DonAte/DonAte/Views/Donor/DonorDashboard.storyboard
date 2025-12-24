@@ -15,8 +15,28 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="cM7-mO-j5z">
+                                <rect key="frame" x="0.0" y="162" width="393" height="573"/>
+                                <color key="backgroundColor" systemColor="systemPinkColor"/>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cqb-Tz-FUT">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="162"/>
+                                <color key="backgroundColor" systemColor="systemGreenColor"/>
+                            </view>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Cqb-Tz-FUT" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="4Z0-9B-iys"/>
+                            <constraint firstItem="cM7-mO-j5z" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="8PE-0g-s8v"/>
+                            <constraint firstItem="Cqb-Tz-FUT" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="9lI-0b-2GR"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="cM7-mO-j5z" secondAttribute="bottom" id="B0h-eJ-iVp"/>
+                            <constraint firstAttribute="trailing" secondItem="Cqb-Tz-FUT" secondAttribute="trailing" id="IHt-KO-cUW"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="cM7-mO-j5z" secondAttribute="trailing" id="IHw-w2-MF9"/>
+                            <constraint firstItem="cM7-mO-j5z" firstAttribute="top" secondItem="Cqb-Tz-FUT" secondAttribute="bottom" id="t0q-ZU-6hR"/>
+                            <constraint firstItem="cM7-mO-j5z" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="vaA-QA-cqj"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gPZ-68-AfJ"/>
                 </viewController>
@@ -190,6 +210,12 @@
         <image name="plus.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPinkColor">
+            <color red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
