@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Frame 1000004828.png",
+      "filename" : "HomeTabItemSelected.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "Frame 1000004828@2x.png",
+      "filename" : "HomeTabItemSelected2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "Frame 1000004828@3x.png",
+      "filename" : "HomeTabItemSelected3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
