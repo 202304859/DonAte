@@ -24,7 +24,7 @@ class UserManagementController: UIViewController {
             ])
 
         navBar.configure(style: .titleOnly(title: "User Management"))
-        
+       
 
         
     }

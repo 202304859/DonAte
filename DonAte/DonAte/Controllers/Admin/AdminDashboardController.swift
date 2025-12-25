@@ -24,6 +24,8 @@ class AdminDashboardController: UIViewController {
             ])
 
         navBar.configure(style: .dashboard)
+
+
             
         }
         

@@ -90,7 +90,7 @@ class CustomNavigationBar: UIView {
 
             // Container constraints
             containerView.leadingAnchor.constraint(equalTo: navBarView.leadingAnchor, constant: 30),
-            containerView.bottomAnchor.constraint(equalTo: navBarView.bottomAnchor, constant: -20),
+            containerView.bottomAnchor.constraint(equalTo: navBarView.safeAreaLayoutGuide.bottomAnchor,constant: -20),
             containerView.heightAnchor.constraint(equalToConstant: 54),
             containerView.trailingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 0),
 
