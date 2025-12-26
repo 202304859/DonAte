@@ -20,7 +20,7 @@ class LoginViewController: UIViewController {
 
            alert.addAction(UIAlertAction(title: "OK", style: .default))
 
-           present(alert, animated: true) */
+           present(alert, animated: true)*/
         //the above was just to test if the viewController is correctly linked to the storyboard. i have trust issues.
         
     }
