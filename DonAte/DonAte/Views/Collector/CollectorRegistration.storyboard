@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Collector Registration Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="CollectorRegistrationController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qlf-Ba-cDE">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9mN-op-qRS">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="900"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Collector Registration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleLabel">
+                                                <rect key="frame" x="20" y="20" width="353" height="29"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register your organization to start accepting donations" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="subtitleLabel">
+                                                <rect key="frame" x="20" y="57" width="353" height="36"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Organization Name *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="organizationNameTextField">
+                                                <rect key="frame" x="20" y="123" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-organizationName"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Contact Person Name *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="contactPersonTextField">
+                                                <rect key="frame" x="20" y="188" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-contactPerson"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email Address *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emailTextField">
+                                                <rect key="frame" x="20" y="253" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-email"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" autocapitalizationType="none"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Phone Number *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="phoneTextField">
+                                                <rect key="frame" x="20" y="318" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-phone"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="addressTextField">
+                                                <rect key="frame" x="20" y="383" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-address"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="none"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cityTextField">
+                                                <rect key="frame" x="20" y="448" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-city"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Registration Number *" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="registrationNumberTextField">
+                                                <rect key="frame" x="20" y="513" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-registration"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                                            </textField>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Website (Optional)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="websiteTextField">
+                                                <rect key="frame" x="20" y="578" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-website"/>
+                                                </constraints>
+                                                <textInputTraits key="textInputTraits" keyboardType="URL" autocapitalizationType="none"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="descriptionTitleLabel">
+                                                <rect key="frame" x="20" y="648" width="353" height="20"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+                                                <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Description of your organization..." translatesAutoresizingMaskIntoConstraints="NO" id="descriptionTextView">
+                                                <rect key="frame" x="20" y="676" width="353" height="100"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="100" id="height-description"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description of your organization..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="descriptionPlaceholder">
+                                                <rect key="frame" x="25" y="684" width="343" height="20"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                <color key="textColor" systemColor="placeholderTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="NO" translatesAutoresizingMaskIntoConstraints="NO" id="termsSwitch">
+                                                <rect key="frame" x="20" y="796" width="51" height="31"/>
+                                            </switch>
+                                            <label opaque="NO" userInteractionEnabled="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I agree to the Terms and Conditions *" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="termsLabel">
+                                                <rect key="frame" x="81" y="801" width="292" height="36"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="registerButton">
+                                                <rect key="frame" x="20" y="850" width="353" height="50"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="50" id="height-register"/>
+                                                </constraints>
+                                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                <state key="normal" title="Register">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                        <integer key="value" value="10"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="registerButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="action-registerButton"/>
+                                                </connections>
+                                            </button>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="activityIndicator">
+                                                <rect key="frame" x="186.66666666666666" y="862" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="titleLabel" firstAttribute="top" secondItem="9mN-op-qRS" secondAttribute="top" constant="20" id="constraint-title-top"/>
+                                            <constraint firstItem="titleLabel" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-title-leading"/>
+                                            <constraint firstItem="titleLabel" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-title-trailing"/>
+                                            <constraint firstItem="subtitleLabel" firstAttribute="top" secondItem="titleLabel" secondAttribute="bottom" constant="8" id="constraint-subtitle-top"/>
+                                            <constraint firstItem="subtitleLabel" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-subtitle-leading"/>
+                                            <constraint firstItem="subtitleLabel" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-subtitle-trailing"/>
+                                            <constraint firstItem="organizationNameTextField" firstAttribute="top" secondItem="subtitleLabel" secondAttribute="bottom" constant="30" id="constraint-org-top"/>
+                                            <constraint firstItem="organizationNameTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-org-leading"/>
+                                            <constraint firstItem="organizationNameTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-org-trailing"/>
+                                            <constraint firstItem="contactPersonTextField" firstAttribute="top" secondItem="organizationNameTextField" secondAttribute="bottom" constant="15" id="constraint-contact-top"/>
+                                            <constraint firstItem="contactPersonTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-contact-leading"/>
+                                            <constraint firstItem="contactPersonTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-contact-trailing"/>
+                                            <constraint firstItem="emailTextField" firstAttribute="top" secondItem="contactPersonTextField" secondAttribute="bottom" constant="15" id="constraint-email-top"/>
+                                            <constraint firstItem="emailTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-email-leading"/>
+                                            <constraint firstItem="emailTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-email-trailing"/>
+                                            <constraint firstItem="phoneTextField" firstAttribute="top" secondItem="emailTextField" secondAttribute="bottom" constant="15" id="constraint-phone-top"/>
+                                            <constraint firstItem="phoneTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-phone-leading"/>
+                                            <constraint firstItem="phoneTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-phone-trailing"/>
+                                            <constraint firstItem="addressTextField" firstAttribute="top" secondItem="phoneTextField" secondAttribute="bottom" constant="15" id="constraint-address-top"/>
+                                            <constraint firstItem="addressTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-address-leading"/>
+                                            <constraint firstItem="addressTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-address-trailing"/>
+                                            <constraint firstItem="cityTextField" firstAttribute="top" secondItem="addressTextField" secondAttribute="bottom" constant="15" id="constraint-city-top"/>
+                                            <constraint firstItem="cityTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-city-leading"/>
+                                            <constraint firstItem="cityTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-city-trailing"/>
+                                            <constraint firstItem="registrationNumberTextField" firstAttribute="top" secondItem="cityTextField" secondAttribute="bottom" constant="15" id="constraint-registration-top"/>
+                                            <constraint firstItem="registrationNumberTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-registration-leading"/>
+                                            <constraint firstItem="registrationNumberTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-registration-trailing"/>
+                                            <constraint firstItem="websiteTextField" firstAttribute="top" secondItem="registrationNumberTextField" secondAttribute="bottom" constant="15" id="constraint-website-top"/>
+                                            <constraint firstItem="websiteTextField" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-website-leading"/>
+                                            <constraint firstItem="websiteTextField" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-website-trailing"/>
+                                            <constraint firstItem="descriptionTitleLabel" firstAttribute="top" secondItem="websiteTextField" secondAttribute="bottom" constant="20" id="constraint-desc-title-top"/>
+                                            <constraint firstItem="descriptionTitleLabel" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-desc-title-leading"/>
+                                            <constraint firstItem="descriptionTextView" firstAttribute="top" secondItem="descriptionTitleLabel" secondAttribute="bottom" constant="8" id="constraint-desc-top"/>
+                                            <constraint firstItem="descriptionTextView" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-desc-leading"/>
+                                            <constraint firstItem="descriptionTextView" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-desc-trailing"/>
+                                            <constraint firstItem="descriptionPlaceholder" firstAttribute="top" secondItem="descriptionTextView" secondAttribute="top" constant="8" id="constraint-placeholder-top"/>
+                                            <constraint firstItem="descriptionPlaceholder" firstAttribute="leading" secondItem="descriptionTextView" secondAttribute="leading" constant="5" id="constraint-placeholder-leading"/>
+                                            <constraint firstItem="termsSwitch" firstAttribute="top" secondItem="descriptionTextView" secondAttribute="bottom" constant="20" id="constraint-terms-switch-top"/>
+                                            <constraint firstItem="termsSwitch" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-terms-switch-leading"/>
+                                            <constraint firstItem="termsLabel" firstAttribute="centerY" secondItem="termsSwitch" secondAttribute="centerY" id="constraint-terms-label-centerY"/>
+                                            <constraint firstItem="termsLabel" firstAttribute="leading" secondItem="termsSwitch" secondAttribute="trailing" constant="10" id="constraint-terms-label-leading"/>
+                                            <constraint firstItem="termsLabel" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-terms-label-trailing"/>
+                                            <constraint firstItem="registerButton" firstAttribute="top" secondItem="termsLabel" secondAttribute="bottom" constant="30" id="constraint-register-top"/>
+                                            <constraint firstItem="registerButton" firstAttribute="leading" secondItem="9mN-op-qRS" secondAttribute="leading" constant="20" id="constraint-register-leading"/>
+                                            <constraint firstItem="registerButton" firstAttribute="trailing" secondItem="9mN-op-qRS" secondAttribute="trailing" constant="-20" id="constraint-register-trailing"/>
+                                            <constraint firstItem="registerButton" firstAttribute="bottom" secondItem="9mN-op-qRS" secondAttribute="bottom" constant="-30" id="constraint-register-bottom"/>
+                                            <constraint firstItem="activityIndicator" firstAttribute="centerX" secondItem="registerButton" secondAttribute="centerX" id="constraint-indicator-centerX"/>
+                                            <constraint firstItem="activityIndicator" firstAttribute="centerY" secondItem="registerButton" secondAttribute="centerY" id="constraint-indicator-centerY"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Qlf-Ba-cDE" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="safeAreaTop" id="constraint-scroll-top"/>
+                                    <constraint firstItem="Qlf-Ba-cDE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="constraint-scroll-leading"/>
+                                    <constraint firstItem="Qlf-Ba-cDE" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="constraint-scroll-trailing"/>
+                                    <constraint firstItem="Qlf-Ba-cDE" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="constraint-scroll-bottom"/>
+                                    <constraint firstItem="9mN-op-qRS" firstAttribute="top" secondItem="Qlf-Ba-cDE" secondAttribute="top" id="constraint-content-top"/>
+                                    <constraint firstItem="9mN-op-qRS" firstAttribute="leading" secondItem="Qlf-Ba-cDE" secondAttribute="leading" id="constraint-content-leading"/>
+                                    <constraint firstItem="9mN-op-qRS" firstAttribute="trailing" secondItem="Qlf-Ba-cDE" secondAttribute="trailing" id="constraint-content-trailing"/>
+                                    <constraint firstItem="9mN-op-qRS" firstAttribute="bottom" secondItem="Qlf-Ba-cDE" secondAttribute="bottom" id="constraint-content-bottom"/>
+                                    <constraint firstItem="9mN-op-qRS" firstAttribute="width" secondItem="Qlf-Ba-cDE" secondAttribute="width" id="constraint-content-width"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Qlf-Ba-cDE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="constraint-main-scroll-top"/>
+                            <constraint firstItem="Qlf-Ba-cDE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="constraint-main-scroll-leading"/>
+                            <constraint firstItem="Qlf-Ba-cDE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="constraint-main-scroll-trailing"/>
+                            <constraint firstItem="Qlf-Ba-cDE" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="constraint-main-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Collector Registration" id="navItem"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="activityIndicator" id="outlet-activityIndicator"/>
+                        <outlet property="addressTextField" destination="addressTextField" id="outlet-address"/>
+                        <outlet property="cityTextField" destination="cityTextField" id="outlet-city"/>
+                        <outlet property="contactPersonTextField" destination="contactPersonTextField" id="outlet-contactPerson"/>
+                        <outlet property="descriptionPlaceholder" destination="descriptionPlaceholder" id="outlet-placeholder"/>
+                        <outlet property="descriptionTextView" destination="descriptionTextView" id="outlet-description"/>
+                        <outlet property="emailTextField" destination="emailTextField" id="outlet-email"/>
+                        <outlet property="organizationNameTextField" destination="organizationNameTextField" id="outlet-organization"/>
+                        <outlet property="phoneTextField" destination="phoneTextField" id="outlet-phone"/>
+                        <outlet property="registerButton" destination="registerButton" id="outlet-registerButton"/>
+                        <outlet property="registrationNumberTextField" destination="registrationNumberTextField" id="outlet-registration"/>
+                        <outlet property="termsLabel" destination="termsLabel" id="outlet-termsLabel"/>
+                        <outlet property="termsSwitch" destination="termsSwitch" id="outlet-termsSwitch"/>
+                        <outlet property="websiteTextField" destination="websiteTextField" id="outlet-website"/>
+                    </connections>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="YES"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.29770992366412" y="-9.154929577464789"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="placeholderTextColor">
+            <color red="0.29411764705882354" green="0.29019607843137257" blue="0.30196078431372547" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
