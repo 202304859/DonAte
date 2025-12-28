@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+class DonorDonation: Codable {
+    var id: Int?
+    var donorUsername: String?
+    var donationId: Int?
+    var NGO : String?
+    
+    
+}
