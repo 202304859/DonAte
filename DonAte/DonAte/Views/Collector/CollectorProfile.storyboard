@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22154" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22130"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Collector Profile Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController id="Y6W-OH-hqX" customClass="CollectorProfileController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="scrollView">
+                                <rect key="frame" x="0.0" y="59" width="393" height="759"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="contentView">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1100"/>
+                                        <subviews>
+                                            <!-- Header Section -->
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="headerView">
+                                                <rect key="frame" x="0.0" y="0.0" width="393" height="180"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="profileImageView">
+                                                        <rect key="frame" x="146.66666666666666" y="20" width="100" height="100"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="width-profile"/>
+                                                            <constraint firstAttribute="height" constant="100" id="height-profile"/>
+                                                        </constraints>
+                                                        <color key="tintColor" systemColor="systemBlueColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="50"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Organization Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orgNameLabel">
+                                                        <rect key="frame" x="20" y="130" width="353" height="28"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="verifiedBadgeView">
+                                                        <rect key="frame" x="126.66666666666667" y="162" width="140" height="24"/>
+                                                        <subviews>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checkmark.seal.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="verifiedIcon">
+                                                                <rect key="frame" x="4" y="2" width="20" height="20"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="width-verified-icon"/>
+                                                                    <constraint firstAttribute="height" constant="20" id="height-verified-icon"/>
+                                                                </constraints>
+                                                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                                            </imageView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verified" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="verifiedLabel">
+                                                                <rect key="frame" x="32" y="2" width="108" height="20"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                <color key="textColor" systemColor="systemGreenColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="verifiedIcon" firstAttribute="leading" secondItem="verifiedBadgeView" secondAttribute="leading" constant="4" id="constraint-verified-icon-leading"/>
+                                                            <constraint firstItem="verifiedIcon" firstAttribute="centerY" secondItem="verifiedBadgeView" secondAttribute="centerY" id="constraint-verified-icon-centerY"/>
+                                                            <constraint firstItem="verifiedLabel" firstAttribute="leading" secondItem="verifiedIcon" secondAttribute="trailing" constant="8" id="constraint-verified-label-leading"/>
+                                                            <constraint firstItem="verifiedLabel" firstAttribute="centerY" secondItem="verifiedBadgeView" secondAttribute="centerY" id="constraint-verified-label-centerY"/>
+                                                            <constraint firstItem="verifiedBadgeView" firstAttribute="height" constant="24" id="constraint-verified-height"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="12"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="profileImageView" firstAttribute="centerX" secondItem="headerView" secondAttribute="centerX" id="constraint-profile-centerX"/>
+                                                    <constraint firstItem="profileImageView" firstAttribute="top" secondItem="headerView" secondAttribute="top" constant="20" id="constraint-profile-top"/>
+                                                    <constraint firstItem="orgNameLabel" firstAttribute="top" secondItem="profileImageView" secondAttribute="bottom" constant="10" id="constraint-orgName-top"/>
+                                                    <constraint firstItem="orgNameLabel" firstAttribute="leading" secondItem="headerView" secondAttribute="leading" constant="20" id="constraint-orgName-leading"/>
+                                                    <constraint firstItem="orgNameLabel" firstAttribute="trailing" secondItem="headerView" secondAttribute="trailing" constant="-20" id="constraint-orgName-trailing"/>
+                                                    <constraint firstItem="verifiedBadgeView" firstAttribute="top" secondItem="orgNameLabel" secondAttribute="bottom" constant="4" id="constraint-verified-top"/>
+                                                    <constraint firstItem="verifiedBadgeView" firstAttribute="centerX" secondItem="headerView" secondAttribute="centerX" id="constraint-verified-centerX"/>
+                                                    <constraint firstItem="headerView" firstAttribute="height" constant="180" id="constraint-header-height"/>
+                                                </constraints>
+                                            </view>
+                                            
+                                            <!-- Stats Section -->
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statsContainerView">
+                                                <rect key="frame" x="0.0" y="196" width="393" height="120"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="statsTitleLabel">
+                                                        <rect key="frame" x="20" y="8" width="353" height="20"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statsRowView">
+                                                        <rect key="frame" x="20" y="36" width="353" height="76"/>
+                                                        <subviews>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statCard1">
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="76"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="donationsCountLabel">
+                                                                        <rect key="frame" x="10" y="12" width="90" height="28"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                                        <color key="textColor" systemColor="systemBlueColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Donations" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="donationsTitleLabel">
+                                                                        <rect key="frame" x="10" y="44" width="90" height="18"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="donationsCountLabel" firstAttribute="top" secondItem="statCard1" secondAttribute="top" constant="12" id="constraint-donations-count-top"/>
+                                                                    <constraint firstItem="donationsCountLabel" firstAttribute="leading" secondItem="statCard1" secondAttribute="leading" constant="10" id="constraint-donations-count-leading"/>
+                                                                    <constraint firstItem="donationsCountLabel" firstAttribute="trailing" secondItem="statCard1" secondAttribute="trailing" constant="-10" id="constraint-donations-count-trailing"/>
+                                                                    <constraint firstItem="donationsTitleLabel" firstAttribute="top" secondItem="donationsCountLabel" secondAttribute="bottom" constant="4" id="constraint-donations-title-top"/>
+                                                                    <constraint firstItem="donationsTitleLabel" firstAttribute="leading" secondItem="statCard1" secondAttribute="leading" constant="10" id="constraint-donations-title-leading"/>
+                                                                    <constraint firstItem="donationsTitleLabel" firstAttribute="trailing" secondItem="statCard1" secondAttribute="trailing" constant="-10" id="constraint-donations-title-trailing"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statCard2">
+                                                                <rect key="frame" x="121.33333333333333" y="0.0" width="110" height="76"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 kg" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raisedAmountLabel">
+                                                                        <rect key="frame" x="10" y="12" width="90" height="28"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                                        <color key="textColor" systemColor="systemGreenColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Raised" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="raisedTitleLabel">
+                                                                        <rect key="frame" x="10" y="44" width="90" height="18"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="raisedAmountLabel" firstAttribute="top" secondItem="statCard2" secondAttribute="top" constant="12" id="constraint-raised-top"/>
+                                                                    <constraint firstItem="raisedAmountLabel" firstAttribute="leading" secondItem="statCard2" secondAttribute="leading" constant="10" id="constraint-raised-leading"/>
+                                                                    <constraint firstItem="raisedAmountLabel" firstAttribute="trailing" secondItem="statCard2" secondAttribute="trailing" constant="-10" id="constraint-raised-trailing"/>
+                                                                    <constraint firstItem="raisedTitleLabel" firstAttribute="top" secondItem="raisedAmountLabel" secondAttribute="bottom" constant="4" id="constraint-raised-title-top"/>
+                                                                    <constraint firstItem="raisedTitleLabel" firstAttribute="leading" secondItem="statCard2" secondAttribute="leading" constant="10" id="constraint-raised-title-leading"/>
+                                                                    <constraint firstItem="raisedTitleLabel" firstAttribute="trailing" secondItem="statCard2" secondAttribute="trailing" constant="-10" id="constraint-raised-title-trailing"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="statCard3">
+                                                                <rect key="frame" x="242.66666666666666" y="0.0" width="110" height="76"/>
+                                                                <subviews>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="impactScoreLabel">
+                                                                        <rect key="frame" x="10" y="12" width="90" height="28"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                                        <color key="textColor" systemColor="systemPurpleColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Impact" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="impactTitleLabel">
+                                                                        <rect key="frame" x="10" y="44" width="90" height="18"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                                <constraints>
+                                                                    <constraint firstItem="impactScoreLabel" firstAttribute="top" secondItem="statCard3" secondAttribute="top" constant="12" id="constraint-impact-top"/>
+                                                                    <constraint firstItem="impactScoreLabel" firstAttribute="leading" secondItem="statCard3" secondAttribute="leading" constant="10" id="constraint-impact-leading"/>
+                                                                    <constraint firstItem="impactScoreLabel" firstAttribute="trailing" secondItem="statCard3" secondAttribute="trailing" constant="-10" id="constraint-impact-trailing"/>
+                                                                    <constraint firstItem="impactTitleLabel" firstAttribute="top" secondItem="impactScoreLabel" secondAttribute="bottom" constant="4" id="constraint-impact-title-top"/>
+                                                                    <constraint firstItem="impactTitleLabel" firstAttribute="leading" secondItem="statCard3" secondAttribute="leading" constant="10" id="constraint-impact-title-leading"/>
+                                                                    <constraint firstItem="impactTitleLabel" firstAttribute="trailing" secondItem="statCard3" secondAttribute="trailing" constant="-10" id="constraint-impact-title-trailing"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                        <integer key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="statCard1" firstAttribute="leading" secondItem="statsRowView" secondAttribute="leading" id="constraint-stat1-leading"/>
+                                                            <constraint firstItem="statCard1" firstAttribute="top" secondItem="statsRowView" secondAttribute="top" id="constraint-stat1-top"/>
+                                                            <constraint firstItem="statCard1" firstAttribute="bottom" secondItem="statsRowView" secondAttribute="bottom" id="constraint-stat1-bottom"/>
+                                                            <constraint firstItem="statCard2" firstAttribute="leading" secondItem="statCard1" secondAttribute="trailing" constant="11.333333333333343" id="constraint-stat2-leading"/>
+                                                            <constraint firstItem="statCard2" firstAttribute="top" secondItem="statsRowView" secondAttribute="top" id="constraint-stat2-top"/>
+                                                            <constraint firstItem="statCard2" firstAttribute="bottom" secondItem="statsRowView" secondAttribute="bottom" id="constraint-stat2-bottom"/>
+                                                            <constraint firstItem="statCard3" firstAttribute="leading" secondItem="statCard2" secondAttribute="trailing" constant="11.333333333333343" id="constraint-stat3-leading"/>
+                                                            <constraint firstItem="statCard3" firstAttribute="top" secondItem="statsRowView" secondAttribute="top" id="constraint-stat3-top"/>
+                                                            <constraint firstItem="statCard3" firstAttribute="bottom" secondItem="statsRowView" secondAttribute="bottom" id="constraint-stat3-bottom"/>
+                                                            <constraint firstItem="statCard3" firstAttribute="trailing" secondItem="statsRowView" secondAttribute="trailing" id="constraint-stat3-trailing"/>
+                                                            <constraint firstItem="statsRowView" firstAttribute="height" constant="76" id="constraint-stats-row-height"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="statsTitleLabel" firstAttribute="top" secondItem="statsContainerView" secondAttribute="top" constant="8" id="constraint-stats-title-top"/>
+                                                    <constraint firstItem="statsTitleLabel" firstAttribute="leading" secondItem="statsContainerView" secondAttribute="leading" constant="20" id="constraint-stats-title-leading"/>
+                                                    <constraint firstItem="statsTitleLabel" firstAttribute="trailing" secondItem="statsContainerView" secondAttribute="trailing" constant="-20" id="constraint-stats-title-trailing"/>
+                                                    <constraint firstItem="statsRowView" firstAttribute="top" secondItem="statsTitleLabel" secondAttribute="bottom" constant="8" id="constraint-stats-row-top"/>
+                                                    <constraint firstItem="statsRowView" firstAttribute="leading" secondItem="statsContainerView" secondAttribute="leading" constant="20" id="constraint-stats-row-leading"/>
+                                                    <constraint firstItem="statsRowView" firstAttribute="trailing" secondItem="statsContainerView" secondAttribute="trailing" constant="-20" id="constraint-stats-row-trailing"/>
+                                                    <constraint firstItem="statsRowView" firstAttribute="bottom" secondItem="statsContainerView" secondAttribute="bottom" constant="-8" id="constraint-stats-row-bottom"/>
+                                                    <constraint firstItem="statsContainerView" firstAttribute="height" constant="120" id="constraint-stats-height"/>
+                                                </constraints>
+                                            </view>
+                                            
+                                            <!-- Information Section -->
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="infoContainerView">
+                                                <rect key="frame" x="0.0" y="332" width="393" height="420"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Organization Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="infoTitleLabel">
+                                                        <rect key="frame" x="20" y="8" width="353" height="20"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubheadline"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    
+                                                    <!-- Email Field -->
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="emailTitleLabel">
+                                                        <rect key="frame" x="20" y="44" width="353" height="18"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="contact@organization.com" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="emailTextField">
+                                                        <rect key="frame" x="20" y="66" width="353" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="height-email"/>
+                                                        </constraints>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" autocapitalizationType="none"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    
+                                                    <!-- Phone Field -->
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="phoneTitleLabel">
+                                                        <rect key="frame" x="20" y="122" width="353" height="18"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="+1 234 567 8900" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="phoneTextField">
+                                                        <rect key="frame" x="20" y="144" width="353" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="height-phone"/>
+                                                        </constraints>
+                                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    
+                                                    <!-- Address Field -->
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="addressTitleLabel">
+                                                        <rect key="frame" x="20" y="200" width="353" height="18"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123 Organization Street" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="addressTextField">
+                                                        <rect key="frame" x="20" y="222" width="353" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="height-address"/>
+                                                        </constraints>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    
+                                                    <!-- Website Field -->
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Website" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="websiteTitleLabel">
+                                                        <rect key="frame" x="20" y="278" width="353" height="18"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="https://organization.org" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="websiteTextField">
+                                                        <rect key="frame" x="20" y="300" width="353" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="height-website"/>
+                                                        </constraints>
+                                                        <textInputTraits key="textInputTraits" keyboardType="URL" autocapitalizationType="none"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isEnabled" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textField>
+                                                    
+                                                    <!-- Description Field -->
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="descriptionTitleLabel">
+                                                        <rect key="frame" x="20" y="356" width="353" height="18"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Organization description goes here..." translatesAutoresizingMaskIntoConstraints="NO" id="descriptionTextView">
+                                                        <rect key="frame" x="20" y="378" width="353" height="60"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="height-description"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <textInputTraits key="textInputTraits"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="editable" value="NO"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </textView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="infoTitleLabel" firstAttribute="top" secondItem="infoContainerView" secondAttribute="top" constant="8" id="constraint-info-title-top"/>
+                                                    <constraint firstItem="infoTitleLabel" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-info-title-leading"/>
+                                                    <constraint firstItem="infoTitleLabel" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-info-title-trailing"/>
+                                                    <constraint firstItem="emailTitleLabel" firstAttribute="top" secondItem="infoTitleLabel" secondAttribute="bottom" constant="16" id="constraint-email-title-top"/>
+                                                    <constraint firstItem="emailTextField" firstAttribute="top" secondItem="emailTitleLabel" secondAttribute="bottom" constant="4" id="constraint-email-top"/>
+                                                    <constraint firstItem="emailTextField" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-email-leading"/>
+                                                    <constraint firstItem="emailTextField" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-email-trailing"/>
+                                                    <constraint firstItem="phoneTitleLabel" firstAttribute="top" secondItem="emailTextField" secondAttribute="bottom" constant="12" id="constraint-phone-title-top"/>
+                                                    <constraint firstItem="phoneTextField" firstAttribute="top" secondItem="phoneTitleLabel" secondAttribute="bottom" constant="4" id="constraint-phone-top"/>
+                                                    <constraint firstItem="phoneTextField" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-phone-leading"/>
+                                                    <constraint firstItem="phoneTextField" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-phone-trailing"/>
+                                                    <constraint firstItem="addressTitleLabel" firstAttribute="top" secondItem="phoneTextField" secondAttribute="bottom" constant="12" id="constraint-address-title-top"/>
+                                                    <constraint firstItem="addressTextField" firstAttribute="top" secondItem="addressTitleLabel" secondAttribute="bottom" constant="4" id="constraint-address-top"/>
+                                                    <constraint firstItem="addressTextField" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-address-leading"/>
+                                                    <constraint firstItem="addressTextField" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-address-trailing"/>
+                                                    <constraint firstItem="websiteTitleLabel" firstAttribute="top" secondItem="addressTextField" secondAttribute="bottom" constant="12" id="constraint-website-title-top"/>
+                                                    <constraint firstItem="websiteTextField" firstAttribute="top" secondItem="websiteTitleLabel" secondAttribute="bottom" constant="4" id="constraint-website-top"/>
+                                                    <constraint firstItem="websiteTextField" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-website-leading"/>
+                                                    <constraint firstItem="websiteTextField" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-website-trailing"/>
+                                                    <constraint firstItem="descriptionTitleLabel" firstAttribute="top" secondItem="websiteTextField" secondAttribute="bottom" constant="12" id="constraint-description-title-top"/>
+                                                    <constraint firstItem="descriptionTextView" firstAttribute="top" secondItem="descriptionTitleLabel" secondAttribute="bottom" constant="4" id="constraint-description-top"/>
+                                                    <constraint firstItem="descriptionTextView" firstAttribute="leading" secondItem="infoContainerView" secondAttribute="leading" constant="20" id="constraint-description-leading"/>
+                                                    <constraint firstItem="descriptionTextView" firstAttribute="trailing" secondItem="infoContainerView" secondAttribute="trailing" constant="-20" id="constraint-description-trailing"/>
+                                                    <constraint firstItem="descriptionTextView" firstAttribute="bottom" secondItem="infoContainerView" secondAttribute="bottom" constant="-12" id="constraint-description-bottom"/>
+                                                    <constraint firstItem="infoContainerView" firstAttribute="height" constant="420" id="constraint-info-height"/>
+                                                </constraints>
+                                            </view>
+                                            
+                                            <!-- Action Buttons Section -->
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="actionsContainerView">
+                                                <rect key="frame" x="0.0" y="768" width="393" height="180"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="editButton">
+                                                        <rect key="frame" x="20" y="0" width="353" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="height-edit"/>
+                                                        </constraints>
+                                                        <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                                        <state key="normal" title="Edit Profile">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="editButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="action-edit"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="saveButton">
+                                                        <rect key="frame" x="20" y="66" width="170" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="height-save"/>
+                                                        </constraints>
+                                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                                        <state key="normal" title="Save Changes">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="saveButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="action-save"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cancelButton">
+                                                        <rect key="frame" x="203" y="66" width="170" height="50"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="height-cancel"/>
+                                                        </constraints>
+                                                        <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="cancelButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="action-cancel"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="changePasswordButton">
+                                                        <rect key="frame" x="20" y="132" width="353" height="44"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="44" id="height-password"/>
+                                                        </constraints>
+                                                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                                        <state key="normal" title="Change Password">
+                                                            <color key="titleColor" systemColor="systemBlueColor"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                <integer key="value" value="10"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="changePasswordButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="action-password"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="editButton" firstAttribute="top" secondItem="actionsContainerView" secondAttribute="top" id="constraint-edit-top"/>
+                                                    <constraint firstItem="editButton" firstAttribute="leading" secondItem="actionsContainerView" secondAttribute="leading" constant="20" id="constraint-edit-leading"/>
+                                                    <constraint firstItem="editButton" firstAttribute="trailing" secondItem="actionsContainerView" secondAttribute="trailing" constant="-20" id="constraint-edit-trailing"/>
+                                                    <constraint firstItem="saveButton" firstAttribute="top" secondItem="editButton" secondAttribute="bottom" constant="16" id="constraint-save-top"/>
+                                                    <constraint firstItem="saveButton" firstAttribute="leading" secondItem="actionsContainerView" secondAttribute="leading" constant="20" id="constraint-save-leading"/>
+                                                    <constraint firstItem="cancelButton" firstAttribute="top" secondItem="editButton" secondAttribute="bottom" constant="16" id="constraint-cancel-top"/>
+                                                    <constraint firstItem="cancelButton" firstAttribute="leading" secondItem="saveButton" secondAttribute="trailing" constant="13" id="constraint-cancel-leading"/>
+                                                    <constraint firstItem="cancelButton" firstAttribute="trailing" secondItem="actionsContainerView" secondAttribute="trailing" constant="-20" id="constraint-cancel-trailing"/>
+                                                    <constraint firstItem="changePasswordButton" firstAttribute="top" secondItem="saveButton" secondAttribute="bottom" constant="16" id="constraint-password-top"/>
+                                                    <constraint firstItem="changePasswordButton" firstAttribute="leading" secondItem="actionsContainerView" secondAttribute="leading" constant="20" id="constraint-password-leading"/>
+                                                    <constraint firstItem="changePasswordButton" firstAttribute="trailing" secondItem="actionsContainerView" secondAttribute="trailing" constant="-20" id="constraint-password-trailing"/>
+                                                    <constraint firstItem="changePasswordButton" firstAttribute="bottom" secondItem="actionsContainerView" secondAttribute="bottom" constant="-4" id="constraint-password-bottom"/>
+                                                    <constraint firstItem="actionsContainerView" firstAttribute="height" constant="180" id="constraint-actions-height"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="headerView" firstAttribute="top" secondItem="contentView" secondAttribute="top" id="constraint-header-top"/>
+                                            <constraint firstItem="headerView" firstAttribute="leading" secondItem="contentView" secondAttribute="leading" id="constraint-header-leading"/>
+                                            <constraint firstItem="headerView" firstAttribute="trailing" secondItem="contentView" secondAttribute="trailing" id="constraint-header-trailing"/>
+                                            <constraint firstItem="statsContainerView" firstAttribute="top" secondItem="headerView" secondAttribute="bottom" constant="16" id="constraint-stats-top"/>
+                                            <constraint firstItem="statsContainerView" firstAttribute="leading" secondItem="contentView" secondAttribute="leading" id="constraint-stats-leading"/>
+                                            <constraint firstItem="statsContainerView" firstAttribute="trailing" secondItem="contentView" secondAttribute="trailing" id="constraint-stats-trailing"/>
+                                            <constraint firstItem="infoContainerView" firstAttribute="top" secondItem="statsContainerView" secondAttribute="bottom" constant="16" id="constraint-info-top"/>
+                                            <constraint firstItem="infoContainerView" firstAttribute="leading" secondItem="contentView" secondAttribute="leading" id="constraint-info-leading"/>
+                                            <constraint firstItem="infoContainerView" firstAttribute="trailing" secondItem="contentView" secondAttribute="trailing" id="constraint-info-trailing"/>
+                                            <constraint firstItem="actionsContainerView" firstAttribute="top" secondItem="infoContainerView" secondAttribute="bottom" constant="16" id="constraint-actions-top"/>
+                                            <constraint firstItem="actionsContainerView" firstAttribute="leading" secondItem="contentView" secondAttribute="leading" id="constraint-actions-leading"/>
+                                            <constraint firstItem="actionsContainerView" firstAttribute="trailing" secondItem="contentView" secondAttribute="trailing" id="constraint-actions-trailing"/>
+                                            <constraint firstItem="actionsContainerView" firstAttribute="bottom" secondItem="contentView" secondAttribute="bottom" constant="-16" id="constraint-actions-bottom"/>
+                                            <constraint firstItem="contentView" firstAttribute="width" secondItem="scrollView" secondAttribute="width" id="constraint-content-width"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="scrollView" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="safeAreaTop" id="constraint-scroll-top"/>
+                                    <constraint firstItem="scrollView" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="constraint-scroll-leading"/>
+                                    <constraint firstItem="scrollView" firstAttribute="trailing" secondItem="5EZ-qb-Rvc" secondAttribute="trailing" id="constraint-scroll-trailing"/>
+                                    <constraint firstItem="scrollView" firstAttribute="bottom" secondItem="5EZ-qb-Rvc" secondAttribute="bottom" id="constraint-scroll-bottom"/>
+                                    <constraint firstItem="contentView" firstAttribute="top" secondItem="scrollView" secondAttribute="top" id="constraint-content-top"/>
+                                    <constraint firstItem="contentView" firstAttribute="leading" secondItem="scrollView" secondAttribute="leading" id="constraint-content-leading"/>
+                                    <constraint firstItem="contentView" firstAttribute="trailing" secondItem="scrollView" secondAttribute="trailing" id="constraint-content-trailing"/>
+                                    <constraint firstItem="contentView" firstAttribute="bottom" secondItem="scrollView" secondAttribute="bottom" id="constraint-content-bottom"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="scrollView" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="constraint-main-scroll-top"/>
+                            <constraint firstItem="scrollView" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="constraint-main-scroll-leading"/>
+                            <constraint firstItem="scrollView" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="constraint-main-scroll-trailing"/>
+                            <constraint firstItem="scrollView" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="constraint-main-scroll-bottom"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="My Profile" id="navItem"/>
+                    <connections>
+                        <outlet property="actionsContainerView" destination="actionsContainerView" id="outlet-actions"/>
+                        <outlet property="addressTextField" destination="addressTextField" id="outlet-address"/>
+                        <outlet property="cancelButton" destination="cancelButton" id="outlet-cancel"/>
+                        <outlet property="changePasswordButton" destination="changePasswordButton" id="outlet-password"/>
+                        <outlet property="contentView" destination="contentView" id="outlet-content"/>
+                        <outlet property="descriptionTextView" destination="descriptionTextView" id="outlet-description"/>
+                        <outlet property="donationsCountLabel" destination="donationsCountLabel" id="outlet-donations"/>
+                        <outlet property="editButton" destination="editButton" id="outlet-edit"/>
+                        <outlet property="emailTextField" destination="emailTextField" id="outlet-email"/>
+                        <outlet property="headerView" destination="headerView" id="outlet-header"/>
+                        <outlet property="impactScoreLabel" destination="impactScoreLabel" id="outlet-impact"/>
+                        <outlet property="orgNameLabel" destination="orgNameLabel" id="outlet-orgName"/>
+                        <outlet property="phoneTextField" destination="phoneTextField" id="outlet-phone"/>
+                        <outlet property="profileImageView" destination="profileImageView" id="outlet-profileImage"/>
+                        <outlet property="raisedAmountLabel" destination="raisedAmountLabel" id="outlet-raised"/>
+                        <outlet property="saveButton" destination="saveButton" id="outlet-save"/>
+                        <outlet property="websiteTextField" destination="websiteTextField" id="outlet-website"/>
+                    </connections>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="YES"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.29770992366412" y="-3.5211267605633805"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="checkmark.seal.fill" catalog="system" width="128" height="116"/>
+        <image name="person.circle.fill" catalog="system" width="128" height="128"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGroupedBackgroundColor">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
