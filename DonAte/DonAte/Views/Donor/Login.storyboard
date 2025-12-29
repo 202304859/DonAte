@@ -98,7 +98,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pPO-sx-uYe"/>
-                                    <segue destination="rXa-zU-9Pl" kind="show" animates="NO" id="UcJ-bC-xU8"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="-54" translatesAutoresizingMaskIntoConstraints="NO" id="oav-ib-TTy">
@@ -117,6 +116,9 @@
                                             <fontDescription key="titleFontDescription" type="system" pointSize="0.0"/>
                                             <color key="baseForegroundColor" name="Color 1"/>
                                         </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="wIj-nZ-uv0" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="jTk-Oe-2qv"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -355,7 +357,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Forgot Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5dh-Ao-eIZ">
-                                <rect key="frame" x="30" y="200" width="333" height="27"/>
+                                <rect key="frame" x="30" y="165" width="333" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="5dh-Ao-eIZ" secondAttribute="height" multiplier="37:3" id="6mm-3Q-W8X"/>
                                 </constraints>
@@ -364,7 +366,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="QAo-7Y-Rc1">
-                                <rect key="frame" x="30" y="247" width="333" height="31"/>
+                                <rect key="frame" x="30" y="212" width="333" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your verification was a success! " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7M-Kc-veS">
                                         <rect key="frame" x="0.0" y="0.0" width="333" height="14"/>
@@ -462,7 +464,7 @@
                             <constraint firstItem="2Xh-fL-pO8" firstAttribute="leading" secondItem="i2j-te-GKh" secondAttribute="leading" constant="50" id="O2a-9b-iZm"/>
                             <constraint firstItem="PyI-gV-OyY" firstAttribute="top" secondItem="xu8-Xc-YSs" secondAttribute="topMargin" constant="-59" id="OaV-ty-nEj"/>
                             <constraint firstItem="QAo-7Y-Rc1" firstAttribute="top" secondItem="5dh-Ao-eIZ" secondAttribute="bottom" constant="20" id="Pz3-uR-Vdi"/>
-                            <constraint firstItem="5dh-Ao-eIZ" firstAttribute="top" secondItem="xu8-Xc-YSs" secondAttribute="top" constant="200" id="VFX-UC-t1n"/>
+                            <constraint firstItem="5dh-Ao-eIZ" firstAttribute="top" secondItem="xu8-Xc-YSs" secondAttribute="top" constant="165" id="VFX-UC-t1n"/>
                             <constraint firstItem="QAo-7Y-Rc1" firstAttribute="leading" secondItem="i2j-te-GKh" secondAttribute="leading" constant="30" id="VVY-KL-9Px"/>
                             <constraint firstItem="i2j-te-GKh" firstAttribute="bottom" secondItem="PyI-gV-OyY" secondAttribute="bottom" constant="668" id="bGU-uB-SZ4"/>
                             <constraint firstItem="i2j-te-GKh" firstAttribute="trailing" secondItem="2Xh-fL-pO8" secondAttribute="trailing" constant="50" id="eSW-9O-xj0"/>
@@ -479,15 +481,15 @@
             </objects>
             <point key="canvasLocation" x="2655.7251908396947" y="3.5211267605633805"/>
         </scene>
-        <!--AdminDashboard-->
-        <scene sceneID="TSq-lW-jJP">
+        <!--Registration-->
+        <scene sceneID="9LS-6T-3Cc">
             <objects>
-                <viewControllerPlaceholder storyboardName="AdminDashboard" id="rXa-zU-9Pl" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="ZKF-LJ-woh"/>
+                <viewControllerPlaceholder storyboardName="Registration" id="wIj-nZ-uv0" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="X02-gG-71I"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bdX-QH-ynA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E8O-RY-uvr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="652" y="434"/>
+            <point key="canvasLocation" x="728" y="398"/>
         </scene>
         <!--DonorDashboard-->
         <scene sceneID="9gp-0v-Qgc">
