@@ -1,668 +1,881 @@
-//
-//  CollectorProfileController.swift
-//  DonAte
-//
-//  Created by BP-36-201-04 on 28/12/2025.
-//
-
 import UIKit
 
+/// Contrôleur pour la gestion du profil du collecteur
+/// Affiche les informations de l'organisation et permet leur modification
 class CollectorProfileController: UIViewController {
     
-    // MARK: - IBOutlets
-    @IBOutlet weak var scrollView: UIScrollView?
-    @IBOutlet weak var organizationNameTextField: UITextField?
-    @IBOutlet weak var contactPersonTextField: UITextField?
-    @IBOutlet weak var emailTextField: UITextField?
-    @IBOutlet weak var phoneTextField: UITextField?
-    @IBOutlet weak var addressTextField: UITextField?
-    @IBOutlet weak var cityTextField: UITextField?
-    @IBOutlet weak var registrationNumberTextField: UITextField?
-    @IBOutlet weak var websiteTextField: UITextField?
-    @IBOutlet weak var descriptionTextView: UITextView?
-    @IBOutlet weak var descriptionPlaceholder: UILabel?
-    @IBOutlet weak var verificationStatusLabel: UILabel?
-    @IBOutlet weak var verificationBadge: UIView?
-    @IBOutlet weak var saveButton: UIButton?
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView?
+    // MARK: - Properties
     
-    // MARK: - UI Elements (Programmatic Mode)
-    private let programmaticScrollView: UIScrollView = {
+    /// Profil du collecteur - données principales
+    private var profile: CollectorProfile
+    
+    /// Mode édition actif ou non
+    private var isEditingMode = false
+    
+    /// Données statistiques (mock pour démonstration)
+    private var stats: CollectorStats = CollectorStats(
+        totalDonations: 156,
+        totalRaised: 1250,
+        impactScore: 89
+    )
+    
+    // MARK: - UI Components
+    
+    /// Barre de navigation personnalisée
+    private lazy var customNavBar: CustomNavigationBar = {
+        let navBar = CustomNavigationBar()
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        return navBar
+    }()
+    
+    /// Vue de défilement principale
+    private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.keyboardDismissMode = .interactive
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.alwaysBounceVertical = true
         return scrollView
     }()
     
-    private let contentView: UIView = {
+    /// Vue conteneur du contenu
+    private lazy var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private let headerView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+    // MARK: - Header Section Components
     
-    private let profileImageView: UIImageView = {
+    /// Image de profil de l'organisation
+    private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(systemName: "building.2.fill")
         imageView.contentMode = .scaleAspectFit
-        imageView.tintColor = .systemBlue
-        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = .systemGreen
+        imageView.backgroundColor = .systemGray6
+        imageView.layer.cornerRadius = 50
+        imageView.clipsToBounds = true
         return imageView
     }()
     
-    private let organizationLabel: UILabel = {
+    /// Nom de l'organisation
+    private lazy var orgNameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
-        label.textAlignment = .center
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .label
+        label.numberOfLines = 0
         return label
     }()
     
-    private let verificationBadgeView: UILabel = {
+    /// Badge de vérification
+    private lazy var verifiedBadgeView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .systemGreen
+        view.layer.cornerRadius = 12
+        
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(systemName: "checkmark.seal.fill")
+        imageView.tintColor = .white
+        imageView.contentMode = .scaleAspectFit
+        
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
-        label.textAlignment = .center
-        label.layer.cornerRadius = 10
-        label.clipsToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Verified"
+        label.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        label.textColor = .white
+        
+        view.addSubview(imageView)
+        view.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            imageView.widthAnchor.constraint(equalToConstant: 16),
+            imageView.heightAnchor.constraint(equalToConstant: 16),
+            
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 4),
+            label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8)
+        ])
+        
+        return view
+    }()
+    
+    /// Type d'organisation
+    private lazy var orgTypeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
         return label
     }()
     
-    // Form Fields
-    private let registrationNumberField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Registration Number"
-        textField.borderStyle = .roundedRect
-        textField.isUserInteractionEnabled = false
-        textField.backgroundColor = .systemGray6
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    // MARK: - Statistics Section Components
+    
+    /// Container des statistiques
+    private lazy var statsContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 16
+        return view
     }()
     
-    private let contactPersonField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Contact Person Name"
-        textField.borderStyle = .roundedRect
-        textField.autocapitalizationType = .words
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    /// Label du nombre de dons
+    private lazy var donationsCountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .systemBlue
+        return label
     }()
     
-    private let emailField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Email Address"
-        textField.borderStyle = .roundedRect
-        textField.keyboardType = .emailAddress
-        textField.autocapitalizationType = .none
-        textField.isUserInteractionEnabled = false
-        textField.backgroundColor = .systemGray6
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    /// Label du titre "Donations"
+    private lazy var donationsTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Donations"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        return label
     }()
     
-    private let phoneField: UITextField = {
+    /// Label du montant collecté
+    private lazy var raisedAmountLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .systemGreen
+        return label
+    }()
+    
+    /// Label du titre "Raised"
+    private lazy var raisedTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Raised (kg)"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    /// Label du score d'impact
+    private lazy var impactScoreLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 28, weight: .bold)
+        label.textAlignment = .center
+        label.textColor = .systemPurple
+        return label
+    }()
+    
+    /// Label du titre "Impact"
+    private lazy var impactTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Impact"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    // MARK: - Information Section Components
+    
+    /// Container des informations
+    private lazy var infoContainerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .secondarySystemBackground
+        view.layer.cornerRadius = 16
+        return view
+    }()
+    
+    /// Titre de la section informations
+    private lazy var infoTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Organization Information"
+        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        label.textColor = .label
+        return label
+    }()
+    
+    /// Label "Email"
+    private lazy var emailLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Email"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    /// Valeur de l'email (mode affichage)
+    private lazy var emailValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        return label
+    }()
+    
+    /// Label "Phone"
+    private lazy var phoneLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Phone"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    /// Valeur du téléphone (mode affichage)
+    private lazy var phoneValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        return label
+    }()
+    
+    /// Champ de saisie du téléphone (mode édition)
+    private lazy var phoneTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Phone Number"
-        textField.borderStyle = .roundedRect
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .none
+        textField.font = UIFont.systemFont(ofSize: 16)
         textField.keyboardType = .phonePad
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .systemBackground
+        textField.layer.cornerRadius = 8
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.leftViewMode = .always
+        textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.rightViewMode = .always
         return textField
     }()
     
-    private let addressField: UITextField = {
+    /// Label "Address"
+    private lazy var addressLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Address"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    /// Valeur de l'adresse (mode affichage)
+    private lazy var addressValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    /// Champ de saisie de l'adresse (mode édition)
+    private lazy var addressTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Address"
-        textField.borderStyle = .roundedRect
-        textField.autocapitalizationType = .none
         textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .none
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.backgroundColor = .systemBackground
+        textField.layer.cornerRadius = 8
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.leftViewMode = .always
+        textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.rightViewMode = .always
         return textField
     }()
     
-    private let cityField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "City"
-        textField.borderStyle = .roundedRect
-        textField.autocapitalizationType = .words
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    /// Label "Website"
+    private lazy var websiteLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Website"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
     }()
     
-    private let websiteField: UITextField = {
+    /// Valeur du site web (mode affichage)
+    private lazy var websiteValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .systemBlue
+        return label
+    }()
+    
+    /// Champ de saisie du site web (mode édition)
+    private lazy var websiteTextField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "Website"
-        textField.borderStyle = .roundedRect
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .none
+        textField.font = UIFont.systemFont(ofSize: 16)
         textField.keyboardType = .URL
         textField.autocapitalizationType = .none
-        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.backgroundColor = .systemBackground
+        textField.layer.cornerRadius = 8
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.leftViewMode = .always
+        textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.rightViewMode = .always
         return textField
     }()
     
-    private let descriptionTextViewField: UITextView = {
+    /// Label "Description"
+    private lazy var descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Description"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    /// Valeur de la description (mode affichage)
+    private lazy var descriptionValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        label.numberOfLines = 0
+        return label
+    }()
+    
+    /// Zone de texte de la description (mode édition)
+    private lazy var descriptionTextView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont.systemFont(ofSize: 16)
-        textView.layer.borderColor = UIColor.systemGray4.cgColor
-        textView.layer.borderWidth = 1
-        textView.layer.cornerRadius = 8
         textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.backgroundColor = .systemBackground
+        textView.layer.cornerRadius = 8
         return textView
     }()
     
-    private let descriptionPlaceholderField: UILabel = {
+    /// Séparateur entre les sections
+    private lazy var separatorView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .separator
+        return view
+    }()
+    
+    /// Label "Registration Number"
+    private lazy var regNumberLabel: UILabel = {
         let label = UILabel()
-        label.text = "Description of your organization..."
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor = .placeholderText
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Registration Number"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
         return label
     }()
     
-    private let saveButtonField: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Save Changes", for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        button.backgroundColor = .systemBlue
-        button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 10
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    /// Valeur du numéro d'enregistrement (mode affichage)
+    private lazy var regNumberValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        return label
     }()
     
-    private let activityIndicatorField: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .medium)
-        indicator.hidesWhenStopped = true
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        return indicator
+    /// Label "Contact Person"
+    private lazy var contactPersonLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Contact Person"
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .secondaryLabel
+        return label
     }()
     
-    // MARK: - Properties
-    private var profile: CollectorProfile?
-    private var isStoryboardMode = false
-    private var textFields: [UITextField] = []
-    private var originalData: [String: Any] = [:]
+    /// Valeur de la personne de contact (mode affichage)
+    private lazy var contactPersonValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .label
+        return label
+    }()
+    
+    /// Champ de saisie de la personne de contact (mode édition)
+    private lazy var contactPersonTextField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.borderStyle = .none
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.backgroundColor = .systemBackground
+        textField.layer.cornerRadius = 8
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.leftViewMode = .always
+        textField.rightView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        textField.rightViewMode = .always
+        return textField
+    }()
+    
+    // MARK: - Initialization
+    
+    init(profile: CollectorProfile = CollectorProfile(
+        id: "col_001",
+        orgName: "Green Earth Foundation",
+        orgType: .charity,
+        description: "We are dedicated to collecting surplus food and distributing it to those in need. Our mission is to reduce food waste while fighting hunger in our community.",
+        contactPerson: "John Smith",
+        regNumber: "REG-2024-001234",
+        email: "contact@greenearth.org",
+        phone: "+1 234 567 8900",
+        address: "456 Environment Avenue, Green City, GC 54321",
+        website: "https://greenearth.org",
+        pickupFrequency: .weekly,
+        pickupDays: [.monday, .wednesday, .friday],
+        preferredPickupTime: "09:00 - 17:00",
+        isVerified: true
+    )) {
+        self.profile = profile
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if organizationNameTextField != nil {
-            isStoryboardMode = true
-            setupStoryboardUI()
-        } else {
-            setupUI()
-        }
-        
-        setupKeyboardHandling()
-        setupTapGesture()
+        setupUI()
+        setupNavigationBar()
         loadProfileData()
+        setupKeyboardDismiss()
     }
     
-    // MARK: - UI Setup (Storyboard Mode)
-    private func setupStoryboardUI() {
-        view.backgroundColor = .systemBackground
-        navigationItem.title = "My Profile"
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
-        
-        textFields = [organizationNameTextField, contactPersonTextField, emailTextField,
-                      phoneTextField, addressTextField, cityTextField,
-                      registrationNumberTextField, websiteTextField].compactMap { $0 }
-        
-        saveButton?.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        descriptionTextView?.delegate = self
-        addDoneButtonToKeyboard()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
-    // MARK: - UI Setup (Programmatic Mode)
+    // MARK: - Setup Methods
+    
     private func setupUI() {
-        view.backgroundColor = .systemBackground
-        title = "My Profile"
+        view.backgroundColor = .systemGroupedBackground
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
+        // Ajouter les composants à la vue
+        view.addSubview(customNavBar)
+        view.addSubview(scrollView)
+        scrollView.addSubview(contentView)
         
-        view.addSubview(programmaticScrollView)
-        programmaticScrollView.addSubview(contentView)
-        contentView.addSubview(headerView)
-        headerView.addSubview(profileImageView)
-        headerView.addSubview(organizationLabel)
-        headerView.addSubview(verificationBadgeView)
-        contentView.addSubview(registrationNumberField)
-        contentView.addSubview(contactPersonField)
-        contentView.addSubview(emailField)
-        contentView.addSubview(phoneField)
-        contentView.addSubview(addressField)
-        contentView.addSubview(cityField)
-        contentView.addSubview(websiteField)
-        contentView.addSubview(descriptionTextViewField)
-        contentView.addSubview(descriptionPlaceholderField)
-        contentView.addSubview(saveButtonField)
-        contentView.addSubview(activityIndicatorField)
+        // Configurer les sections
+        setupHeaderSection()
+        setupStatsSection()
+        setupInfoSection()
         
-        textFields = [registrationNumberField, contactPersonField, emailField,
-                      phoneField, addressField, cityField, websiteField]
-        
+        // Configurer les contraintes
         setupConstraints()
-        saveButtonField.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
-        descriptionTextViewField.delegate = self
-        addDoneButtonToKeyboard()
     }
     
-    private func setupConstraints() {
+    private func setupNavigationBar() {
+        customNavBar.configure(
+            style: .backWithTitle(title: "My Profile"),
+            rightButtonTitle: "Edit",
+            rightButtonAction: { [weak self] in
+                self?.toggleEditMode()
+            }
+        )
+        
+        customNavBar.onBackTapped = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
+    private func setupHeaderSection() {
+        contentView.addSubview(profileImageView)
+        contentView.addSubview(orgNameLabel)
+        contentView.addSubview(verifiedBadgeView)
+        contentView.addSubview(orgTypeLabel)
+    }
+    
+    private func setupStatsSection() {
+        contentView.addSubview(statsContainerView)
+        
+        // Créer les cartes de statistiques
+        let stat1 = createStatCard(valueLabel: donationsCountLabel, titleLabel: donationsTitleLabel)
+        let stat2 = createStatCard(valueLabel: raisedAmountLabel, titleLabel: raisedTitleLabel)
+        let stat3 = createStatCard(valueLabel: impactScoreLabel, titleLabel: impactTitleLabel)
+        
+        statsContainerView.addSubview(stat1)
+        statsContainerView.addSubview(stat2)
+        statsContainerView.addSubview(stat3)
+        
         NSLayoutConstraint.activate([
-            programmaticScrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            programmaticScrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            programmaticScrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            programmaticScrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            stat1.leadingAnchor.constraint(equalTo: statsContainerView.leadingAnchor, constant: 10),
+            stat1.centerYAnchor.constraint(equalTo: statsContainerView.centerYAnchor),
+            stat1.widthAnchor.constraint(equalTo: statsContainerView.widthAnchor, multiplier: 0.3, constant: -13),
             
-            contentView.topAnchor.constraint(equalTo: programmaticScrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: programmaticScrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: programmaticScrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: programmaticScrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: programmaticScrollView.widthAnchor),
+            stat2.centerXAnchor.constraint(equalTo: statsContainerView.centerXAnchor),
+            stat2.centerYAnchor.constraint(equalTo: statsContainerView.centerYAnchor),
+            stat2.widthAnchor.constraint(equalTo: statsContainerView.widthAnchor, multiplier: 0.3, constant: -13),
             
-            headerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            
-            profileImageView.topAnchor.constraint(equalTo: headerView.topAnchor),
-            profileImageView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            profileImageView.widthAnchor.constraint(equalToConstant: 80),
-            profileImageView.heightAnchor.constraint(equalToConstant: 80),
-            
-            organizationLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 12),
-            organizationLabel.leadingAnchor.constraint(equalTo: headerView.leadingAnchor),
-            organizationLabel.trailingAnchor.constraint(equalTo: headerView.trailingAnchor),
-            
-            verificationBadgeView.topAnchor.constraint(equalTo: organizationLabel.bottomAnchor, constant: 8),
-            verificationBadgeView.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
-            verificationBadgeView.bottomAnchor.constraint(equalTo: headerView.bottomAnchor),
-            verificationBadgeView.heightAnchor.constraint(equalToConstant: 24),
-            verificationBadgeView.widthAnchor.constraint(greaterThanOrEqualToConstant: 80),
-            
-            registrationNumberField.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 30),
-            registrationNumberField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            registrationNumberField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            registrationNumberField.heightAnchor.constraint(equalToConstant: 50),
-            
-            contactPersonField.topAnchor.constraint(equalTo: registrationNumberField.bottomAnchor, constant: 15),
-            contactPersonField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            contactPersonField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            contactPersonField.heightAnchor.constraint(equalToConstant: 50),
-            
-            emailField.topAnchor.constraint(equalTo: contactPersonField.bottomAnchor, constant: 15),
-            emailField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            emailField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            emailField.heightAnchor.constraint(equalToConstant: 50),
-            
-            phoneField.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 15),
-            phoneField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            phoneField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            phoneField.heightAnchor.constraint(equalToConstant: 50),
-            
-            addressField.topAnchor.constraint(equalTo: phoneField.bottomAnchor, constant: 15),
-            addressField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            addressField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            addressField.heightAnchor.constraint(equalToConstant: 50),
-            
-            cityField.topAnchor.constraint(equalTo: addressField.bottomAnchor, constant: 15),
-            cityField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            cityField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            cityField.heightAnchor.constraint(equalToConstant: 50),
-            
-            websiteField.topAnchor.constraint(equalTo: cityField.bottomAnchor, constant: 15),
-            websiteField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            websiteField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            websiteField.heightAnchor.constraint(equalToConstant: 50),
-            
-            let descriptionLabel = UILabel()
-            descriptionLabel.text = "Description"
-            descriptionLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-            descriptionLabel.textColor = .secondaryLabel
-            descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(descriptionLabel)
-            
-            descriptionLabel.topAnchor.constraint(equalTo: websiteField.bottomAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            
-            descriptionTextViewField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            descriptionTextViewField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            descriptionTextViewField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            descriptionTextViewField.heightAnchor.constraint(equalToConstant: 100),
-            
-            descriptionPlaceholderField.topAnchor.constraint(equalTo: descriptionTextViewField.topAnchor, constant: 8),
-            descriptionPlaceholderField.leadingAnchor.constraint(equalTo: descriptionTextViewField.leadingAnchor, constant: 5),
-            
-            saveButtonField.topAnchor.constraint(equalTo: descriptionTextViewField.bottomAnchor, constant: 30),
-            saveButtonField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            saveButtonField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
-            saveButtonField.heightAnchor.constraint(equalToConstant: 50),
-            saveButtonField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
-            
-            activityIndicatorField.centerXAnchor.constraint(equalTo: saveButtonField.centerXAnchor),
-            activityIndicatorField.centerYAnchor.constraint(equalTo: saveButtonField.centerYAnchor),
+            stat3.trailingAnchor.constraint(equalTo: statsContainerView.trailingAnchor, constant: -10),
+            stat3.centerYAnchor.constraint(equalTo: statsContainerView.centerYAnchor),
+            stat3.widthAnchor.constraint(equalTo: statsContainerView.widthAnchor, multiplier: 0.3, constant: -13)
         ])
     }
     
-    // MARK: - Data Loading
-    private func loadProfileData() {
-        showLoading(true)
+    private func setupInfoSection() {
+        contentView.addSubview(infoContainerView)
         
-        let mockProfile = CollectorProfile()
-        mockProfile.id = UUID().uuidString
-        mockProfile.organizationName = "Food Bank Charity"
-        mockProfile.contactPersonName = "John Smith"
-        mockProfile.email = "contact@foodbank.org"
-        mockProfile.phoneNumber = "+1 555-123-4567"
-        mockProfile.address = "123 Charity Lane"
-        mockProfile.city = "New York"
-        mockProfile.registrationNumber = "REG-2024-001234"
-        mockProfile.website = "www.foodbank.org"
-        mockProfile.description = "We collect and distribute food to those in need."
-        mockProfile.isVerified = true
-        mockProfile.createdAt = Date()
-        mockProfile.updatedAt = Date()
+        infoContainerView.addSubview(infoTitleLabel)
+        infoContainerView.addSubview(emailLabel)
+        infoContainerView.addSubview(emailValueLabel)
+        infoContainerView.addSubview(contactPersonLabel)
+        infoContainerView.addSubview(contactPersonValueLabel)
+        infoContainerView.addSubview(contactPersonTextField)
+        infoContainerView.addSubview(regNumberLabel)
+        infoContainerView.addSubview(regNumberValueLabel)
+        infoContainerView.addSubview(phoneLabel)
+        infoContainerView.addSubview(phoneValueLabel)
+        infoContainerView.addSubview(phoneTextField)
+        infoContainerView.addSubview(addressLabel)
+        infoContainerView.addSubview(addressValueLabel)
+        infoContainerView.addSubview(addressTextField)
+        infoContainerView.addSubview(websiteLabel)
+        infoContainerView.addSubview(websiteValueLabel)
+        infoContainerView.addSubview(websiteTextField)
+        infoContainerView.addSubview(descriptionLabel)
+        infoContainerView.addSubview(descriptionValueLabel)
+        infoContainerView.addSubview(descriptionTextView)
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
-            self?.populateProfile(mockProfile)
-            self?.showLoading(false)
-        }
+        // Cacher les champs d'édition par défaut
+        phoneTextField.isHidden = true
+        addressTextField.isHidden = true
+        websiteTextField.isHidden = true
+        descriptionTextView.isHidden = true
+        contactPersonTextField.isHidden = true
     }
     
-    private func populateProfile(_ profile: CollectorProfile) {
-        self.profile = profile
+    private func setupConstraints() {
+        let contentHeight = contentView.heightAnchor.constraint(equalTo: scrollView.contentLayoutGuide.heightAnchor)
+        contentHeight.priority = .defaultLow
+        contentHeight.isActive = true
         
-        if isStoryboardMode {
-            organizationNameTextField?.text = profile.organizationName
-            contactPersonTextField?.text = profile.contactPersonName
-            emailTextField?.text = profile.email
-            phoneTextField?.text = profile.phoneNumber
-            addressTextField?.text = profile.address
-            cityTextField?.text = profile.city
-            registrationNumberTextField?.text = profile.registrationNumber
-            websiteTextField?.text = profile.website
-            descriptionTextView?.text = profile.description
-            descriptionPlaceholder?.isHidden = !profile.description.isEmpty
-            updateVerificationBadge(isVerified: profile.isVerified)
-            storeOriginalData()
-        } else {
-            organizationLabel.text = profile.organizationName
-            registrationNumberField.text = profile.registrationNumber
-            contactPersonField.text = profile.contactPersonName
-            emailField.text = profile.email
-            phoneField.text = profile.phoneNumber
-            addressField.text = profile.address
-            cityField.text = profile.city
-            websiteField.text = profile.website
-            descriptionTextViewField.text = profile.description
-            descriptionPlaceholderField.isHidden = !profile.description.isEmpty
-            updateVerificationBadge(isVerified: profile.isVerified)
-            storeOriginalData()
-        }
-    }
-    
-    private func updateVerificationBadge(isVerified: Bool) {
-        if isStoryboardMode {
-            verificationBadge?.backgroundColor = .systemGreen
-            verificationStatusLabel?.text = "Verified"
-            verificationStatusLabel?.textColor = .white
-        } else {
-            verificationBadgeView.text = isVerified ? "Verified" : "Pending Verification"
-            verificationBadgeView.textColor = .white
-            verificationBadgeView.backgroundColor = isVerified ? .systemGreen : .systemOrange
-        }
-    }
-    
-    private func storeOriginalData() {
-        if isStoryboardMode {
-            originalData = [
-                "organizationName": organizationNameTextField?.text ?? "",
-                "contactPersonName": contactPersonTextField?.text ?? "",
-                "phoneNumber": phoneTextField?.text ?? "",
-                "address": addressTextField?.text ?? "",
-                "city": cityTextField?.text ?? "",
-                "website": websiteTextField?.text ?? "",
-                "description": descriptionTextView?.text ?? ""
-            ]
-        } else {
-            originalData = [
-                "organizationName": organizationLabel.text ?? "",
-                "contactPersonName": contactPersonField.text ?? "",
-                "phoneNumber": phoneField.text ?? "",
-                "address": addressField.text ?? "",
-                "city": cityField.text ?? "",
-                "website": websiteField.text ?? "",
-                "description": descriptionTextViewField.text ?? ""
-            ]
-        }
-    }
-    
-    // MARK: - Actions
-    @objc private func editButtonTapped() {
-        setEditingEnabled(true)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
-        
-        if isStoryboardMode {
-            organizationNameTextField?.becomeFirstResponder()
-        } else {
-            contactPersonField.becomeFirstResponder()
-        }
-    }
-    
-    @objc private func doneButtonTapped() {
-        view.endEditing(true)
-        setEditingEnabled(false)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped))
-    }
-    
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
-        guard validateForm() else { return }
-        
-        showLoading(true)
-        profile?.updateProfile(with: getCurrentFormData())
-        profile?.updatedAt = Date()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
-            self?.showLoading(false)
-            self?.showSuccessMessage()
-            self?.storeOriginalData()
-        }
-    }
-    
-    private func getCurrentFormData() -> [String: Any] {
-        if isStoryboardMode {
-            return [
-                "organizationName": organizationNameTextField?.text ?? "",
-                "contactPersonName": contactPersonTextField?.text ?? "",
-                "phoneNumber": phoneTextField?.text ?? "",
-                "address": addressTextField?.text ?? "",
-                "city": cityTextField?.text ?? "",
-                "website": websiteTextField?.text ?? "",
-                "description": descriptionTextView?.text ?? ""
-            ]
-        } else {
-            return [
-                "organizationName": organizationLabel.text ?? "",
-                "contactPersonName": contactPersonField.text ?? "",
-                "phoneNumber": phoneField.text ?? "",
-                "address": addressField.text ?? "",
-                "city": cityField.text ?? "",
-                "website": websiteField.text ?? "",
-                "description": descriptionTextViewField.text ?? ""
-            ]
-        }
-    }
-    
-    // MARK: - Validation
-    private func validateForm() -> Bool {
-        var errors: [String] = []
-        
-        let organizationName = isStoryboardMode ? organizationNameTextField?.text : organizationLabel.text
-        let phoneNumber = isStoryboardMode ? phoneTextField?.text : phoneField.text
-        let address = isStoryboardMode ? addressTextField?.text : addressField.text
-        let city = isStoryboardMode ? cityTextField?.text : cityField.text
-        
-        if organizationName?.trimmingCharacters(in: .whitespaces).isEmpty ?? true {
-            errors.append("Organization name is required")
-        }
-        
-        if phoneNumber?.trimmingCharacters(in: .whitespaces).isEmpty ?? true {
-            errors.append("Phone number is required")
-        }
-        
-        if address?.trimmingCharacters(in: .whitespaces).isEmpty ?? true {
-            errors.append("Address is required")
-        }
-        
-        if city?.trimmingCharacters(in: .whitespaces).isEmpty ?? true {
-            errors.append("City is required")
-        }
-        
-        if let website = isStoryboardMode ? websiteTextField?.text : websiteField.text, !website.isEmpty {
-            if !isValidURL(website) {
-                errors.append("Please enter a valid website URL")
-            }
-        }
-        
-        if !errors.isEmpty {
-            showValidationError(errors.joined(separator: "\n"))
-            return false
-        }
-        
-        return true
-    }
-    
-    private func isValidURL(_ url: String) -> Bool {
-        let urlRegex = "https?://([\\w-]+\\.)+[\\w-]+(/[\\w-./?%&=]*)?"
-        let urlPredicate = NSPredicate(format: "SELF MATCHES %@", urlRegex)
-        return urlPredicate.evaluate(with: url)
-    }
-    
-    private func setEditingEnabled(_ enabled: Bool) {
-        if isStoryboardMode {
-            organizationNameTextField?.isUserInteractionEnabled = enabled
-            contactPersonTextField?.isUserInteractionEnabled = enabled
-            phoneTextField?.isUserInteractionEnabled = enabled
-            addressTextField?.isUserInteractionEnabled = enabled
-            cityTextField?.isUserInteractionEnabled = enabled
-            websiteTextField?.isUserInteractionEnabled = enabled
-            descriptionTextView?.isEditable = enabled
-            saveButton?.isHidden = !enabled
+        NSLayoutConstraint.activate([
+            // Navigation Bar
+            customNavBar.topAnchor.constraint(equalTo: view.topAnchor),
+            customNavBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            customNavBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            customNavBar.heightAnchor.constraint(equalToConstant: 150),
             
-            let borderColor: UIColor = enabled ? .systemBlue : .systemGray4
-            organizationNameTextField?.layer.borderColor = borderColor.cgColor
-            organizationNameTextField?.layer.borderWidth = enabled ? 1 : 0
-        } else {
-            contactPersonField.isUserInteractionEnabled = enabled
-            phoneField.isUserInteractionEnabled = enabled
-            addressField.isUserInteractionEnabled = enabled
-            cityField.isUserInteractionEnabled = enabled
-            websiteField.isUserInteractionEnabled = enabled
-            descriptionTextViewField.isEditable = enabled
-            saveButtonField.isHidden = !enabled
+            // Scroll View
+            scrollView.topAnchor.constraint(equalTo: view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.widthAnchor.constraint(equalTo: view.widthAnchor),
             
-            let borderColor: UIColor = enabled ? .systemBlue : .clear
-            contactPersonField.layer.borderColor = borderColor.cgColor
-            contactPersonField.layer.borderWidth = enabled ? 1 : 0
-        }
+            // Content View
+            contentView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            
+            // Header Section
+            profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 40),
+            profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            profileImageView.widthAnchor.constraint(equalToConstant: 100),
+            profileImageView.heightAnchor.constraint(equalToConstant: 100),
+            
+            orgNameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 16),
+            orgNameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            orgNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            orgNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            verifiedBadgeView.topAnchor.constraint(equalTo: orgNameLabel.bottomAnchor, constant: 8),
+            verifiedBadgeView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            verifiedBadgeView.heightAnchor.constraint(equalToConstant: 24),
+            
+            orgTypeLabel.topAnchor.constraint(equalTo: verifiedBadgeView.bottomAnchor, constant: 8),
+            orgTypeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            
+            // Stats Section
+            statsContainerView.topAnchor.constraint(equalTo: orgTypeLabel.bottomAnchor, constant: 24),
+            statsContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            statsContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            statsContainerView.heightAnchor.constraint(equalToConstant: 110),
+            
+            // Info Section
+            infoContainerView.topAnchor.constraint(equalTo: statsContainerView.bottomAnchor, constant: 20),
+            infoContainerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            infoContainerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            infoContainerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            infoTitleLabel.topAnchor.constraint(equalTo: infoContainerView.topAnchor, constant: 16),
+            infoTitleLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            // Email
+            emailLabel.topAnchor.constraint(equalTo: infoTitleLabel.bottomAnchor, constant: 16),
+            emailLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            emailValueLabel.topAnchor.constraint(equalTo: emailLabel.bottomAnchor, constant: 4),
+            emailValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            emailValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            // Contact Person
+            contactPersonLabel.topAnchor.constraint(equalTo: emailValueLabel.bottomAnchor, constant: 16),
+            contactPersonLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            contactPersonValueLabel.topAnchor.constraint(equalTo: contactPersonLabel.bottomAnchor, constant: 4),
+            contactPersonValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            contactPersonValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            contactPersonTextField.topAnchor.constraint(equalTo: contactPersonLabel.bottomAnchor, constant: 4),
+            contactPersonTextField.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            contactPersonTextField.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            contactPersonTextField.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Registration Number
+            regNumberLabel.topAnchor.constraint(equalTo: contactPersonValueLabel.bottomAnchor, constant: 16),
+            regNumberLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            regNumberValueLabel.topAnchor.constraint(equalTo: regNumberLabel.bottomAnchor, constant: 4),
+            regNumberValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            regNumberValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            // Phone
+            phoneLabel.topAnchor.constraint(equalTo: regNumberValueLabel.bottomAnchor, constant: 16),
+            phoneLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            phoneValueLabel.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 4),
+            phoneValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            phoneValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            phoneTextField.topAnchor.constraint(equalTo: phoneLabel.bottomAnchor, constant: 4),
+            phoneTextField.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            phoneTextField.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            phoneTextField.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Address
+            addressLabel.topAnchor.constraint(equalTo: phoneValueLabel.bottomAnchor, constant: 16),
+            addressLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            addressValueLabel.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 4),
+            addressValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            addressValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            addressTextField.topAnchor.constraint(equalTo: addressLabel.bottomAnchor, constant: 4),
+            addressTextField.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            addressTextField.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            addressTextField.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Website
+            websiteLabel.topAnchor.constraint(equalTo: addressValueLabel.bottomAnchor, constant: 16),
+            websiteLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            websiteValueLabel.topAnchor.constraint(equalTo: websiteLabel.bottomAnchor, constant: 4),
+            websiteValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            websiteValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            
+            websiteTextField.topAnchor.constraint(equalTo: websiteLabel.bottomAnchor, constant: 4),
+            websiteTextField.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            websiteTextField.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            websiteTextField.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Description
+            descriptionLabel.topAnchor.constraint(equalTo: websiteValueLabel.bottomAnchor, constant: 16),
+            descriptionLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            
+            descriptionValueLabel.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 4),
+            descriptionValueLabel.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            descriptionValueLabel.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            descriptionValueLabel.bottomAnchor.constraint(equalTo: infoContainerView.bottomAnchor, constant: -16),
+            
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 4),
+            descriptionTextView.leadingAnchor.constraint(equalTo: infoContainerView.leadingAnchor, constant: 16),
+            descriptionTextView.trailingAnchor.constraint(equalTo: infoContainerView.trailingAnchor, constant: -16),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 100),
+            descriptionTextView.bottomAnchor.constraint(equalTo: infoContainerView.bottomAnchor, constant: -16)
+        ])
     }
     
-    // MARK: - Keyboard Handling
-    private func setupKeyboardHandling() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    @objc private func keyboardWillShow(_ notification: Notification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardFrame.height, right: 0)
+    private func createStatCard(valueLabel: UILabel, titleLabel: UILabel) -> UIView {
+        let cardView = UIView()
+        cardView.translatesAutoresizingMaskIntoConstraints = false
         
-        if isStoryboardMode {
-            scrollView?.contentInset = contentInsets
-            scrollView?.scrollIndicatorInsets = contentInsets
-        } else {
-            programmaticScrollView.contentInset = contentInsets
-            programmaticScrollView.scrollIndicatorInsets = contentInsets
-        }
+        cardView.addSubview(valueLabel)
+        cardView.addSubview(titleLabel)
+        
+        NSLayoutConstraint.activate([
+            valueLabel.topAnchor.constraint(equalTo: cardView.topAnchor, constant: 20),
+            valueLabel.centerXAnchor.constraint(equalTo: cardView.centerXAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: valueLabel.bottomAnchor, constant: 4),
+            titleLabel.centerXAnchor.constraint(equalTo: cardView.centerXAnchor)
+        ])
+        
+        return cardView
     }
     
-    @objc private func keyboardWillHide(_ notification: Notification) {
-        if isStoryboardMode {
-            scrollView?.contentInset = .zero
-            scrollView?.scrollIndicatorInsets = .zero
-        } else {
-            programmaticScrollView.contentInset = .zero
-            programmaticScrollView.scrollIndicatorInsets = .zero
-        }
-    }
-    
-    private func addDoneButtonToKeyboard() {
-        for textField in textFields {
-            let toolbar = UIToolbar()
-            toolbar.sizeToFit()
-            let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonTapped))
-            let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            toolbar.items = [flexibleSpace, doneButton]
-            textField.inputAccessoryView = toolbar
-        }
-    }
-    
-    private func setupTapGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+    private func setupKeyboardDismiss() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     
-    @objc private func handleTap() {
-        view.endEditing(true)
+    // MARK: - Data Loading
+    
+    private func loadProfileData() {
+        // Charger les données du profil
+        orgNameLabel.text = profile.orgName
+        emailValueLabel.text = profile.email
+        phoneValueLabel.text = profile.phone
+        addressValueLabel.text = profile.address
+        websiteValueLabel.text = profile.website
+        descriptionValueLabel.text = profile.description
+        orgTypeLabel.text = profile.orgType.displayName
+        regNumberValueLabel.text = profile.regNumber
+        contactPersonValueLabel.text = profile.contactPerson
+        
+        // Configurer le badge de vérification
+        verifiedBadgeView.isHidden = !profile.isVerified
+        
+        // Charger les statistiques
+        donationsCountLabel.text = "\(stats.totalDonations)"
+        raisedAmountLabel.text = "\(stats.totalRaised)"
+        impactScoreLabel.text = "\(stats.impactScore)"
+        
+        // Initialiser les champs d'édition
+        phoneTextField.text = profile.phone
+        addressTextField.text = profile.address
+        websiteTextField.text = profile.website
+        descriptionTextView.text = profile.description
+        contactPersonTextField.text = profile.contactPerson
     }
     
-    // MARK: - Alerts
-    private func showValidationError(_ message: String) {
-        let alert = UIAlertController(title: "Validation Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
+    // MARK: - Edit Mode
     
-    private func showSuccessMessage() {
-        let alert = UIAlertController(title: "Success", message: "Your profile has been updated successfully.", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
-    }
-    
-    private func showLoading(_ loading: Bool) {
-        if isStoryboardMode {
-            saveButton?.isEnabled = !loading
-            if loading {
-                saveButton?.setTitle("", for: .normal)
-                activityIndicator?.startAnimating()
-            } else {
-                saveButton?.setTitle("Save Changes", for: .normal)
-                activityIndicator?.stopAnimating()
-            }
+    private func toggleEditMode() {
+        isEditingMode.toggle()
+        
+        if isEditingMode {
+            // Passer en mode édition
+            customNavBar.updateRightButton(title: "Save")
+            
+            // Afficher les champs d'édition, cacher les labels
+            phoneValueLabel.isHidden = true
+            addressValueLabel.isHidden = true
+            websiteValueLabel.isHidden = true
+            descriptionValueLabel.isHidden = true
+            contactPersonValueLabel.isHidden = true
+            
+            phoneTextField.isHidden = false
+            addressTextField.isHidden = false
+            websiteTextField.isHidden = false
+            descriptionTextView.isHidden = false
+            contactPersonTextField.isHidden = false
+            
+            // Focus sur le premier champ
+            contactPersonTextField.becomeFirstResponder()
         } else {
-            saveButtonField.isEnabled = !loading
-            if loading {
-                saveButtonField.setTitle("", for: .normal)
-                activityIndicatorField.startAnimating()
-            } else {
-                saveButtonField.setTitle("Save Changes", for: .normal)
-                activityIndicatorField.stopAnimating()
-            }
+            // Sauvegarder et passer en mode affichage
+            saveProfileChanges()
+            
+            // Passer en mode affichage
+            customNavBar.updateRightButton(title: "Edit")
+            
+            // Mettre à jour les labels
+            phoneValueLabel.text = phoneTextField.text
+            addressValueLabel.text = addressTextField.text
+            websiteValueLabel.text = websiteTextField.text
+            descriptionValueLabel.text = descriptionTextView.text
+            contactPersonValueLabel.text = contactPersonTextField.text
+            
+            // Cacher les champs d'édition, afficher les labels
+            phoneValueLabel.isHidden = false
+            addressValueLabel.isHidden = false
+            websiteValueLabel.isHidden = false
+            descriptionValueLabel.isHidden = false
+            contactPersonValueLabel.isHidden = false
+            
+            phoneTextField.isHidden = true
+            addressTextField.isHidden = true
+            websiteTextField.isHidden = true
+            descriptionTextView.isHidden = true
+            contactPersonTextField.isHidden = true
+            
+            // Fermer le clavier
+            dismissKeyboard()
+            
+            // Afficher un message de confirmation
+            showSaveConfirmation()
         }
+    }
+    
+    private func saveProfileChanges() {
+        // Mettre à jour les données du profil
+        profile.phone = phoneTextField.text ?? ""
+        profile.address = addressTextField.text ?? ""
+        profile.website = websiteTextField.text ?? ""
+        profile.description = descriptionTextView.text ?? ""
+        profile.contactPerson = contactPersonTextField.text ?? ""
+        
+        // TODO: Implémenter la sauvegarde vers le serveur/backend
+        print("Profil sauvegardé: \(profile)")
+        
+        // Ici, vous pouvez ajouter l'appel API pour sauvegarder les modifications
+        // Example:
+        // CollectorService.shared.updateProfile(profile) { result in
+        //     switch result {
+        //     case .success:
+        //         print("Profil mis à jour avec succès")
+        //     case .failure(let error):
+        //         print("Erreur de mise à jour: \(error)")
+        //     }
+        // }
+    }
+    
+    private func showSaveConfirmation() {
+        let alert = UIAlertController(
+            title: "Success",
+            message: "Profile saved successfully!",
+            preferredStyle: .alert
+        )
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        
+        // Délai pour laisser l'UI se mettre à jour
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.present(alert, animated: true)
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
 
-// MARK: - UITextViewDelegate
-extension CollectorProfileController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        if isStoryboardMode {
-            descriptionPlaceholder?.isHidden = !textView.text.isEmpty
-        } else {
-            descriptionPlaceholderField.isHidden = !textView.text.isEmpty
-        }
-    }
+// MARK: - CollectorStats
+
+/// Structure pour les statistiques du collecteur
+struct CollectorStats {
+    let totalDonations: Int
+    let totalRaised: Double
+    let impactScore: Int
 }
+
+
