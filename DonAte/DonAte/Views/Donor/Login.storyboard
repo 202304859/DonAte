@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxb-hZ-Llt" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pxb-hZ-Llt" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="150"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
@@ -162,15 +162,15 @@
             </objects>
             <point key="canvasLocation" x="956.48854961832058" y="3.5211267605633805"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="4PL-VK-5tW">
             <objects>
-                <viewController id="FTe-aR-8kx" sceneMemberID="viewController">
+                <viewController id="FTe-aR-8kx" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rOt-KN-MDE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elI-I3-5fa" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="elI-I3-5fa" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="150"/>
                                 <viewLayoutGuide key="safeArea" id="egb-8M-Q0m"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -343,15 +343,15 @@
             </objects>
             <point key="canvasLocation" x="1754.9618320610687" y="3.5211267605633805"/>
         </scene>
-        <!--View Controller-->
+        <!--Login View Controller-->
         <scene sceneID="xHU-Pz-FLG">
             <objects>
-                <viewController id="d8O-9Y-07X" sceneMemberID="viewController">
+                <viewController id="d8O-9Y-07X" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xu8-Xc-YSs">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PyI-gV-OyY" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PyI-gV-OyY" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="150"/>
                                 <viewLayoutGuide key="safeArea" id="nzf-Ab-63c"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>

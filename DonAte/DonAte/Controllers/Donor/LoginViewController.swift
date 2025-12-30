@@ -12,6 +12,21 @@ class LoginViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+                    super.viewDidLoad()
+                let navBar = CustomNavigationBar()
+                navBar.translatesAutoresizingMaskIntoConstraints = false
+                    view.addSubview(navBar)
+
+                    NSLayoutConstraint.activate([
+                        navBar.topAnchor.constraint(equalTo: view.topAnchor),
+                        navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                        navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                        navBar.heightAnchor.constraint(equalToConstant: 150)
+                    ])
+
+                navBar.configure(style: .donate)
+                    
+                
       /*  let alert = UIAlertController(
                title: "Loaded",
                message: "LoginViewController is linked correctly",

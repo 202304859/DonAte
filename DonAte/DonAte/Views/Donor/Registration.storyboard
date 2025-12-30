@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqr-AR-0Xw" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gqr-AR-0Xw" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="148"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -161,10 +161,10 @@
             </objects>
             <point key="canvasLocation" x="-640.4580152671756" y="-1.4084507042253522"/>
         </scene>
-        <!--View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="bIA-tI-KhO">
             <objects>
-                <viewController id="2rY-ZN-Bhw" sceneMemberID="viewController">
+                <viewController id="2rY-ZN-Bhw" customClass="RegistrationViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3Ak-NL-SVG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -229,7 +229,7 @@
                                     <segue destination="hz8-mY-AUC" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="udg-Ep-dyU"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsx-7P-OvQ" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsx-7P-OvQ" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="142"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -306,15 +306,15 @@
             </objects>
             <point key="canvasLocation" x="-883" y="393"/>
         </scene>
-        <!--View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="J6K-lm-MKw">
             <objects>
-                <viewController id="6wB-BE-PkK" sceneMemberID="viewController">
+                <viewController id="6wB-BE-PkK" customClass="RegistrationViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="D9D-I7-YNZ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62H-QY-hd8" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62H-QY-hd8" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="148"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -601,15 +601,15 @@
             </objects>
             <point key="canvasLocation" x="964" y="-1"/>
         </scene>
-        <!--View Controller-->
+        <!--Registration View Controller-->
         <scene sceneID="9X3-TN-pWA">
             <objects>
-                <viewController id="13i-Ut-RqY" sceneMemberID="viewController">
+                <viewController id="13i-Ut-RqY" customClass="RegistrationViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FVR-mB-96w">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l9C-bB-xjC" customClass="CustomNavigationBarLogIn" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="l9C-bB-xjC" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="148"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
