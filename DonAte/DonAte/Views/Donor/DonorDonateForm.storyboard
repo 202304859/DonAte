@@ -3,6 +3,8 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,16 +17,253 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="65" translatesAutoresizingMaskIntoConstraints="NO" id="CvW-p9-5V4">
+                                <rect key="frame" x="60" y="315" width="273" height="225"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P2W-5p-2DV">
+                                        <rect key="frame" x="0.0" y="0.0" width="273" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="Ljc-2m-QuO"/>
+                                            <constraint firstAttribute="width" constant="273" id="p6V-tu-HHA"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Leave it open">
+                                            <backgroundConfiguration key="background" cornerRadius="15" strokeWidth="2">
+                                                <color key="strokeColor" name="Color 1"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            <color key="baseBackgroundColor" name="Color 4"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="QbR-S9-fse" kind="push" animates="NO" id="3X0-7b-E5m"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c9q-3p-tgG">
+                                        <rect key="frame" x="0.0" y="145" width="273" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="273" id="RVa-hX-YzU"/>
+                                            <constraint firstAttribute="height" constant="80" id="bSt-gC-D7Q"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Choose an NGO">
+                                            <backgroundConfiguration key="background" cornerRadius="15" strokeWidth="2">
+                                                <color key="strokeColor" name="Color 1"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            <color key="baseBackgroundColor" name="Color 4"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="m4i-M0-Rs3" kind="push" id="Lcp-Su-wvq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How do you want to donate?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KgK-JX-lN8">
+                                <rect key="frame" x="88" y="235" width="217" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KgK-JX-lN8" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="117" id="0He-PA-HRT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="KgK-JX-lN8" secondAttribute="trailing" constant="88" id="9RS-EX-Zw0"/>
+                            <constraint firstItem="CvW-p9-5V4" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="197" id="AeB-4c-l4n"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="CvW-p9-5V4" secondAttribute="trailing" constant="60" id="UHZ-Iv-S1T"/>
+                            <constraint firstItem="CvW-p9-5V4" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="UST-u0-lcj"/>
+                            <constraint firstItem="CvW-p9-5V4" firstAttribute="top" secondItem="KgK-JX-lN8" secondAttribute="bottom" constant="59" id="oTe-gz-FL4"/>
+                            <constraint firstItem="KgK-JX-lN8" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="88" id="vKR-LB-l48"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="48" y="-2"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="gcQ-r6-1WZ">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="QbR-S9-fse" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="LNz-gO-oOa">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What food group are you donating?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U4g-Um-kJ7">
+                                <rect key="frame" x="62" y="210" width="262" height="40.666666666666657"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="koT-Rz-CiN">
+                                <rect key="frame" x="50" y="668" width="293" height="45"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="KZp-06-IcK"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Next">
+                                    <backgroundConfiguration key="background" cornerRadius="24">
+                                        <color key="backgroundColor" name="Color 5"/>
+                                        <color key="strokeColor" name="Color 1"/>
+                                    </backgroundConfiguration>
+                                </buttonConfiguration>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="7qm-Q0-2g1">
+                                <rect key="frame" x="50" y="287" width="240" height="320.33333333333326"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can select more than one" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vWy-pD-L17">
+                                        <rect key="frame" x="0.0" y="0.0" width="167.33333333333334" height="14.333333333333334"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DwU-OQ-Isi">
+                                        <rect key="frame" x="0.0" y="34.333333333333314" width="71.333333333333329" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Grains">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected">
+                                            <imageReference key="image" image="checkmark.square.fill" catalog="system" renderingMode="template"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hoS-9v-JxC">
+                                        <rect key="frame" x="0.0" y="76.333333333333314" width="76.333333333333329" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Protein">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxv-NS-bl7">
+                                        <rect key="frame" x="0.0" y="118.33333333333331" width="64.333333333333329" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Fruits">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GiR-nX-nPm">
+                                        <rect key="frame" x="0.0" y="160.33333333333331" width="109.33333333333333" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Vegetables">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sq9-a5-KaE">
+                                        <rect key="frame" x="0.0" y="202.33333333333331" width="186.33333333333334" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Milk and Alternatives">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIr-SZ-V0R">
+                                        <rect key="frame" x="0.0" y="244.33333333333337" width="133.33333333333334" height="22"/>
+                                        <color key="tintColor" name="Color 1"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="20" maxY="0.0"/>
+                                        <state key="normal" title="Oil, salt, sugar">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                        </state>
+                                        <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qa1-iF-B9U">
+                                        <rect key="frame" x="0.0" y="286.33333333333337" width="240" height="34"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sai-Vy-n9P">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="PfI-Mp-xoI"/>
+                                                </constraints>
+                                                <color key="tintColor" name="Color 1"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <imageReference key="image" image="square" catalog="system" renderingMode="template"/>
+                                                </state>
+                                                <state key="selected" image="checkmark.square.fill" catalog="system"/>
+                                            </button>
+                                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q6W-m4-XZx">
+                                                <rect key="frame" x="40" y="0.0" width="200" height="34"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="tzv-dJ-yU2"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ueK-0S-9hs"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ueK-0S-9hs" firstAttribute="trailing" secondItem="koT-Rz-CiN" secondAttribute="trailing" constant="50" id="1mE-Gq-xcu"/>
+                            <constraint firstItem="7qm-Q0-2g1" firstAttribute="leading" secondItem="ueK-0S-9hs" secondAttribute="leading" constant="50" id="77n-LR-UQn"/>
+                            <constraint firstItem="koT-Rz-CiN" firstAttribute="top" secondItem="U4g-Um-kJ7" secondAttribute="bottom" constant="417.32999999999998" id="82O-f6-PSO"/>
+                            <constraint firstItem="7qm-Q0-2g1" firstAttribute="top" secondItem="U4g-Um-kJ7" secondAttribute="bottom" constant="36.329999999999998" id="DyG-rZ-sWH"/>
+                            <constraint firstItem="U4g-Um-kJ7" firstAttribute="leading" secondItem="ueK-0S-9hs" secondAttribute="leading" constant="62" id="Hu2-hU-JBI"/>
+                            <constraint firstItem="ueK-0S-9hs" firstAttribute="trailing" secondItem="7qm-Q0-2g1" secondAttribute="trailing" constant="103" id="b3j-V2-B6C"/>
+                            <constraint firstItem="U4g-Um-kJ7" firstAttribute="top" secondItem="ueK-0S-9hs" secondAttribute="top" constant="151" id="p7D-hZ-J1i"/>
+                            <constraint firstItem="koT-Rz-CiN" firstAttribute="leading" secondItem="ueK-0S-9hs" secondAttribute="leading" constant="50" id="sHn-de-4mR"/>
+                            <constraint firstItem="ueK-0S-9hs" firstAttribute="trailing" secondItem="U4g-Um-kJ7" secondAttribute="trailing" constant="69" id="y5J-3B-MKH"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="N8z-sb-cw5"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8vn-wN-MBn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="819.08396946564881" y="3.5211267605633805"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Teh-be-6dM">
+            <objects>
+                <viewController modalPresentationStyle="fullScreen" id="m4i-M0-Rs3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5GS-2d-DGj">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="QzP-i7-Wrc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="LUn-y5-3jg"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7cR-sg-HTx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="47" y="717"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="checkmark.square.fill" catalog="system" width="128" height="114"/>
+        <image name="square" catalog="system" width="128" height="114"/>
+        <namedColor name="Color 1">
+            <color red="0.45490196078431372" green="0.73333333333333328" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color 4">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color 5">
+            <color red="0.70980392156862748" green="0.90196078431372551" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
