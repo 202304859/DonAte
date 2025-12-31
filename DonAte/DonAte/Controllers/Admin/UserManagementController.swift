@@ -9,6 +9,28 @@ import UIKit
 
 class UserManagementController: UIViewController {
     
+    @IBOutlet var filterButtons: [UIButton]!
+    
+    
+    @IBAction func filterButtonTapped(_ sender: UIButton) {
+        for button in filterButtons {
+            
+            var config = button.configuration
+            // when the button is not selected
+            button.isSelected = false
+            config?.background.backgroundColor = .color4
+            button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+            
+            button.configuration = config
+        }
+        
+        var selectedConfig = sender.configuration
+        sender.isSelected = true
+        selectedConfig?.background.backgroundColor = .color5
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        sender.configuration = selectedConfig
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let navBar = CustomNavigationBar()
@@ -24,6 +46,11 @@ class UserManagementController: UIViewController {
             ])
 
         navBar.configure(style: .titleOnly(title: "User Management"))
+        
+        // to make 'All' selected by default
+        if let firstButton = filterButtons.first {
+            filterButtonTapped(firstButton)
+        }
        
 
         
