@@ -11,12 +11,35 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        
+        // Create the window
+        window = UIWindow(windowScene: windowScene)
+        
+        // Load the storyboard
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        
+        // Get initial view controller
+        if let initialViewController = storyboard.instantiateInitialViewController() {
+            window?.rootViewController = initialViewController
+            window?.makeKeyAndVisible()
+            print("✅ Successfully loaded Login storyboard with initial view controller")
+        } else {
+            print("❌ Error: Could not load initial view controller from Login.storyboard")
+            print("Make sure:")
+            print("1. Login.storyboard exists in your project")
+            print("2. LoginViewController (id: login-vc-main) has 'Is Initial View Controller' checked")
+            print("3. LoginViewController class is properly set")
+            
+            // Fallback: try to instantiate LoginViewController directly
+            if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
+                window?.rootViewController = loginVC
+                window?.makeKeyAndVisible()
+                print("✅ Loaded LoginViewController using identifier as fallback")
+            }
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -46,7 +69,4 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
-

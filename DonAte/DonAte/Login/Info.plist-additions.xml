@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <!-- ============================================ -->
+    <!-- PRIVACY PERMISSIONS FOR PHOTO ACCESS -->
+    <!-- Add these to your existing Info.plist file -->
+    <!-- ============================================ -->
+    
+    <!-- For accessing the photo library -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>We need access to your photo library so you can upload a profile picture.</string>
+    
+    <!-- For adding photos to the library (optional) -->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>We need permission to save photos to your library.</string>
+    
+    <!-- For camera access -->
+    <key>NSCameraUsageDescription</key>
+    <string>We need access to your camera so you can take a profile picture.</string>
+    
+    <!-- For accessing files from Desktop/Documents via iCloud -->
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>We need access to your documents to upload photos from your Desktop or iCloud Drive.</string>
+    
+    <!-- For iCloud container access (if using iCloud features) -->
+    <key>NSUbiquitousContainersUsageDescription</key>
+    <string>We need access to iCloud to retrieve your photos from Desktop or other synced folders.</string>
+    
+</dict>
+</plist>
