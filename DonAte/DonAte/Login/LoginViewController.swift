@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         
         // Create green view
         let greenView = UIView()
-        greenView.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        greenView.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
         greenView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: headerHeight)
         
         // Add it BEHIND everything
@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
     // MARK: - Style UI
     private func styleUI() {
         // Don't move anything - just style the colors
-        let greenColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        let greenColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
         
         // Style login button
         loginButton?.backgroundColor = greenColor

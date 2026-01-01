@@ -2,6 +2,7 @@
 //  ChangePasswordViewController.swift
 //  DonAte
 //
+//  ✅ UPDATED: Added green header + logo (matching ProfileViewController)
 //  Created by Claude on 30/12/2025.
 //
 
@@ -21,11 +22,50 @@ class ChangePasswordViewController: UIViewController {
     @IBOutlet weak var passwordStrengthLabel: UILabel!
     @IBOutlet weak var passwordRequirementsLabel: UILabel!
     
+    // MARK: - Properties
+    private let logoImageView = UIImageView() // ✅ Logo image view
+    
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGreenHeader() // ✅ Add 150px green header
+        addLogoToHeader() // ✅ Add logo to top left
         setupUI()
         setupPasswordStrengthIndicator()
+    }
+    
+    // MARK: - ✅ Add Green Header
+    private func addGreenHeader() {
+        // Create 150px green header at the very top
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 150)
+        headerView.tag = 999 // Tag to reference later
+        
+        // Add it behind everything
+        view.insertSubview(headerView, at: 0)
+    }
+    
+    // MARK: - ✅ Add Logo to Header
+    private func addLogoToHeader() {
+        // Configure logo image view
+        logoImageView.image = UIImage(named: "DonAte_Logo_Transparent") // Make sure to add this image to Assets.xcassets
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add to view
+        view.addSubview(logoImageView)
+        
+        // Position in top left corner with padding
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            logoImageView.widthAnchor.constraint(equalToConstant: 60),
+            logoImageView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        // Bring to front
+        view.bringSubviewToFront(logoImageView)
     }
     
     // MARK: - Setup
@@ -44,14 +84,14 @@ class ChangePasswordViewController: UIViewController {
         
         // Configure buttons
         changePasswordButton.layer.cornerRadius = 25
-        changePasswordButton.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        changePasswordButton.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
         
         cancelButton.layer.cornerRadius = 25
         cancelButton.layer.borderWidth = 2
-        cancelButton.layer.borderColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0).cgColor
-        cancelButton.setTitleColor(UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0), for: .normal)
+        cancelButton.layer.borderColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0).cgColor // #B4E7B4
+        cancelButton.setTitleColor(UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0), for: .normal) // #B4E7B4
         
-        // Password requirements - FIXED CHARACTER ENCODING
+        // Password requirements
         passwordRequirementsLabel.text = """
         Password must contain:
         • At least 6 characters

@@ -99,8 +99,24 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="login-activity-main">
                                 <rect key="frame" x="197" y="756" width="20" height="20"/>
                             </activityIndicatorView>
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tzw-9D-yik">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DonAte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4RV-Wq-Jqo">
+                                        <rect key="frame" x="92" y="75.5" width="84" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <color key="textColor" red="0.117647059" green="0.16078431400000001" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.70588235300000002" green="0.90588235299999997" blue="0.70588235300000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="uEA-Eb-LSY"/>
+                                </constraints>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ONJ-PF-3Ud">
-                                <rect key="frame" x="146" y="215" width="176" height="134"/>
+                                <rect key="frame" x="138" y="256" width="176" height="134"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="47"/>
                                 <color key="textColor" red="0.45490196078431372" green="0.73333333333333328" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -154,11 +170,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reg-scroll-main">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reg-scroll-main">
                                 <rect key="frame" x="0.0" y="92" width="414" height="770"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="reg-content-main">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="900"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="reg-content-main">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="746"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reg-title-main">
                                                 <rect key="frame" x="20" y="20" width="374" height="34"/>
@@ -222,8 +238,8 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-terms-check-main">
-                                                <rect key="frame" x="30" y="567" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-terms-check-main">
+                                                <rect key="frame" x="30" y="516" width="30" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="check-h-main"/>
                                                     <constraint firstAttribute="width" constant="30" id="check-w-main"/>
@@ -233,14 +249,14 @@
                                                     <action selector="termsCheckBoxTapped:" destination="registration-vc-main" eventType="touchUpInside" id="check-action-main"/>
                                                 </connections>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="I accept the Terms of Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reg-terms-label-main">
-                                                <rect key="frame" x="70" y="573.5" width="314" height="17"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I accept the Terms of Service" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="reg-terms-label-main">
+                                                <rect key="frame" x="70" y="522.5" width="314" height="17"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-register-btn-main">
-                                                <rect key="frame" x="30" y="617" width="354" height="50"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-register-btn-main">
+                                                <rect key="frame" x="30" y="566" width="354" height="50"/>
                                                 <color key="backgroundColor" red="0.40000000000000002" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="reg-btn-h-main"/>
@@ -258,11 +274,11 @@
                                                     <action selector="registerButtonTapped:" destination="registration-vc-main" eventType="touchUpInside" id="reg-btn-action-main"/>
                                                 </connections>
                                             </button>
-                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="reg-activity-main">
-                                                <rect key="frame" x="197" y="687" width="20" height="20"/>
+                                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="reg-activity-main">
+                                                <rect key="frame" x="197" y="636" width="20" height="20"/>
                                             </activityIndicatorView>
-                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-back-btn-main">
-                                                <rect key="frame" x="30" y="727" width="354" height="40"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="reg-back-btn-main">
+                                                <rect key="frame" x="30" y="676" width="354" height="40"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="back-h-main"/>
                                                 </constraints>
@@ -283,10 +299,11 @@
                                             <constraint firstItem="reg-back-btn-main" firstAttribute="trailing" secondItem="reg-name-main" secondAttribute="trailing" id="back-r-reg"/>
                                             <constraint firstItem="reg-back-btn-main" firstAttribute="top" secondItem="reg-activity-main" secondAttribute="bottom" constant="20" id="back-t-reg"/>
                                             <constraint firstItem="reg-terms-check-main" firstAttribute="leading" secondItem="reg-name-main" secondAttribute="leading" id="check-l-reg"/>
+                                            <constraint firstItem="reg-terms-check-main" firstAttribute="top" secondItem="reg-dob-main" secondAttribute="bottom" constant="20" id="check-t-reg"/>
                                             <constraint firstItem="reg-confirm-main" firstAttribute="leading" secondItem="reg-name-main" secondAttribute="leading" id="confirm-l-reg"/>
                                             <constraint firstItem="reg-confirm-main" firstAttribute="trailing" secondItem="reg-name-main" secondAttribute="trailing" id="confirm-r-reg"/>
                                             <constraint firstItem="reg-confirm-main" firstAttribute="top" secondItem="reg-password-main" secondAttribute="bottom" constant="12" id="confirm-t-reg"/>
-                                            <constraint firstAttribute="bottom" secondItem="reg-back-btn-main" secondAttribute="bottom" constant="133" id="content-b-reg"/>
+                                            <constraint firstAttribute="bottom" secondItem="reg-back-btn-main" secondAttribute="bottom" constant="30" id="content-b-reg"/>
                                             <constraint firstItem="reg-dob-main" firstAttribute="leading" secondItem="reg-name-main" secondAttribute="leading" id="dob-l-reg"/>
                                             <constraint firstItem="reg-dob-main" firstAttribute="trailing" secondItem="reg-name-main" secondAttribute="trailing" id="dob-r-reg"/>
                                             <constraint firstItem="reg-dob-main" firstAttribute="top" secondItem="reg-location-main" secondAttribute="bottom" constant="12" id="dob-t-reg"/>
@@ -325,6 +342,10 @@
                                     <constraint firstItem="reg-content-main" firstAttribute="width" secondItem="reg-scroll-main" secondAttribute="width" id="content-w-scroll"/>
                                 </constraints>
                             </scrollView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="OK8-PH-6KT">
+                                <rect key="frame" x="0.0" y="6" width="110" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="reg-safe-main"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -373,7 +394,7 @@
             </objects>
             <point key="canvasLocation" x="2452" y="877"/>
         </scene>
-        <!--Registration Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="reg-nav-scene">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="reg-nav-controller" sceneMemberID="viewController">
@@ -399,8 +420,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yj9-7V-0Bw">
-                                <rect key="frame" x="0.0" y="96" width="414" height="320"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i8a-S0-DJl">
+                                <rect key="frame" x="0.0" y="412" width="414" height="450"/>
+                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
+                            </tableView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yj9-7V-0Bw">
+                                <rect key="frame" x="0.0" y="84" width="414" height="320"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="pfW-0b-vly">
                                         <rect key="frame" x="147" y="20.5" width="120" height="119"/>
@@ -477,10 +502,6 @@
                                     <constraint firstItem="hZl-fe-KCU" firstAttribute="leading" secondItem="Yj9-7V-0Bw" secondAttribute="leading" constant="20" id="wGu-a3-XLE"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="i8a-S0-DJl">
-                                <rect key="frame" x="0.0" y="416" width="414" height="412"/>
-                                <color key="backgroundColor" systemColor="systemGroupedBackgroundColor"/>
-                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5m3-Ss-mKS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -510,7 +531,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Ea-R4-VyM" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1757" y="3"/>
+            <point key="canvasLocation" x="1756.521739130435" y="2.6785714285714284"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="edit-profile-nav-scene">
@@ -842,6 +863,10 @@
                                 <rect key="frame" x="197" y="617" width="20" height="20"/>
                                 <color key="color" red="0.40000000000000002" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="zCM-7F-Efu">
+                                <rect key="frame" x="-20" y="72" width="110" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pgJ-Lq-xfr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1181,26 +1206,20 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9c-1L-n1k">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_logo" translatesAutoresizingMaskIntoConstraints="NO" id="EjB-nR-tVv">
-                                        <rect key="frame" x="30" y="65" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="dxA-tp-5MP"/>
-                                            <constraint firstAttribute="height" constant="50" id="fWh-j0-ZPo"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DonAte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAz-LG-gpp">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="DonAte" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uAz-LG-gpp">
                                         <rect key="frame" x="92" y="75.5" width="84" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <color key="textColor" red="0.117647059" green="0.16078431400000001" blue="0.23137254900000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="It3-dr-cDh">
+                                        <rect key="frame" x="0.0" y="33" width="110" height="85"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.70588235300000002" green="0.90588235299999997" blue="0.70588235300000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="uAz-LG-gpp" firstAttribute="leading" secondItem="EjB-nR-tVv" secondAttribute="trailing" constant="12" id="7Em-QH-GA4"/>
-                                    <constraint firstItem="EjB-nR-tVv" firstAttribute="top" secondItem="e9c-1L-n1k" secondAttribute="top" constant="65" id="GIp-j8-0tF"/>
-                                    <constraint firstItem="uAz-LG-gpp" firstAttribute="centerY" secondItem="EjB-nR-tVv" secondAttribute="centerY" id="Yt9-eU-roV"/>
-                                    <constraint firstItem="EjB-nR-tVv" firstAttribute="leading" secondItem="e9c-1L-n1k" secondAttribute="leading" constant="30" id="s3H-x9-9es"/>
                                     <constraint firstAttribute="height" constant="150" id="v98-54-CFj"/>
                                 </constraints>
                             </view>
@@ -1241,7 +1260,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="collectorButtonTapped:" destination="vmN-AG-Xqx" eventType="touchUpInside" id="RIH-D6-iXr"/>
-                                    <segue destination="registration-vc-main" kind="show" id="bQF-Ii-u0D"/>
+                                    <segue destination="hkd-GR-f9R" kind="show" id="aDG-XW-NgN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qch-Kn-3Eb">
@@ -1315,7 +1334,6 @@
                         <outlet property="donorButton" destination="Qch-Kn-3Eb" id="7Du-6H-zjt"/>
                         <outlet property="headerView" destination="e9c-1L-n1k" id="r4s-wo-m7d"/>
                         <outlet property="loginLabel" destination="fYS-vC-VwB" id="WnZ-0T-qSz"/>
-                        <outlet property="logoImageView" destination="EjB-nR-tVv" id="Xyx-Ff-KNV"/>
                         <outlet property="pageControl" destination="vlR-Sy-O2c" id="8jb-xY-ONq"/>
                         <outlet property="registerTitleLabel" destination="Ncb-6e-kQc" id="6Uv-72-hMI"/>
                         <outlet property="subtitleLabel" destination="aaO-5I-Rc0" id="Qn5-av-7fy"/>
@@ -1325,15 +1343,52 @@
             </objects>
             <point key="canvasLocation" x="-51" y="660"/>
         </scene>
+        <!--Upload Verification View Controller-->
+        <scene sceneID="3rv-LY-p8J">
+            <objects>
+                <viewController storyboardIdentifier="UploadVerificationViewController" id="ndJ-2q-6Tw" customClass="UploadVerificationViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cTo-cU-XAY">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="meN-v4-fmg"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="7kj-GL-uHx"/>
+                    <connections>
+                        <segue destination="registration-vc-main" kind="show" id="o6b-DX-pxE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JCh-T3-frB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-534" y="1314"/>
+        </scene>
+        <!--Collector Details View Controller-->
+        <scene sceneID="Rxg-TQ-2w1">
+            <objects>
+                <viewController storyboardIdentifier="CollectorDetailsViewController" id="hkd-GR-f9R" customClass="CollectorDetailsViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JHV-jg-A8L">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="IaZ-cL-DqT"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="IB3-bR-UhE"/>
+                    <connections>
+                        <segue destination="ndJ-2q-6Tw" kind="show" identifier="showuploadVerificationViewController" id="oIF-eh-DIX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="khB-uU-1bm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139" y="1304"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Hmn-RK-oLu"/>
-        <segue reference="seg-reg-to-profile"/>
-        <segue reference="bQF-Ii-u0D"/>
+        <segue reference="seg-login-to-profile"/>
+        <segue reference="o6b-DX-pxE"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Screenshot 2025-12-31 at 8.42.28 AM" width="1186" height="1764"/>
-        <image name="app_logo" width="50" height="50"/>
+        <image name="Image" width="736" height="674"/>
+        <image name="Screenshot 2025-12-31 at 8.42.28 AM" width="368" height="337"/>
         <image name="person.circle.fill" catalog="system" width="128" height="123"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="square.and.arrow.up" catalog="system" width="110" height="128"/>

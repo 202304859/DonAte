@@ -2,8 +2,8 @@
 //  RegistrationViewController.swift
 //  DonAte
 //
-//  ✅ DEBUG VERSION: Find which outlet is nil
-//  December 31, 2025
+//  ✅ UPDATED: Added support for organization data and verification image
+//  January 1, 2026
 //
 
 import UIKit
@@ -11,7 +11,7 @@ import FirebaseAuth
 
 class RegistrationViewController: UIViewController {
     
-    // MARK: - IBOutlets
+    // MARK: - IBOutlets (from storyboard)
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var fullNameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
@@ -20,66 +20,96 @@ class RegistrationViewController: UIViewController {
     @IBOutlet weak var confirmPasswordTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var dateOfBirthTextField: UITextField!
-    @IBOutlet weak var userTypeSegmentedControl: UISegmentedControl!
     @IBOutlet weak var termsCheckBox: UIButton!
     @IBOutlet weak var registerButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // MARK: - Properties
-    var userRole: String = "donor" // ✅ Set by ChooseRoleViewController
+    var userRole: String = "donor" // Set by ChooseRoleViewController
+    var organizationData: [String: Any] = [:] // Set by CollectorDetailsViewController
+    var verificationImage: UIImage? // Set by UploadVerificationViewController
+    
     private var termsAccepted = false
     private let datePicker = UIDatePicker()
+    private let greenColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // ✅ DEBUG: Check which outlet is nil
-        print("🔍 Checking outlets...")
-        print("scrollView: \(scrollView != nil ? "✅" : "❌ NIL")")
-        print("fullNameTextField: \(fullNameTextField != nil ? "✅" : "❌ NIL")")
-        print("emailTextField: \(emailTextField != nil ? "✅" : "❌ NIL")")
-        print("phoneNumberTextField: \(phoneNumberTextField != nil ? "✅" : "❌ NIL")")
-        print("passwordTextField: \(passwordTextField != nil ? "✅" : "❌ NIL")")
-        print("confirmPasswordTextField: \(confirmPasswordTextField != nil ? "✅" : "❌ NIL")")
-        print("locationTextField: \(locationTextField != nil ? "✅" : "❌ NIL")")
-        print("dateOfBirthTextField: \(dateOfBirthTextField != nil ? "✅" : "❌ NIL")")
-        print("userTypeSegmentedControl: \(userTypeSegmentedControl != nil ? "✅" : "❌ NIL")")
-        print("termsCheckBox: \(termsCheckBox != nil ? "✅" : "❌ NIL")")
-        print("registerButton: \(registerButton != nil ? "✅" : "❌ NIL")")
-        print("activityIndicator: \(activityIndicator != nil ? "✅" : "❌ NIL")")
+        print("✅ Registration for: \(userRole.uppercased())")
+        if !organizationData.isEmpty {
+            print("📋 Organization data received: \(organizationData)")
+        }
+        if verificationImage != nil {
+            print("🖼️ Verification image received")
+        }
         
-        // ✅ Print the received role for debugging
-        print("✅ RegistrationViewController loaded with role: \(userRole)")
-        
+        addGreenHeader()
         setupUI()
         setupDatePicker()
         setupKeyboardHandling()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        // ✅ Pre-select the segmented control based on the role
-        setUserTypeFromRole()
+        DispatchQueue.main.async { [weak self] in
+            self?.fixScrollViewContentSize()
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fixScrollViewContentSize()
+    }
+    
+    // MARK: - Add Green Header
+    private func addGreenHeader() {
+        let headerView = UIView()
+        headerView.backgroundColor = greenColor
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 140)
+        view.insertSubview(headerView, at: 0)
+    }
+    
+    // MARK: - Scroll View Fix
+    private func fixScrollViewContentSize() {
+        guard let scrollView = scrollView else { return }
+        
+        var maxY: CGFloat = 0
+        
+        func findMaxY(in view: UIView) {
+            for subview in view.subviews {
+                let frame = scrollView.convert(subview.frame, from: subview.superview)
+                let bottom = frame.maxY
+                
+                if bottom > maxY {
+                    maxY = bottom
+                }
+                
+                findMaxY(in: subview)
+            }
+        }
+        
+        findMaxY(in: scrollView)
+        maxY += 100
+        
+        let newContentSize = CGSize(width: scrollView.bounds.width, height: max(maxY, 800))
+        
+        if scrollView.contentSize != newContentSize {
+            scrollView.contentSize = newContentSize
+            print("✅ ScrollView contentSize: \(newContentSize)")
+        }
+        
+        scrollView.isScrollEnabled = true
+        scrollView.showsVerticalScrollIndicator = true
     }
     
     // MARK: - Setup
-    
-    // ✅ NEW: Pre-select segmented control based on role from ChooseRoleViewController
-    private func setUserTypeFromRole() {
-        guard let segmentedControl = userTypeSegmentedControl else {
-            print("⚠️ userTypeSegmentedControl is nil, skipping role selection")
-            return
-        }
-        
-        if userRole == "collector" {
-            segmentedControl.selectedSegmentIndex = 1
-            print("📌 Pre-selected: Collector")
-        } else {
-            segmentedControl.selectedSegmentIndex = 0
-            print("📌 Pre-selected: Donor")
-        }
-    }
-    
     private func setupUI() {
-        // Configure text fields - with nil checks
+        title = "Register as \(userRole.capitalized)"
+        
+        // Configure text fields
         if let textField = fullNameTextField {
             setupTextField(textField, placeholder: "Full Name", icon: "person.fill")
         }
@@ -104,18 +134,19 @@ class RegistrationViewController: UIViewController {
         
         // Configure register button
         registerButton?.layer.cornerRadius = 25
-        registerButton?.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        registerButton?.backgroundColor = greenColor
+        registerButton?.setTitle("REGISTER", for: .normal)
+        registerButton?.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         
         // Configure terms checkbox
         termsCheckBox?.setImage(UIImage(systemName: "square"), for: .normal)
         termsCheckBox?.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        termsCheckBox?.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
-        
-        // Configure user type segmented control
-        userTypeSegmentedControl?.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        userTypeSegmentedControl?.selectedSegmentTintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        termsCheckBox?.tintColor = greenColor
         
         activityIndicator?.isHidden = true
+        
+        scrollView?.isScrollEnabled = true
+        scrollView?.showsVerticalScrollIndicator = true
     }
     
     private func setupTextField(_ textField: UITextField, placeholder: String, icon: String, isSecure: Bool = false) {
@@ -126,8 +157,8 @@ class RegistrationViewController: UIViewController {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.isSecureTextEntry = isSecure
         textField.delegate = self
+        textField.autocapitalizationType = .none
         
-        // Add icon
         let iconView = UIImageView(image: UIImage(systemName: icon))
         iconView.tintColor = .gray
         iconView.contentMode = .scaleAspectFit
@@ -166,6 +197,7 @@ class RegistrationViewController: UIViewController {
     @IBAction func termsCheckBoxTapped(_ sender: UIButton) {
         termsAccepted.toggle()
         sender.isSelected = termsAccepted
+        print("Terms accepted: \(termsAccepted)")
     }
     
     @IBAction func registerButtonTapped(_ sender: UIButton) {
@@ -173,8 +205,9 @@ class RegistrationViewController: UIViewController {
     }
     
     @IBAction func viewTermsButtonTapped(_ sender: UIButton) {
-        // Navigate to Terms of Service screen
-        performSegue(withIdentifier: "showTermsSegue", sender: nil)
+        let alert = UIAlertController(title: "Terms of Service", message: "Please read and accept our Terms of Service to continue.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     @IBAction func backToLoginTapped(_ sender: UIButton) {
@@ -196,9 +229,19 @@ class RegistrationViewController: UIViewController {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue,
               let scrollView = scrollView else { return }
         
-        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height, right: 0)
+        let contentInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardSize.height + 20, right: 0)
         scrollView.contentInset = contentInsets
         scrollView.scrollIndicatorInsets = contentInsets
+        
+        if let activeField = findFirstResponder(in: view) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                let rect = scrollView.convert(activeField.frame, from: activeField.superview)
+                var visibleRect = rect
+                visibleRect.origin.y -= 20
+                visibleRect.size.height += 40
+                scrollView.scrollRectToVisible(visibleRect, animated: true)
+            }
+        }
     }
     
     @objc private func keyboardWillHide(notification: NSNotification) {
@@ -206,8 +249,22 @@ class RegistrationViewController: UIViewController {
         scrollView?.scrollIndicatorInsets = .zero
     }
     
+    private func findFirstResponder(in view: UIView) -> UIView? {
+        if view.isFirstResponder {
+            return view
+        }
+        for subview in view.subviews {
+            if let firstResponder = findFirstResponder(in: subview) {
+                return firstResponder
+            }
+        }
+        return nil
+    }
+    
     // MARK: - Validation & Registration
     private func validateAndRegister() {
+        scrollView?.setContentOffset(.zero, animated: true)
+        
         guard let fullName = fullNameTextField?.text, !fullName.isEmpty else {
             showAlert(title: "Error", message: "Please enter your full name")
             return
@@ -233,24 +290,11 @@ class RegistrationViewController: UIViewController {
             return
         }
         
-        // ✅ Get user type from segmented control (which was pre-selected based on userRole)
-        let userType: UserType
-        switch userTypeSegmentedControl?.selectedSegmentIndex ?? 0 {
-        case 0:
-            userType = .donor
-            print("🎯 Registering as: Donor")
-        case 1:
-            userType = .collector
-            print("🎯 Registering as: Collector")
-        default:
-            userType = .donor
-            print("🎯 Registering as: Donor (default)")
-        }
+        let userType: UserType = userRole == "collector" ? .collector : .donor
+        print("🎯 Registering as: \(userType)")
         
-        // Show loading
         showLoading(true)
         
-        // Register user
         FirebaseManager.shared.registerUser(email: email, password: password, fullName: fullName, userType: userType) { [weak self] result in
             guard let self = self else { return }
             
@@ -259,24 +303,29 @@ class RegistrationViewController: UIViewController {
                 
                 switch result {
                 case .success(var profile):
-                    // Update additional profile info
                     profile.phoneNumber = self.phoneNumberTextField?.text
                     profile.location = self.locationTextField?.text
                     profile.dateOfBirth = self.datePicker.date
                     
+                    if self.userRole == "collector" {
+                        print("📋 Organization Data: \(self.organizationData)")
+                        if let verificationImage = self.verificationImage {
+                            print("🖼️ Verification image ready to upload")
+                            // TODO: Upload verification image to Firebase Storage
+                        }
+                        // TODO: Store organization data in Firestore
+                    }
+                    
                     print("✅ User registered successfully as: \(userType)")
                     
-                    // Save updated profile
                     FirebaseManager.shared.updateUserProfile(profile) { updateResult in
                         switch updateResult {
                         case .success:
                             self.showAlert(title: "Success", message: "Registration successful!") {
-                                // Navigate to Profile
                                 self.performSegue(withIdentifier: "showProfile", sender: nil)
                             }
                         case .failure(let error):
                             self.showAlert(title: "Warning", message: "Account created but profile update failed: \(error.localizedDescription)") {
-                                // Still navigate to Profile even if update failed
                                 self.performSegue(withIdentifier: "showProfile", sender: nil)
                             }
                         }
@@ -326,22 +375,19 @@ class RegistrationViewController: UIViewController {
 // MARK: - UITextFieldDelegate
 extension RegistrationViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        switch textField {
-        case fullNameTextField:
-            emailTextField?.becomeFirstResponder()
-        case emailTextField:
-            phoneNumberTextField?.becomeFirstResponder()
-        case phoneNumberTextField:
-            passwordTextField?.becomeFirstResponder()
-        case passwordTextField:
-            confirmPasswordTextField?.becomeFirstResponder()
-        case confirmPasswordTextField:
-            locationTextField?.becomeFirstResponder()
-        case locationTextField:
-            dateOfBirthTextField?.becomeFirstResponder()
-        default:
-            textField.resignFirstResponder()
-        }
+        textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let scrollView = scrollView else { return }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            let rect = scrollView.convert(textField.frame, from: textField.superview)
+            var visibleRect = rect
+            visibleRect.origin.y -= 20
+            visibleRect.size.height += 40
+            scrollView.scrollRectToVisible(visibleRect, animated: true)
+        }
     }
 }

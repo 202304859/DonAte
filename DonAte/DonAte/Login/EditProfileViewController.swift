@@ -2,6 +2,7 @@
 //  EditProfileViewController.swift
 //  DonAte
 //
+//  ✅ UPDATED: Added green header + logo (matching ProfileViewController)
 //  ✅ UPDATED: Added support for selecting photos from Mac Desktop via iCloud Drive
 //  ✅ UPDATED: Using PHPickerViewController for better privacy
 //  ✅ UPDATED: Added UIDocumentPickerViewController for file access
@@ -31,14 +32,42 @@ class EditProfileViewController: UIViewController {
     // MARK: - Properties
     var userProfile: UserProfile?
     private let datePicker = UIDatePicker()
+    private let logoImageView = UIImageView()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGreenHeader()
+        addLogoToHeader()
         setupUI()
         setupDatePicker()
         setupKeyboardHandling()
         populateFields()
+    }
+    
+    // MARK: - Add Green Header
+    private func addGreenHeader() {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 200)
+        view.insertSubview(headerView, at: 0)
+    }
+    
+    // MARK: - Add Logo to Header
+    private func addLogoToHeader() {
+        logoImageView.image = UIImage(named: "DonAte_Logo_Transparent")
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImageView)
+        
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            logoImageView.widthAnchor.constraint(equalToConstant: 60),
+            logoImageView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        view.bringSubviewToFront(logoImageView)
     }
     
     // MARK: - Setup
@@ -49,11 +78,11 @@ class EditProfileViewController: UIViewController {
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderWidth = 3
-        profileImageView.layer.borderColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0).cgColor
+        profileImageView.layer.borderColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0).cgColor
         
         // Set default image first
         profileImageView.image = UIImage(systemName: "person.circle.fill")
-        profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         
         // Add tap gesture to profile image
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
@@ -73,12 +102,12 @@ class EditProfileViewController: UIViewController {
         
         // Configure buttons
         saveButton.layer.cornerRadius = 25
-        saveButton.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        saveButton.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         
         cancelButton.layer.cornerRadius = 25
         cancelButton.layer.borderWidth = 2
-        cancelButton.layer.borderColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0).cgColor
-        cancelButton.setTitleColor(UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0), for: .normal)
+        cancelButton.layer.borderColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0).cgColor
+        cancelButton.setTitleColor(UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0), for: .normal)
         
         activityIndicator.isHidden = true
     }
@@ -155,7 +184,7 @@ class EditProfileViewController: UIViewController {
         } else {
             print("ℹ️ No profile image URL, using default")
             profileImageView.image = UIImage(systemName: "person.circle.fill")
-            profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+            profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         }
     }
     
@@ -168,7 +197,7 @@ class EditProfileViewController: UIViewController {
                 DispatchQueue.main.async {
                     // Use default image on error - don't show error to user
                     self.profileImageView.image = UIImage(systemName: "person.circle.fill")
-                    self.profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+                    self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                 }
                 return
             }
@@ -180,7 +209,7 @@ class EditProfileViewController: UIViewController {
                     print("❌ Image not found (HTTP \(httpResponse.statusCode))")
                     DispatchQueue.main.async {
                         self.profileImageView.image = UIImage(systemName: "person.circle.fill")
-                        self.profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+                        self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                     }
                     return
                 }
@@ -190,7 +219,7 @@ class EditProfileViewController: UIViewController {
                 print("❌ Invalid image data")
                 DispatchQueue.main.async {
                     self.profileImageView.image = UIImage(systemName: "person.circle.fill")
-                    self.profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+                    self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                 }
                 return
             }

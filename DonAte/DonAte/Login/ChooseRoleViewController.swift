@@ -3,7 +3,7 @@
 //  DonAte
 //
 //  ✅ FIXED: Proper navigation to RegistrationViewController with role passing
-//  Created by Claude on 31/12/2025.
+//  Updated: January 1, 2026
 //
 
 import UIKit
@@ -134,8 +134,8 @@ class ChooseRoleViewController: UIViewController {
         // Add visual feedback
         animateButtonTap(sender)
         
-        // The segue will fire automatically from storyboard
-        // We pass the role in prepare(for segue:)
+        // Navigate programmatically for collector (multi-page flow)
+        navigateToCollectorFlow()
     }
     
     @IBAction func donorButtonTapped(_ sender: UIButton) {
@@ -145,7 +145,7 @@ class ChooseRoleViewController: UIViewController {
         // Add visual feedback
         animateButtonTap(sender)
         
-        // The segue will fire automatically from storyboard
+        // The segue will fire automatically from storyboard for donor
         // We pass the role in prepare(for segue:)
     }
     
@@ -157,16 +157,21 @@ class ChooseRoleViewController: UIViewController {
     
     // MARK: - Navigation
     
-    // ✅ This is called BEFORE the segue to RegistrationViewController
+    private func navigateToCollectorFlow() {
+        // Navigate to collector details page programmatically
+        let collectorDetailsVC = CollectorDetailsViewController()
+        navigationController?.pushViewController(collectorDetailsVC, animated: true)
+    }
+    
+    // ✅ FIXED: Actually pass the role to RegistrationViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("🔄 Preparing for segue...")
         
-        // Check if destination is RegistrationViewController
+        // Check if destination is RegistrationViewController (for donor flow)
         if let registrationVC = segue.destination as? RegistrationViewController {
-            // Pass the selected role
-            let roleToPass = selectedRole ?? "donor"
-            var userRole: String = "donor" // ✅ ADD THIS LINE
-            print("📤 Passing role to Registration: \(roleToPass)")
+            // ✅ Actually set the userRole property on the destination view controller
+            registrationVC.userRole = selectedRole ?? "donor"
+            print("📤 Passing role to Registration: \(registrationVC.userRole)")
         } else {
             print("⚠️ Segue destination is not RegistrationViewController: \(type(of: segue.destination))")
         }

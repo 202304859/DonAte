@@ -2,7 +2,7 @@
 //  ProfileViewController.swift
 //  DonAte
 //
-//  ✅ FIXED: Proper data passing + Image upload error handling
+//  ✅ FIXED: Proper data passing + Image upload error handling + Logo added
 //  Created by Claude on 31/12/2025.
 //
 
@@ -23,10 +23,13 @@ class ProfileViewController: UIViewController {
     // MARK: - Properties
     private var userProfile: UserProfile?
     private var profileMenuItems: [[ProfileMenuItem]] = []
+    private let logoImageView = UIImageView()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        addGreenHeader()
+        addLogoToHeader()
         setupUI()
         setupTableView()
         loadUserProfile()
@@ -37,29 +40,49 @@ class ProfileViewController: UIViewController {
         loadUserProfile()
     }
     
+    // MARK: - Add Green Header
+    private func addGreenHeader() {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
+        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 200)
+        view.insertSubview(headerView, at: 0)
+    }
+    
+    // MARK: - Add Logo to Header
+    private func addLogoToHeader() {
+        logoImageView.image = UIImage(named: "DonAte_Logo_Transparent")
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(logoImageView)
+        
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            logoImageView.widthAnchor.constraint(equalToConstant: 60),
+            logoImageView.heightAnchor.constraint(equalToConstant: 60)
+        ])
+        
+        view.bringSubviewToFront(logoImageView)
+    }
+    
     // MARK: - Setup
     private func setupUI() {
-        // Profile image
         profileImageView.layer.cornerRadius = profileImageView.frame.width / 2
         profileImageView.clipsToBounds = true
         profileImageView.layer.borderWidth = 3
-        profileImageView.layer.borderColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0).cgColor
+        profileImageView.layer.borderColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0).cgColor
         profileImageView.contentMode = .scaleAspectFill
         
-        // Set default image
         profileImageView.image = UIImage(systemName: "person.circle.fill")
-        profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         
-        // Add tap gesture to profile image
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageTapped))
         profileImageView.isUserInteractionEnabled = true
         profileImageView.addGestureRecognizer(tapGesture)
         
-        // Edit button
         editProfileButton.layer.cornerRadius = 20
-        editProfileButton.backgroundColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        editProfileButton.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         
-        // Setup menu items
         setupMenuItems()
     }
     
@@ -72,21 +95,18 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupMenuItems() {
-        // Section 1: Profile Management
         let section1 = [
             ProfileMenuItem(icon: "person.fill", title: "Edit Profile", subtitle: "Update your personal information", action: .editProfile),
             ProfileMenuItem(icon: "chart.bar.fill", title: "Impact Summary", subtitle: "View your donation statistics", action: .impactSummary),
             ProfileMenuItem(icon: "lock.fill", title: "Change Password", subtitle: "Update your password", action: .changePassword)
         ]
         
-        // Section 2: Preferences
         let section2 = [
             ProfileMenuItem(icon: "message.fill", title: "Messages", subtitle: "View and manage your messages", action: .dietPreferences),
             ProfileMenuItem(icon: "bell.fill", title: "Notifications", subtitle: "Manage notification settings", action: .notifications),
             ProfileMenuItem(icon: "gearshape.fill", title: "Settings", subtitle: "App settings and preferences", action: .settings)
         ]
         
-        // Section 3: Account
         let section3 = [
             ProfileMenuItem(icon: "doc.text.fill", title: "Terms of Service", subtitle: "View terms and conditions", action: .terms),
             ProfileMenuItem(icon: "questionmark.circle.fill", title: "Help & Support", subtitle: "Get help and support", action: .help),
@@ -128,7 +148,6 @@ class ProfileViewController: UIViewController {
         phoneLabel.text = profile.phoneNumber ?? "Not provided"
         locationLabel.text = profile.location ?? "Not provided"
         
-        // Load profile image with error handling
         if let imageURLString = profile.profileImageURL,
            !imageURLString.isEmpty,
            let imageURL = URL(string: imageURLString) {
@@ -137,7 +156,7 @@ class ProfileViewController: UIViewController {
         } else {
             print("ℹ️ No profile image URL found, using default")
             profileImageView.image = UIImage(systemName: "person.circle.fill")
-            profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+            profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         }
     }
     
@@ -148,9 +167,8 @@ class ProfileViewController: UIViewController {
             if let error = error {
                 print("❌ Image load error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
-                    // Use default image on error
                     self.profileImageView.image = UIImage(systemName: "person.circle.fill")
-                    self.profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+                    self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                 }
                 return
             }
@@ -158,9 +176,8 @@ class ProfileViewController: UIViewController {
             guard let data = data, let image = UIImage(data: data) else {
                 print("❌ Invalid image data")
                 DispatchQueue.main.async {
-                    // Use default image on error
                     self.profileImageView.image = UIImage(systemName: "person.circle.fill")
-                    self.profileImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+                    self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                 }
                 return
             }
@@ -205,28 +222,20 @@ class ProfileViewController: UIViewController {
         switch action {
         case .editProfile:
             performSegue(withIdentifier: "showEditProfile", sender: nil)
-            
         case .impactSummary:
             performSegue(withIdentifier: "showImpactSummary", sender: nil)
-            
         case .changePassword:
             performSegue(withIdentifier: "showChangePassword", sender: nil)
-            
         case .dietPreferences:
             performSegue(withIdentifier: "showDietPreferences", sender: nil)
-            
         case .notifications:
             performSegue(withIdentifier: "showNotifications", sender: nil)
-            
         case .settings:
             performSegue(withIdentifier: "showSettings", sender: nil)
-            
         case .terms:
             performSegue(withIdentifier: "showTerms", sender: nil)
-            
         case .help:
             performSegue(withIdentifier: "showHelp", sender: nil)
-            
         case .logout:
             handleLogout()
         }
@@ -242,7 +251,6 @@ class ProfileViewController: UIViewController {
                     if let error = error {
                         self?.showAlert(title: "Error", message: "Failed to logout: \(error.localizedDescription)")
                     } else {
-                        // Navigate back to login
                         self?.navigateToLogin()
                     }
                 }
@@ -266,7 +274,7 @@ class ProfileViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    // MARK: - ✅ FIXED: Navigation / Segue Preparation
+    // MARK: - Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         func getViewController<T>(_ destination: UIViewController) -> T? {
             if let navController = destination as? UINavigationController {
@@ -286,22 +294,18 @@ class ProfileViewController: UIViewController {
                 editVC.userProfile = profile
                 print("✅ Passed profile to EditProfile")
             }
-            
         case "showImpactSummary":
             if let impactVC: ImpactSummaryViewController = getViewController(segue.destination) {
                 impactVC.userProfile = profile
                 print("✅ Passed profile to ImpactSummary")
             }
-            
         case "showChangePassword":
             print("✅ Navigating to ChangePassword")
-            
         case "showDietPreferences":
             if let dietVC: DietPreferencesViewController = getViewController(segue.destination) {
                 dietVC.userProfile = profile
                 print("✅ Passed profile to DietPreferences")
             }
-            
         default:
             break
         }
@@ -382,7 +386,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         
         print("📤 Starting image upload for UID: \(uid)")
         
-        // Show loading
         let loadingAlert = UIAlertController(title: nil, message: "Uploading image...", preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
@@ -391,7 +394,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         loadingAlert.view.addSubview(loadingIndicator)
         present(loadingAlert, animated: true)
         
-        // Upload image
         FirebaseManager.shared.uploadProfileImage(uid: uid, imageData: imageData) { [weak self] result in
             DispatchQueue.main.async {
                 loadingAlert.dismiss(animated: true) {
@@ -400,18 +402,12 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                     switch result {
                     case .success(let imageURL):
                         print("✅ Image upload complete, URL: \(imageURL)")
-                        
-                        // Update UI immediately
                         self.profileImageView.image = image
-                        
-                        // Update local profile
                         if var profile = self.userProfile {
                             profile.profileImageURL = imageURL
                             self.userProfile = profile
                         }
-                        
                         self.showAlert(title: "Success", message: "Profile picture updated successfully!")
-                        
                     case .failure(let error):
                         print("❌ Image upload failed: \(error.localizedDescription)")
                         self.showAlert(title: "Upload Failed", message: error.localizedDescription)
@@ -465,7 +461,6 @@ class ProfileMenuCell: UITableViewCell {
         backgroundColor = .clear
         selectionStyle = .none
         
-        // Container
         containerView.translatesAutoresizingMaskIntoConstraints = false
         containerView.backgroundColor = .white
         containerView.layer.cornerRadius = 12
@@ -475,26 +470,22 @@ class ProfileMenuCell: UITableViewCell {
         containerView.layer.shadowRadius = 4
         contentView.addSubview(containerView)
         
-        // Icon
         iconImageView.translatesAutoresizingMaskIntoConstraints = false
         iconImageView.contentMode = .scaleAspectFit
-        iconImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+        iconImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
         containerView.addSubview(iconImageView)
         
-        // Title
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
         titleLabel.textColor = .black
         containerView.addSubview(titleLabel)
         
-        // Subtitle
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.font = UIFont.systemFont(ofSize: 13)
         subtitleLabel.textColor = .gray
         subtitleLabel.numberOfLines = 1
         containerView.addSubview(subtitleLabel)
         
-        // Chevron
         chevronImageView.translatesAutoresizingMaskIntoConstraints = false
         chevronImageView.image = UIImage(systemName: "chevron.right")
         chevronImageView.tintColor = .lightGray
@@ -536,7 +527,7 @@ class ProfileMenuCell: UITableViewCell {
             iconImageView.tintColor = .systemRed
             titleLabel.textColor = .systemRed
         } else {
-            iconImageView.tintColor = UIColor(red: 0.4, green: 0.8, blue: 0.4, alpha: 1.0)
+            iconImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
             titleLabel.textColor = .black
         }
     }
