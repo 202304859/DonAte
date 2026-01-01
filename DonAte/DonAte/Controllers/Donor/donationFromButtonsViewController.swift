@@ -6,14 +6,28 @@
 //
 
 import UIKit
+import FirebaseFirestore
+import FirebaseAuth
 
 class donationFromButtonsViewController: UIViewController {
 
+    let db = Firestore.firestore()
+    
+    
+    //let donationRef = db.collection("donations").document()
+    
+    //let donationId = donationRef.documentID
+    
+    //donationRef.setData(["donorID": Auth.auth().currentUser?.uid ?? "","donationType": "openTime","ngoName": "left open", "images":[], "status": "draft"])
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    
+    
     
 
     /*

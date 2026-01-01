@@ -6,3 +6,6 @@
 //
 
 import Foundation
+import Cloudinary
+
+let cloudinary = CLDCloudinary(configuration: CLDConfiguration(cloudName: "dldepnjvn",secure: true))

@@ -6,3 +6,9 @@
 //
 
 import Foundation
+import FirebaseFirestore
+
+struct DonorDonation{
+    let donorId : String
+    
+}

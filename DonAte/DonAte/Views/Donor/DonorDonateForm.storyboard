@@ -853,10 +853,10 @@
             </objects>
             <point key="canvasLocation" x="3869" y="0.0"/>
         </scene>
-        <!--View Controller-->
+        <!--Upload Donation Photo View Controller-->
         <scene sceneID="jD4-mO-EVx">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="KvC-RN-dWC" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="KvC-RN-dWC" customClass="UploadDonationPhotoViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="T9x-Al-7Yi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -883,6 +883,9 @@
                                         <color key="strokeColor" name="Color 1"/>
                                     </backgroundConfiguration>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="addPhotosTapped:" destination="KvC-RN-dWC" eventType="touchUpInside" id="fjO-tD-rOI"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upload a photo of your donation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RwT-de-rUI">
                                 <rect key="frame" x="76" y="251" width="246" height="21"/>
@@ -891,6 +894,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="SbV-10-rVR">
+                                <rect key="frame" x="28" y="496" width="0.0" height="0.0"/>
+                                <subviews>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3fk-ba-MOP">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="89"/>
+                                    </imageView>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4th-AI-JsN">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="89"/>
+                                    </imageView>
+                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sEt-5D-JtR">
+                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="89"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="R3F-gg-gZJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -906,6 +923,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="I2U-UG-GjJ"/>
+                    <connections>
+                        <outlet property="imageView1" destination="3fk-ba-MOP" id="4Qv-jJ-e4h"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcA-hS-5jm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
