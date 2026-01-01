@@ -10,9 +10,7 @@ import UIKit
 class UserManagementController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var filterButtons: [UIButton]!
-    
     @IBOutlet weak var tableView: UITableView!
-
     @IBAction func filterButtonTapped(_ sender: UIButton) {
         for button in filterButtons {
             
@@ -28,7 +26,7 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         var selectedConfig = sender.configuration
         sender.isSelected = true
         selectedConfig?.background.backgroundColor = .color5
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
+        sender.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         sender.configuration = selectedConfig
     }
     
@@ -52,10 +50,24 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         if let firstButton = filterButtons.first {
             filterButtonTapped(firstButton)
         }
+        
+        tableView.contentInsetAdjustmentBehavior = .never
+        
        
 
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
+
+    /*
+        override func viewWillDisappear(_ animated: Bool) {
+            super.viewWillDisappear(animated)
+            navigationController?.setNavigationBarHidden(false, animated: false)
+        }*/
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
            return 10 // temp
