@@ -7,10 +7,11 @@
 
 import UIKit
 
-class UserManagementController: UIViewController {
+class UserManagementController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet var filterButtons: [UIButton]!
     
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func filterButtonTapped(_ sender: UIButton) {
         for button in filterButtons {
@@ -56,6 +57,14 @@ class UserManagementController: UIViewController {
         
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+           return 10 // temp
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
+        return cell
+    }
    
     
 

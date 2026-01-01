@@ -13,4 +13,5 @@ struct User {
     let email : String
     let donations : Int
     let isActive : Bool
+    let status : String
 }
