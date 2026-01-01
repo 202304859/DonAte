@@ -11,6 +11,7 @@ class DChangePassViewController: UIViewController {
     
     
     @IBAction func cancelButtonType(_ sender: UIButton) {
+    
         self.dismiss(animated: true)
     }
     @IBAction func saveButtonType(_ sender: UIButton) {
