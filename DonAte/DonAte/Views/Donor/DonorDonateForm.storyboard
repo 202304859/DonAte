@@ -7,13 +7,14 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Donation From Buttons View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="donationFromButtonsViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,10 +86,10 @@
             </objects>
             <point key="canvasLocation" x="245" y="-2"/>
         </scene>
-        <!--View Controller-->
+        <!--Food Groups View Controller-->
         <scene sceneID="gcQ-r6-1WZ">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="QbR-S9-fse" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="QbR-S9-fse" customClass="foodGroupsViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LNz-gO-oOa">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -251,10 +252,10 @@
             </objects>
             <point key="canvasLocation" x="244" y="736"/>
         </scene>
-        <!--View Controller-->
+        <!--Food Type View Controller-->
         <scene sceneID="ktp-J7-h86">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="PKg-I5-rTS" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="PKg-I5-rTS" customClass="foodTypeViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="34J-eU-vcp">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -395,15 +396,15 @@
             </objects>
             <point key="canvasLocation" x="1937" y="-2"/>
         </scene>
-        <!--View Controller-->
+        <!--Food Storage View Controller-->
         <scene sceneID="mq0-mR-xrn">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="kkA-F4-ZAf" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="kkA-F4-ZAf" customClass="foodStorageViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ATS-ox-ZHr">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What food type are you donating?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tzi-SH-m1X">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What's the food storage type?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tzi-SH-m1X">
                                 <rect key="frame" x="62" y="210" width="262" height="20.333333333333343"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -810,7 +811,7 @@
                                                     </backgroundConfiguration>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <segue destination="KvC-RN-dWC" kind="push" id="Y4w-4w-AWt"/>
+                                                    <segue destination="KvC-RN-dWC" kind="push" id="sQJ-Tu-lhh"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -860,14 +861,77 @@
                     <view key="view" contentMode="scaleToFill" id="T9x-Al-7Yi">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="VCx-18-1yM">
+                                <rect key="frame" x="76" y="338" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="12i-JD-iCm">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="dWz-hv-OED">
+                                        <rect key="frame" x="56" y="0.0" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="1Li-fM-wrZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w9V-hH-7H4">
+                                <rect key="frame" x="50" y="690.66666666666663" width="293" height="38.333333333333371"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Next">
+                                    <backgroundConfiguration key="background" cornerRadius="24">
+                                        <color key="backgroundColor" name="Color 5"/>
+                                        <color key="strokeColor" name="Color 1"/>
+                                    </backgroundConfiguration>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Khp-Wz-OHU">
+                                <rect key="frame" x="50" y="600" width="293" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="lxV-kp-Z7a"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Upload image">
+                                    <backgroundConfiguration key="background" cornerRadius="10">
+                                        <color key="backgroundColor" name="Color 5"/>
+                                        <color key="strokeColor" name="Color 1"/>
+                                    </backgroundConfiguration>
+                                </buttonConfiguration>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Upload a photo of your donation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RwT-de-rUI">
+                                <rect key="frame" x="76" y="251" width="246" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="R3F-gg-gZJ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="R3F-gg-gZJ" firstAttribute="trailing" secondItem="Khp-Wz-OHU" secondAttribute="trailing" constant="50" id="CaT-DX-v5p"/>
+                            <constraint firstItem="Khp-Wz-OHU" firstAttribute="leading" secondItem="R3F-gg-gZJ" secondAttribute="leading" constant="50" id="Rva-W0-Opj"/>
+                            <constraint firstItem="w9V-hH-7H4" firstAttribute="top" secondItem="Khp-Wz-OHU" secondAttribute="bottom" constant="30.670000000000002" id="W3F-c9-13J"/>
+                            <constraint firstItem="R3F-gg-gZJ" firstAttribute="trailing" secondItem="Khp-Wz-OHU" secondAttribute="trailing" constant="50" id="ceK-eJ-PCI"/>
+                            <constraint firstItem="R3F-gg-gZJ" firstAttribute="bottom" secondItem="w9V-hH-7H4" secondAttribute="bottom" constant="89" id="eOJ-Zt-R9u"/>
+                            <constraint firstItem="w9V-hH-7H4" firstAttribute="leading" secondItem="R3F-gg-gZJ" secondAttribute="leading" constant="50" id="hz3-Dm-e3D"/>
+                            <constraint firstItem="Khp-Wz-OHU" firstAttribute="leading" secondItem="R3F-gg-gZJ" secondAttribute="leading" constant="50" id="iUY-xl-LwL"/>
+                            <constraint firstItem="R3F-gg-gZJ" firstAttribute="trailing" secondItem="w9V-hH-7H4" secondAttribute="trailing" constant="50" id="uu9-xS-117"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="I2U-UG-GjJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fcA-hS-5jm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4834" y="1"/>
+            <point key="canvasLocation" x="4832.8244274809158" y="0.70422535211267612"/>
         </scene>
     </scenes>
     <resources>
