@@ -15,7 +15,7 @@ class DonorProfileViewController: UIViewController {
         .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
         .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
         .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "AddressSB"),
-        .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "PassSB"),
         .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "ImpactSB"),
         .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "ImpactSB"),
         .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "ImpactSB"),
@@ -37,9 +37,13 @@ class DonorProfileViewController: UIViewController {
             ])
             
             navBar.configure(style: .titleOnly(title: "Donor Profile"))
-            navBar.onBackTapped = { [weak self] in
+           navBar.onBackTapped = { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
-                
+              
+        
+        
+               
+           
                 
                 
                 

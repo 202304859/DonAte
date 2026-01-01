@@ -20,6 +20,15 @@ class DonorAddressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+
+            
+            tableView.dataSource = self
+            tableView.delegate = self
+
+            
+            tableView.reloadData()
+        
         let navBar = CustomNavigationBar()
         navBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navBar)
@@ -42,6 +51,11 @@ class DonorAddressViewController: UIViewController {
         // Connect the table view to this controller
                 tableView.dataSource = self
                 tableView.delegate = self
+        
+        //this is to set height for the table view because it wasnt showing at the beginning
+       // tableView.rowHeight = UITableView.automaticDimension
+        //    tableView.estimatedRowHeight = 140
+        //tableView.rowHeight = 140 (this was just to test temporarily)
 
                 // Make it match your UI (no separators, clear background)
                 tableView.separatorStyle = .none
@@ -61,22 +75,26 @@ class DonorAddressViewController: UIViewController {
 extension DonorAddressViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("✅ numberOfRows called") //mainly for debugging purposes
         // Tell the table view how many rows to show
         return sample.count
+        
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        // Reuse the prototype cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCardCell",
-                                                 for: indexPath) as! AddressCardCell
+        print("✅ cellForRow called at row \(indexPath.row)")  //mainly for debugging purposes
+
+            
+       let cell = tableView.dequeueReusableCell(withIdentifier: "AddressCardCell",
+                                                for: indexPath) as! AddressCardCell
         
         // Fill the cell with sample text
-        let item = sample[indexPath.row]
-        cell.configure(title: item.0, details: item.1)
-        
-        return cell
+      let item = sample[indexPath.row]
+       cell.configure(title: item.0, details: item.1)
+      //
+      return cell
     }
     
 }
