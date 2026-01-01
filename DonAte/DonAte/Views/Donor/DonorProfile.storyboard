@@ -124,6 +124,118 @@
             </objects>
             <point key="canvasLocation" x="20.610687022900763" y="3.5211267605633805"/>
         </scene>
+        <!--Donor Address View Controller-->
+        <scene sceneID="8F9-F5-Fqu">
+            <objects>
+                <viewController storyboardIdentifier="AddressSB" id="2B7-iP-mCe" customClass="DonorAddressViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="WUs-YP-1Dk">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2BT-n6-W2V" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="150"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="ocQ-yE-81v"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="140" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="EzU-So-61i">
+                                <rect key="frame" x="0.0" y="150" width="393" height="634"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AddressCardCell" rowHeight="157" id="wZo-sC-Am7" customClass="AddressCardCell" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="393" height="157"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="wZo-sC-Am7" id="L3I-e3-1L6">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="157"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xOo-RK-KeT" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                                    <rect key="frame" x="24" y="10" width="345" height="137"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWj-eM-rio">
+                                                            <rect key="frame" x="16" y="16" width="46" height="21"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o1P-3o-ois">
+                                                            <rect key="frame" x="16" y="58" width="162" height="46"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="46" id="Pv5-MJ-1ak"/>
+                                                                <constraint firstAttribute="width" constant="162" id="vdh-Kx-xzw"/>
+                                                            </constraints>
+                                                            <attributedString key="attributedText">
+                                                                <fragment content="1234, 776, 4987, Manama, +937 32345678">
+                                                                    <attributes>
+                                                                        <color key="NSColor" systemColor="placeholderTextColor"/>
+                                                                        <font key="NSFont" metaFont="cellTitle"/>
+                                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="5" tighteningFactorForTruncation="0.0"/>
+                                                                    </attributes>
+                                                                </fragment>
+                                                            </attributedString>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                    <constraints>
+                                                        <constraint firstItem="o1P-3o-ois" firstAttribute="top" secondItem="WWj-eM-rio" secondAttribute="bottom" constant="21" id="UlD-ec-ClP"/>
+                                                        <constraint firstItem="WWj-eM-rio" firstAttribute="top" secondItem="xOo-RK-KeT" secondAttribute="top" constant="16" id="X7x-9B-V7f"/>
+                                                        <constraint firstItem="WWj-eM-rio" firstAttribute="leading" secondItem="xOo-RK-KeT" secondAttribute="leading" constant="16" id="erU-h7-gdW"/>
+                                                        <constraint firstItem="o1P-3o-ois" firstAttribute="leading" secondItem="WWj-eM-rio" secondAttribute="leading" id="veE-Nr-Pif"/>
+                                                    </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="15"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                            <real key="value" value="2"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="showShadow" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="borderColorName" value="Color 1"/>
+                                                    </userDefinedRuntimeAttributes>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="xOo-RK-KeT" secondAttribute="bottom" constant="10" id="0WC-iX-iun"/>
+                                                <constraint firstAttribute="trailing" secondItem="xOo-RK-KeT" secondAttribute="trailing" constant="24" id="30J-b3-Eyd"/>
+                                                <constraint firstItem="xOo-RK-KeT" firstAttribute="top" secondItem="L3I-e3-1L6" secondAttribute="top" constant="10" id="MZv-yh-JxR"/>
+                                                <constraint firstItem="xOo-RK-KeT" firstAttribute="leading" secondItem="L3I-e3-1L6" secondAttribute="leading" constant="24" id="uRR-iV-Eu5"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="Color 4"/>
+                                        <connections>
+                                            <outlet property="cardView" destination="xOo-RK-KeT" id="1Dl-ht-usY"/>
+                                            <outlet property="detailsLabel" destination="o1P-3o-ois" id="iLD-6W-lmy"/>
+                                            <outlet property="titleLabel" destination="WWj-eM-rio" id="S4q-7x-amR"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="2B7-iP-mCe" id="D8h-yc-AyN"/>
+                                    <outlet property="delegate" destination="2B7-iP-mCe" id="KZI-UW-zGM"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="zM7-0B-yFU"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zM7-0B-yFU" firstAttribute="trailing" secondItem="EzU-So-61i" secondAttribute="trailing" id="BGq-05-47S"/>
+                            <constraint firstItem="EzU-So-61i" firstAttribute="leading" secondItem="zM7-0B-yFU" secondAttribute="leading" id="Jzo-nL-0aj"/>
+                            <constraint firstItem="2BT-n6-W2V" firstAttribute="trailing" secondItem="zM7-0B-yFU" secondAttribute="trailing" id="UqE-Sd-2FT"/>
+                            <constraint firstItem="EzU-So-61i" firstAttribute="top" secondItem="2BT-n6-W2V" secondAttribute="bottom" id="WDL-8Q-KQM"/>
+                            <constraint firstItem="2BT-n6-W2V" firstAttribute="top" secondItem="WUs-YP-1Dk" secondAttribute="top" id="Xgb-SB-rK9"/>
+                            <constraint firstItem="zM7-0B-yFU" firstAttribute="bottom" secondItem="EzU-So-61i" secondAttribute="bottom" id="Zci-al-47h"/>
+                            <constraint firstItem="2BT-n6-W2V" firstAttribute="leading" secondItem="zM7-0B-yFU" secondAttribute="leading" id="qfx-p6-n6r"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="EzU-So-61i" id="Y7g-Ch-RTc"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5nA-5l-3EL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-29.770992366412212" y="713.38028169014092"/>
+        </scene>
         <!--Donor Impact View Controller-->
         <scene sceneID="yP0-ad-RaH">
             <objects>
@@ -748,6 +860,9 @@
         <namedColor name="Color 5">
             <color red="0.70980392156862748" green="0.90196078431372551" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29803921570000003" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

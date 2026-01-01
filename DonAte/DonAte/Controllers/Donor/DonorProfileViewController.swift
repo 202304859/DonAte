@@ -14,7 +14,7 @@ class DonorProfileViewController: UIViewController {
     let items: [ProfileItem] = [
         .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
         .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
-        .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "AddressSB"),
         .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "ImpactSB"),
         .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "ImpactSB"),
         .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "ImpactSB"),
@@ -102,7 +102,7 @@ extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate
     }
 }
 
-extension UIColor {
+extension UIColor {  //i just realized that the color didnt change, ill look into this when i get the time
     static let donorRed = UIColor(
         red: 240/255,
         green: 91/255,
