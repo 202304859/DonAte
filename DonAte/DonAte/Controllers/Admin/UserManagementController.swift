@@ -12,7 +12,7 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet var filterButtons: [UIButton]!
     
     @IBOutlet weak var tableView: UITableView!
-    
+
     @IBAction func filterButtonTapped(_ sender: UIButton) {
         for button in filterButtons {
             
