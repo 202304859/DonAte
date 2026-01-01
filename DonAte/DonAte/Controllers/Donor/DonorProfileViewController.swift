@@ -13,6 +13,13 @@ class DonorProfileViewController: UIViewController {
     
     let items: [ProfileItem] = [
         .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Log Out",   iconName: "logoutIcon",   storyboardID: "ImpactSB"),
 ]
 
     override func viewDidLoad() {
@@ -52,18 +59,7 @@ class DonorProfileViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
-    
+  
     struct ProfileItem {
         let title: String
         let iconName: String
@@ -87,6 +83,9 @@ extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate
         cell.textLabel?.text = item.title
         cell.imageView?.image = UIImage(named: item.iconName)
         cell.accessoryType = .disclosureIndicator
+        cell.accessoryType = .disclosureIndicator
+        cell.tintColor = .donorRed
+
 
         return cell
     }
@@ -98,6 +97,16 @@ extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate
         if let vc = storyboard?.instantiateViewController(withIdentifier: item.storyboardID) {
             navigationController?.pushViewController(vc, animated: true)
         }
+        
+        
     }
 }
 
+extension UIColor {
+    static let donorRed = UIColor(
+        red: 240/255,
+        green: 91/255,
+        blue: 91/255,
+        alpha: 1
+    )
+}
