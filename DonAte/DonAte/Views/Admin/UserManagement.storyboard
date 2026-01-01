@@ -249,9 +249,6 @@
                                                                     </constraints>
                                                                     <state key="normal" title="Button"/>
                                                                     <buttonConfiguration key="configuration" style="plain" image="keyboard_arrow_left"/>
-                                                                    <connections>
-                                                                        <segue destination="I7R-xV-AU5" kind="push" id="hhj-xw-gjP"/>
-                                                                    </connections>
                                                                 </button>
                                                             </subviews>
                                                             <constraints>
@@ -260,12 +257,16 @@
                                                         </stackView>
                                                     </subviews>
                                                     <color key="backgroundColor" name="Color 4"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstItem="h6P-JI-OkZ" firstAttribute="leading" secondItem="56b-Ik-ZO3" secondAttribute="leading" constant="9" id="Aeq-mF-iZj"/>
                                                         <constraint firstAttribute="trailing" secondItem="h6P-JI-OkZ" secondAttribute="trailing" constant="9" id="K1Z-zK-Kls"/>
                                                         <constraint firstAttribute="bottom" secondItem="h6P-JI-OkZ" secondAttribute="bottom" constant="10" id="Y55-u4-tx2"/>
                                                         <constraint firstItem="h6P-JI-OkZ" firstAttribute="top" secondItem="56b-Ik-ZO3" secondAttribute="top" constant="10" id="bqF-7f-sQM"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="WIt-zh-ATt" appends="YES" id="K5b-Mx-IIU"/>
+                                                    </connections>
                                                 </view>
                                             </subviews>
                                             <constraints>
@@ -321,6 +322,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="WIt-zh-ATt">
+                    <connections>
+                        <segue destination="YY0-Vl-5zg" kind="push" id="nPN-hO-cs0"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1002.2900763358779" y="-5.6338028169014089"/>
         </scene>
@@ -402,6 +408,10 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
+                                                                        <gestureRecognizers/>
+                                                                        <connections>
+                                                                            <outletCollection property="gestureRecognizers" destination="VDi-Up-yU4" appends="YES" id="wh6-Ra-cEY"/>
+                                                                        </connections>
                                                                     </stackView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.95996099710000005" green="0.95996087789999995" blue="0.95996087789999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -466,6 +476,10 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                         </subviews>
+                                                                        <gestureRecognizers/>
+                                                                        <connections>
+                                                                            <outletCollection property="gestureRecognizers" destination="Lww-vn-H32" appends="YES" id="zFn-ni-423"/>
+                                                                        </connections>
                                                                     </stackView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.95996099710000005" green="0.95996087789999995" blue="0.95996087789999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -688,40 +702,140 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c41-fC-OWj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="VDi-Up-yU4">
+                    <connections>
+                        <action selector="toggleAccordion" destination="hFr-9l-uqh" id="YB3-GK-DjO"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="Lww-vn-H32">
+                    <connections>
+                        <action selector="toggleAccordion" destination="KbZ-Wu-Ajl" id="kmL-yC-33u"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1818" y="-6"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="zun-Ly-RNp">
-            <objects>
-                <viewController id="I7R-xV-AU5" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Jtf-Bh-dAJ">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="nJl-9i-gRI"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="6pv-cq-lWf"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="giG-uK-5d4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1002" y="710"/>
-        </scene>
-        <!--Example Controller-->
+        <!--User Details Controller-->
         <scene sceneID="smY-c3-7Lf">
             <objects>
-                <viewController wantsFullScreenLayout="YES" hidesBottomBarWhenPushed="YES" id="YY0-Vl-5zg" customClass="ExampleController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController wantsFullScreenLayout="YES" hidesBottomBarWhenPushed="YES" id="YY0-Vl-5zg" customClass="UserDetailsController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mlD-Mw-Gwy">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-87-gBY">
+                                <rect key="frame" x="124" y="242" width="144" height="198.66666666666663"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatarSample" translatesAutoresizingMaskIntoConstraints="NO" id="hz5-gD-wnD">
+                                        <rect key="frame" x="6" y="0.0" width="132" height="127"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="127" id="sWW-4z-wDf"/>
+                                            <constraint firstAttribute="width" constant="132" id="tSm-ha-LoJ"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="DN-1003" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nL0-3e-FB1">
+                                        <rect key="frame" x="45.666666666666657" y="132" width="52.666666666666657" height="14.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                        <color key="textColor" red="0.54225295780000005" green="0.54229730369999996" blue="0.55687576530000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maryam_Mansour" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XTY-Cf-4dW">
+                                        <rect key="frame" x="0.0" y="151.33333333333331" width="144" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="8jH-6g-kjV">
+                                        <rect key="frame" x="23" y="176.66666666666669" width="98" height="22"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Silver Donor" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="323-AT-1OX">
+                                                <rect key="frame" x="0.0" y="0.0" width="71" height="22"/>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                <color key="textColor" red="0.2078688145" green="0.2168183625" blue="0.27673393489999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="nHr-sy-BFQ">
+                                                <rect key="frame" x="76" y="0.66666666666666607" width="22" height="20.666666666666671"/>
+                                                <color key="tintColor" systemColor="systemGray2Color"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="22" id="40j-Lz-jTo"/>
+                                                    <constraint firstAttribute="width" constant="22" id="i52-gf-tu9"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="w9F-HM-HTj">
+                                <rect key="frame" x="31" y="455" width="330" height="102"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6qZ-zb-0a4" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="102" height="102"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="14q-nT-yJR"/>
+                                            <constraint firstAttribute="height" constant="102" id="nFg-AY-ThH"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IaQ-w9-4CT" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="114" y="0.0" width="102" height="102"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="kGF-vb-axE"/>
+                                            <constraint firstAttribute="height" constant="102" id="zne-6V-VTf"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2dJ-7l-Q5D" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="228" y="0.0" width="102" height="102"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="102" id="Jh5-tv-hHg"/>
+                                            <constraint firstAttribute="height" constant="102" id="oGQ-9O-jHe"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="JRM-fS-IcM">
+                                <rect key="frame" x="27" y="580" width="338" height="65"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jp9-6L-Pxr" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="65"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="3qx-rq-3Q0"/>
+                                            <constraint firstAttribute="height" constant="65" id="HLB-z0-kNc"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTr-Jy-HwF" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
+                                        <rect key="frame" x="178" y="0.0" width="160" height="65"/>
+                                        <color key="backgroundColor" systemColor="systemGreenColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="160" id="1Xx-WF-Ugy"/>
+                                            <constraint firstAttribute="height" constant="65" id="sEU-Yy-ahi"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="Bzs-lE-LQ6"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="w9F-HM-HTj" firstAttribute="leading" secondItem="Bzs-lE-LQ6" secondAttribute="leading" constant="31" id="2hT-pb-jbP"/>
+                            <constraint firstItem="Bzs-lE-LQ6" firstAttribute="trailing" secondItem="JRM-fS-IcM" secondAttribute="trailing" constant="28" id="54U-s3-CFi"/>
+                            <constraint firstItem="Tf8-87-gBY" firstAttribute="leading" secondItem="Bzs-lE-LQ6" secondAttribute="leading" constant="124" id="9Xa-Wc-KOL"/>
+                            <constraint firstItem="w9F-HM-HTj" firstAttribute="top" secondItem="Tf8-87-gBY" secondAttribute="bottom" constant="14.33" id="HIe-8k-vvZ"/>
+                            <constraint firstItem="Bzs-lE-LQ6" firstAttribute="trailing" secondItem="w9F-HM-HTj" secondAttribute="trailing" constant="32" id="Mhk-kq-bSG"/>
+                            <constraint firstItem="JRM-fS-IcM" firstAttribute="top" secondItem="w9F-HM-HTj" secondAttribute="bottom" constant="23" id="UPQ-GH-pDc"/>
+                            <constraint firstItem="Bzs-lE-LQ6" firstAttribute="trailing" secondItem="Tf8-87-gBY" secondAttribute="trailing" constant="125" id="bSb-JW-rWv"/>
+                            <constraint firstItem="Tf8-87-gBY" firstAttribute="top" secondItem="Bzs-lE-LQ6" secondAttribute="top" constant="80" id="evd-nQ-LX3"/>
+                            <constraint firstItem="JRM-fS-IcM" firstAttribute="leading" secondItem="Bzs-lE-LQ6" secondAttribute="leading" constant="27" id="pZ8-Xu-3us"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UwA-bJ-SGU"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PqO-fO-4C6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5" y="744"/>
+            <point key="canvasLocation" x="1000.763358778626" y="700.70422535211276"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="sii-wq-tD0">
@@ -772,6 +886,12 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

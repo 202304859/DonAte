@@ -49,6 +49,17 @@ class AccordionView: UIView {
             contentHeightConstraint.constant = 0
             contentView.clipsToBounds = true
         }
+    
+      @IBAction func toggleAccordion() {
+            isExpanded.toggle()
+            contentHeightConstraint.constant = isExpanded ? 120 : 0
+
+            UIView.animate(withDuration: 0.3) {
+                self.chevronImageView.transform =
+                    self.isExpanded ? CGAffineTransform(rotationAngle: .pi) : .identity
+                self.layoutIfNeeded()
+            }
+        }
 
     
 
