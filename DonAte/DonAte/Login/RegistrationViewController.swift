@@ -2,8 +2,9 @@
 //  RegistrationViewController.swift
 //  DonAte
 //
-//  ✅ UPDATED: Added support for organization data and verification image
-//  January 1, 2026
+//  ✅ FIXED: Complete organization data upload for collectors
+//  ✅ FIXED: Uses Cloudinary for verification images
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -298,43 +299,107 @@ class RegistrationViewController: UIViewController {
         FirebaseManager.shared.registerUser(email: email, password: password, fullName: fullName, userType: userType) { [weak self] result in
             guard let self = self else { return }
             
-            DispatchQueue.main.async {
-                self.showLoading(false)
+            switch result {
+            case .success(var profile):
+                // Update profile with additional data
+                profile.phoneNumber = self.phoneNumberTextField?.text
+                profile.location = self.locationTextField?.text
+                profile.dateOfBirth = self.datePicker.date
                 
-                switch result {
-                case .success(var profile):
-                    profile.phoneNumber = self.phoneNumberTextField?.text
-                    profile.location = self.locationTextField?.text
-                    profile.dateOfBirth = self.datePicker.date
-                    
-                    if self.userRole == "collector" {
-                        print("📋 Organization Data: \(self.organizationData)")
-                        if let verificationImage = self.verificationImage {
-                            print("🖼️ Verification image ready to upload")
-                            // TODO: Upload verification image to Firebase Storage
+                // Update user profile first
+                FirebaseManager.shared.updateUserProfile(profile) { updateResult in
+                    switch updateResult {
+                    case .success:
+                        print("✅ User profile updated")
+                        
+                        // If collector, save organization data
+                        if self.userRole == "collector" {
+                            self.saveCollectorData(uid: profile.uid)
+                        } else {
+                            self.completeRegistration()
                         }
-                        // TODO: Store organization data in Firestore
-                    }
-                    
-                    print("✅ User registered successfully as: \(userType)")
-                    
-                    FirebaseManager.shared.updateUserProfile(profile) { updateResult in
-                        switch updateResult {
-                        case .success:
-                            self.showAlert(title: "Success", message: "Registration successful!") {
-                                self.performSegue(withIdentifier: "showProfile", sender: nil)
-                            }
-                        case .failure(let error):
-                            self.showAlert(title: "Warning", message: "Account created but profile update failed: \(error.localizedDescription)") {
-                                self.performSegue(withIdentifier: "showProfile", sender: nil)
-                            }
+                        
+                    case .failure(let error):
+                        print("⚠️ Profile update failed: \(error.localizedDescription)")
+                        // Still try to save collector data if applicable
+                        if self.userRole == "collector" {
+                            self.saveCollectorData(uid: profile.uid)
+                        } else {
+                            self.completeRegistration()
                         }
                     }
-                    
-                case .failure(let error):
+                }
+                
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self.showLoading(false)
                     print("❌ Registration failed: \(error.localizedDescription)")
                     self.showAlert(title: "Registration Failed", message: error.localizedDescription)
                 }
+            }
+        }
+    }
+    
+    private func saveCollectorData(uid: String) {
+        print("📋 Saving collector data for UID: \(uid)")
+        
+        // First, upload verification image if present
+        if let verificationImage = verificationImage {
+            print("🖼️ Uploading verification document...")
+            FirebaseManager.shared.uploadVerificationDocument(uid: uid, image: verificationImage) { [weak self] result in
+                guard let self = self else { return }
+                
+                switch result {
+                case .success(let imageURL):
+                    print("✅ Verification document uploaded: \(imageURL)")
+                    self.organizationData["verificationDocumentURL"] = imageURL
+                    self.saveOrganizationDataToFirestore(uid: uid)
+                    
+                case .failure(let error):
+                    print("⚠️ Verification document upload failed: \(error.localizedDescription)")
+                    // Continue without verification document
+                    self.saveOrganizationDataToFirestore(uid: uid)
+                }
+            }
+        } else {
+            print("ℹ️ No verification document to upload")
+            saveOrganizationDataToFirestore(uid: uid)
+        }
+    }
+    
+    private func saveOrganizationDataToFirestore(uid: String) {
+        guard !organizationData.isEmpty else {
+            print("⚠️ No organization data to save")
+            completeRegistration()
+            return
+        }
+        
+        print("💾 Saving organization data to Firestore...")
+        FirebaseManager.shared.saveOrganizationData(uid: uid, organizationData: organizationData) { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success:
+                print("✅ Organization data saved successfully")
+                self.completeRegistration()
+                
+            case .failure(let error):
+                print("❌ Organization data save failed: \(error.localizedDescription)")
+                // Still complete registration
+                self.completeRegistration()
+            }
+        }
+    }
+    
+    private func completeRegistration() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.showLoading(false)
+            
+            print("✅ Registration complete!")
+            self.showAlert(title: "Success", message: "Registration successful!") {
+                // Navigate to Profile screen using segue
+                self.performSegue(withIdentifier: "showProfile", sender: nil)
             }
         }
     }

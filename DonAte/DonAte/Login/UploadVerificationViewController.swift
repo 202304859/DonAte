@@ -2,8 +2,8 @@
 //  UploadVerificationViewController.swift
 //  DonAte
 //
-//  ✅ UPDATED: Added scanner animation and green checkmark
-//  January 1, 2026
+//  ✅ FIXED: Loads RegistrationViewController from Login storyboard
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -35,6 +35,11 @@ class UploadVerificationViewController: UIViewController, UIImagePickerControlle
         setupUI()
         setupConstraints()
         setupScannerAnimation()
+        
+        print("✅ UploadVerificationViewController loaded")
+        if !organizationData.isEmpty {
+            print("📋 Organization data received: \(organizationData)")
+        }
     }
     
     // MARK: - Setup UI
@@ -263,18 +268,25 @@ class UploadVerificationViewController: UIViewController, UIImagePickerControlle
             return
         }
         
-        // Navigate to registration page
-        // Load RegistrationViewController from storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        print("✅ Verification complete - navigating to registration")
+        print("📋 Organization data to pass: \(organizationData)")
+        print("🖼️ Image to pass: \(selectedImage != nil ? "YES" : "NO")")
+        
+        // ✅ FIXED: Load RegistrationViewController from Login storyboard
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
         if let registrationVC = storyboard.instantiateViewController(withIdentifier: "RegistrationViewController") as? RegistrationViewController {
             registrationVC.userRole = "collector"
             registrationVC.organizationData = organizationData
             registrationVC.verificationImage = selectedImage
             navigationController?.pushViewController(registrationVC, animated: true)
-            print("✅ Navigating to RegistrationViewController")
+            print("✅ Successfully navigated to RegistrationViewController")
         } else {
-            print("❌ Could not load RegistrationViewController from storyboard")
-            showAlert(message: "Navigation error. Please try again.")
+            print("❌ Could not load RegistrationViewController from Login storyboard")
+            print("⚠️ Make sure:")
+            print("   1. Login.storyboard exists")
+            print("   2. RegistrationViewController has Storyboard ID: 'RegistrationViewController'")
+            print("   3. The view controller class is set to 'RegistrationViewController'")
+            showAlert(message: "Navigation error. Please contact support.")
         }
     }
     
@@ -289,9 +301,11 @@ class UploadVerificationViewController: UIViewController, UIImagePickerControlle
         if let editedImage = info[.editedImage] as? UIImage {
             selectedImage = editedImage
             documentImageView.image = editedImage
+            print("✅ Image selected (edited)")
         } else if let originalImage = info[.originalImage] as? UIImage {
             selectedImage = originalImage
             documentImageView.image = originalImage
+            print("✅ Image selected (original)")
         }
         
         documentImageView.contentMode = .scaleAspectFill

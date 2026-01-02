@@ -2,8 +2,8 @@
 //  CollectorDetailsViewController.swift
 //  DonAte
 //
-//  Created for Collector organization details
-//  January 1, 2026
+//  ✅ FIXED: Pure programmatic navigation to UploadVerificationViewController
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -46,6 +46,7 @@ class CollectorDetailsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
+        print("✅ CollectorDetailsViewController loaded")
     }
     
     // MARK: - Setup UI
@@ -144,15 +145,25 @@ class CollectorDetailsViewController: UIViewController {
     }
     
     private func setupCheckBox(_ button: UIButton, title: String, action: Selector) {
-        button.setImage(UIImage(systemName: "square"), for: .normal)
-        button.setImage(UIImage(systemName: "checkmark.square.fill"), for: .selected)
-        button.setTitle(" \(title)", for: .normal)
-        button.tintColor = darkGreen
-        button.setTitleColor(.darkGray, for: .normal)
+        // Create a container configuration
+        var config = UIButton.Configuration.plain()
+        config.title = title
+        config.baseForegroundColor = .darkGray
+        config.imagePadding = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        
+        button.configuration = config
         button.contentHorizontalAlignment = .left
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
         button.addTarget(self, action: action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Set images for normal and selected states
+        let normalImage = UIImage(systemName: "square")?.withTintColor(darkGreen, renderingMode: .alwaysOriginal)
+        let selectedImage = UIImage(systemName: "checkmark.square")?.withTintColor(darkGreen, renderingMode: .alwaysOriginal)
+        
+        button.setImage(normalImage, for: .normal)
+        button.setImage(selectedImage, for: .selected)
     }
     
     private func setupTextView(_ textView: UITextView) {
@@ -172,21 +183,22 @@ class CollectorDetailsViewController: UIViewController {
         button.backgroundColor = backgroundColor
         button.setTitleColor(textColor, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        button.layer.cornerRadius = 25
-        button.layer.borderWidth = backgroundColor == .white ? 1 : 0
+        button.layer.cornerRadius = 12
+        button.layer.borderWidth = backgroundColor == .white ? 2 : 0
         button.layer.borderColor = darkGreen.cgColor
         button.addTarget(self, action: action, for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    // MARK: - Setup Constraints
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            // Scroll View
             scrollView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: backButton.topAnchor, constant: -20),
             
+            // Content View
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -263,30 +275,45 @@ class CollectorDetailsViewController: UIViewController {
     
     // MARK: - Actions
     @objc private func charityTapped() {
-        charityCheckBox.isSelected.toggle()
-        if charityCheckBox.isSelected {
-            organizationTypes.insert("Charity")
-        } else {
-            organizationTypes.remove("Charity")
-        }
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        charityCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Charity")
     }
     
     @objc private func communityServiceTapped() {
-        communityServiceCheckBox.isSelected.toggle()
-        if communityServiceCheckBox.isSelected {
-            organizationTypes.insert("Community Service")
-        } else {
-            organizationTypes.remove("Community Service")
-        }
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        communityServiceCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Community Service")
     }
     
     @objc private func environmentalProtectionTapped() {
-        environmentalProtectionCheckBox.isSelected.toggle()
-        if environmentalProtectionCheckBox.isSelected {
-            organizationTypes.insert("Environmental Protection")
-        } else {
-            organizationTypes.remove("Environmental Protection")
-        }
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        environmentalProtectionCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Environmental Protection")
     }
     
     @objc private func backTapped() {
@@ -301,7 +328,7 @@ class CollectorDetailsViewController: UIViewController {
         }
         
         guard !organizationTypes.isEmpty else {
-            showAlert(message: "Please select at least one organization type")
+            showAlert(message: "Please select one organization type")
             return
         }
         
@@ -324,17 +351,16 @@ class CollectorDetailsViewController: UIViewController {
             "contactPerson": contactPerson
         ]
         
-        // Navigate to upload verification page
-        // Load UploadVerificationViewController from storyboard
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let uploadVC = storyboard.instantiateViewController(withIdentifier: "UploadVerificationViewController") as? UploadVerificationViewController {
-            uploadVC.organizationData = organizationData
-            navigationController?.pushViewController(uploadVC, animated: true)
-            print("✅ Navigating to UploadVerificationViewController")
-        } else {
-            print("❌ Could not load UploadVerificationViewController from storyboard")
-            showAlert(message: "Navigation error. Please try again.")
-        }
+        print("✅ Organization data validated:")
+        print("   - Name: \(orgName)")
+        print("   - Types: \(Array(organizationTypes))")
+        print("   - Contact: \(contactPerson)")
+        
+        // ✅ FIXED: Create UploadVerificationViewController programmatically
+        let uploadVC = UploadVerificationViewController()
+        uploadVC.organizationData = organizationData
+        navigationController?.pushViewController(uploadVC, animated: true)
+        print("✅ Navigating to UploadVerificationViewController")
     }
     
     private func showAlert(message: String) {

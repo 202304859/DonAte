@@ -2,8 +2,9 @@
 //  ProfileViewController.swift
 //  DonAte
 //
-//  ✅ FIXED: Proper data passing + Image upload error handling + Logo added
-//  Created by Claude on 31/12/2025.
+//  ✅ WORKING: Correctly loads EditProfileViewController from Login.storyboard
+//  ✅ UPDATED: Added Organization Details + Replaced Settings with Donation History
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -95,16 +96,26 @@ class ProfileViewController: UIViewController {
     }
     
     private func setupMenuItems() {
-        let section1 = [
+        // ✅ SECTION 1: Profile Management - Added Organization Details for collectors
+        var section1 = [
             ProfileMenuItem(icon: "person.fill", title: "Edit Profile", subtitle: "Update your personal information", action: .editProfile),
             ProfileMenuItem(icon: "chart.bar.fill", title: "Impact Summary", subtitle: "View your donation statistics", action: .impactSummary),
             ProfileMenuItem(icon: "lock.fill", title: "Change Password", subtitle: "Update your password", action: .changePassword)
         ]
         
+        // Add Organization Details only for collectors
+        if userProfile?.userType == .collector {
+            section1.insert(
+                ProfileMenuItem(icon: "building.2.fill", title: "Organization Details", subtitle: "View your organization information", action: .organizationDetails),
+                at: 1
+            )
+        }
+        
+        // ✅ SECTION 2: Preferences - Replaced Settings with Donation History
         let section2 = [
-            ProfileMenuItem(icon: "message.fill", title: "Messages", subtitle: "View and manage your messages", action: .dietPreferences),
+            ProfileMenuItem(icon: "message.fill", title: "Messages", subtitle: "View and manage your messages", action: .messages),
             ProfileMenuItem(icon: "bell.fill", title: "Notifications", subtitle: "Manage notification settings", action: .notifications),
-            ProfileMenuItem(icon: "gearshape.fill", title: "Settings", subtitle: "App settings and preferences", action: .settings)
+            ProfileMenuItem(icon: "clock.arrow.circlepath", title: "Donation History", subtitle: "View your past donations", action: .donationHistory)
         ]
         
         let section3 = [
@@ -134,6 +145,9 @@ class ProfileViewController: UIViewController {
                     print("✅ Profile loaded successfully")
                     self.userProfile = profile
                     self.updateUI(with: profile)
+                    // Refresh menu items to show/hide Organization Details
+                    self.setupMenuItems()
+                    self.tableView.reloadData()
                 case .failure(let error):
                     print("❌ Failed to load profile: \(error.localizedDescription)")
                     self.showAlert(title: "Error", message: "Failed to load profile: \(error.localizedDescription)")
@@ -191,26 +205,42 @@ class ProfileViewController: UIViewController {
     
     // MARK: - Actions
     @IBAction func editProfileButtonTapped(_ sender: UIButton) {
-        performSegue(withIdentifier: "showEditProfile", sender: nil)
+        navigateToEditProfile()
+    }
+    
+    // ✅ PROPER: Load EditProfileViewController from Login.storyboard
+    private func navigateToEditProfile() {
+        guard let profile = userProfile else {
+            showAlert(title: "Error", message: "Profile not loaded")
+            return
+        }
+        
+        print("🔄 Loading EditProfileViewController from Login.storyboard...")
+        
+        // Load from Login.storyboard (where it actually exists)
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        guard let editVC = storyboard.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController else {
+            print("❌ Failed to load EditProfileViewController")
+            showAlert(title: "Error", message: "Could not load edit profile screen")
+            return
+        }
+        
+        // Pass the profile data
+        editVC.userProfile = profile
+        
+        print("✅ Successfully loaded EditProfileViewController")
+        navigationController?.pushViewController(editVC, animated: true)
     }
     
     @objc private func profileImageTapped() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.allowsEditing = true
+        let alert = UIAlertController(title: "Profile Picture", message: "Choose an option", preferredStyle: .actionSheet)
         
-        let alert = UIAlertController(title: "Choose Profile Picture", message: nil, preferredStyle: .actionSheet)
-        
-        alert.addAction(UIAlertAction(title: "Camera", style: .default) { _ in
-            if UIImagePickerController.isSourceTypeAvailable(.camera) {
-                imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true)
-            }
+        alert.addAction(UIAlertAction(title: "Take Photo", style: .default) { [weak self] _ in
+            self?.openCamera()
         })
         
-        alert.addAction(UIAlertAction(title: "Photo Library", style: .default) { _ in
-            imagePickerController.sourceType = .photoLibrary
-            self.present(imagePickerController, animated: true)
+        alert.addAction(UIAlertAction(title: "Choose from Library", style: .default) { [weak self] _ in
+            self?.openPhotoLibrary()
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -218,24 +248,60 @@ class ProfileViewController: UIViewController {
         present(alert, animated: true)
     }
     
+    private func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.sourceType = .camera
+            picker.allowsEditing = true
+            present(picker, animated: true)
+        }
+    }
+    
+    private func openPhotoLibrary() {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        present(picker, animated: true)
+    }
+    
     private func handleMenuAction(_ action: ProfileMenuAction) {
         switch action {
         case .editProfile:
-            performSegue(withIdentifier: "showEditProfile", sender: nil)
+            navigateToEditProfile()
+            
         case .impactSummary:
-            performSegue(withIdentifier: "showImpactSummary", sender: nil)
+            let impactVC = ImpactSummaryViewController()
+            impactVC.userProfile = userProfile
+            navigationController?.pushViewController(impactVC, animated: true)
+            
         case .changePassword:
-            performSegue(withIdentifier: "showChangePassword", sender: nil)
-        case .dietPreferences:
-            performSegue(withIdentifier: "showDietPreferences", sender: nil)
+            let changePasswordVC = ChangePasswordViewController()
+            navigationController?.pushViewController(changePasswordVC, animated: true)
+            
+        case .organizationDetails:
+            let orgVC = OrganizationDetailsViewController()
+            orgVC.userProfile = userProfile
+            navigationController?.pushViewController(orgVC, animated: true)
+            
+        case .messages:
+            showComingSoon(feature: "Messages")
+            
         case .notifications:
-            performSegue(withIdentifier: "showNotifications", sender: nil)
-        case .settings:
-            performSegue(withIdentifier: "showSettings", sender: nil)
+            showComingSoon(feature: "Notifications")
+            
+        case .donationHistory:
+            let historyVC = DonationHistoryViewController()
+            navigationController?.pushViewController(historyVC, animated: true)
+            
         case .terms:
-            performSegue(withIdentifier: "showTerms", sender: nil)
+            let termsVC = TermsOfServiceViewController()
+            navigationController?.pushViewController(termsVC, animated: true)
+            
         case .help:
-            performSegue(withIdentifier: "showHelp", sender: nil)
+            showComingSoon(feature: "Help & Support")
+            
         case .logout:
             handleLogout()
         }
@@ -247,12 +313,10 @@ class ProfileViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         alert.addAction(UIAlertAction(title: "Logout", style: .destructive) { [weak self] _ in
             FirebaseManager.shared.logoutUser { error in
-                DispatchQueue.main.async {
-                    if let error = error {
-                        self?.showAlert(title: "Error", message: "Failed to logout: \(error.localizedDescription)")
-                    } else {
-                        self?.navigateToLogin()
-                    }
+                if let error = error {
+                    self?.showAlert(title: "Error", message: error.localizedDescription)
+                } else {
+                    self?.dismiss(animated: true)
                 }
             }
         })
@@ -260,55 +324,16 @@ class ProfileViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func navigateToLogin() {
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        if let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController") as? LoginViewController {
-            loginVC.modalPresentationStyle = .fullScreen
-            present(loginVC, animated: true)
-        }
+    private func showComingSoon(feature: String) {
+        let alert = UIAlertController(title: "Coming Soon", message: "\(feature) feature is coming soon!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     private func showAlert(title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
-    }
-    
-    // MARK: - Navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        func getViewController<T>(_ destination: UIViewController) -> T? {
-            if let navController = destination as? UINavigationController {
-                return navController.viewControllers.first as? T
-            }
-            return destination as? T
-        }
-        
-        guard let profile = userProfile else {
-            print("⚠️ Warning: userProfile is nil during segue")
-            return
-        }
-        
-        switch segue.identifier {
-        case "showEditProfile":
-            if let editVC: EditProfileViewController = getViewController(segue.destination) {
-                editVC.userProfile = profile
-                print("✅ Passed profile to EditProfile")
-            }
-        case "showImpactSummary":
-            if let impactVC: ImpactSummaryViewController = getViewController(segue.destination) {
-                impactVC.userProfile = profile
-                print("✅ Passed profile to ImpactSummary")
-            }
-        case "showChangePassword":
-            print("✅ Navigating to ChangePassword")
-        case "showDietPreferences":
-            if let dietVC: DietPreferencesViewController = getViewController(segue.destination) {
-                dietVC.userProfile = profile
-                print("✅ Passed profile to DietPreferences")
-            }
-        default:
-            break
-        }
     }
 }
 
@@ -336,7 +361,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70
+        return 76
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -431,9 +456,10 @@ enum ProfileMenuAction {
     case editProfile
     case impactSummary
     case changePassword
-    case dietPreferences
+    case organizationDetails  // ✅ NEW
+    case messages
     case notifications
-    case settings
+    case donationHistory      // ✅ REPLACES .settings
     case terms
     case help
     case logout

@@ -2,8 +2,8 @@
 //  OrganizationDetailsViewController.swift
 //  DonAte
 //
-//  View and edit organization details for collectors
-//  January 2, 2026
+//  Updated to match CollectorDetailsViewController style
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -16,31 +16,31 @@ class OrganizationDetailsViewController: UIViewController {
     private let contentView = UIView()
     
     private let organizationNameLabel = UILabel()
-    private let organizationNameField = UILabel()
+    private let organizationNameTextField = UITextField()
     
     private let organizationTypeLabel = UILabel()
-    private let organizationTypeField = UILabel()
+    private let charityCheckBox = UIButton(type: .system)
+    private let communityServiceCheckBox = UIButton(type: .system)
+    private let environmentalProtectionCheckBox = UIButton(type: .system)
     
     private let descriptionLabel = UILabel()
-    private let descriptionField = UILabel()
+    private let descriptionTextView = UITextView()
     
     private let contactPersonLabel = UILabel()
-    private let contactPersonField = UILabel()
+    private let contactPersonTextField = UITextField()
     
-    private let verificationStatusLabel = UILabel()
-    private let verificationBadge = UIView()
-    private let verificationStatusField = UILabel()
-    
-    private let editButton = UIButton(type: .system)
-    private let activityIndicator = UIActivityIndicatorView(style: .large)
-    
-    // MARK: - Data Properties
-    var userProfile: UserProfile?
-    private var organizationData: OrganizationData?
+    private let saveButton = UIButton(type: .system)
     
     // Colors
     private let greenColor = UIColor(red: 180/255, green: 231/255, blue: 180/255, alpha: 1.0)
     private let darkGreen = UIColor(red: 116/255, green: 187/255, blue: 109/255, alpha: 1.0)
+    
+    // MARK: - Data Properties
+    var userProfile: UserProfile?
+    private var organizationData: [String: Any]?
+    private var organizationTypes: Set<String> = []
+    
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -48,27 +48,14 @@ class OrganizationDetailsViewController: UIViewController {
         setupUI()
         setupConstraints()
         loadOrganizationData()
+        print("✅ OrganizationDetailsViewController loaded")
     }
     
     // MARK: - Setup UI
     private func setupUI() {
-        view.backgroundColor = .systemGroupedBackground
-        title = "Organization Details"
+        view.backgroundColor = .white
         
-        // Add green header
-        let headerView = UIView()
-        headerView.backgroundColor = greenColor
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(headerView)
-        
-        NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.topAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 100)
-        ])
-        
-        // Scroll view
+        // Setup scroll view
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
         
@@ -76,78 +63,113 @@ class OrganizationDetailsViewController: UIViewController {
         scrollView.addSubview(contentView)
         
         // Organization Name
-        setupField(label: organizationNameLabel, field: organizationNameField, title: "Organization Name")
+        setupLabel(organizationNameLabel, text: "Organization Name")
+        setupTextField(organizationNameTextField, placeholder: "Full name of the organization.")
         
         // Organization Type
-        setupField(label: organizationTypeLabel, field: organizationTypeField, title: "Organization Type")
+        setupLabel(organizationTypeLabel, text: "Organization Type")
+        setupCheckBox(charityCheckBox, title: "Charity", action: #selector(charityTapped))
+        setupCheckBox(communityServiceCheckBox, title: "Community Service", action: #selector(communityServiceTapped))
+        setupCheckBox(environmentalProtectionCheckBox, title: "Environmental Protection", action: #selector(environmentalProtectionTapped))
         
         // Description
-        setupField(label: descriptionLabel, field: descriptionField, title: "Description")
-        descriptionField.numberOfLines = 0
+        setupLabel(descriptionLabel, text: "Description")
+        setupTextView(descriptionTextView)
         
         // Contact Person
-        setupField(label: contactPersonLabel, field: contactPersonField, title: "Contact Person")
-        
-        // Verification Status
-        setupField(label: verificationStatusLabel, field: verificationStatusField, title: "Verification Status")
-        
-        // Verification Badge
-        verificationBadge.translatesAutoresizingMaskIntoConstraints = false
-        verificationBadge.layer.cornerRadius = 12
-        contentView.addSubview(verificationBadge)
-        
-        verificationStatusField.font = UIFont.systemFont(ofSize: 14, weight: .semibold)
-        verificationStatusField.textColor = .white
+        setupLabel(contactPersonLabel, text: "Contact Person")
+        setupTextField(contactPersonTextField, placeholder: "John Doe")
         
         // Add all to content view
-        [organizationNameLabel, organizationNameField,
-         organizationTypeLabel, organizationTypeField,
-         descriptionLabel, descriptionField,
-         contactPersonLabel, contactPersonField,
-         verificationStatusLabel, verificationBadge].forEach {
+        [organizationNameLabel, organizationNameTextField,
+         organizationTypeLabel, charityCheckBox, communityServiceCheckBox, environmentalProtectionCheckBox,
+         descriptionLabel, descriptionTextView,
+         contactPersonLabel, contactPersonTextField].forEach {
             contentView.addSubview($0)
         }
         
-        verificationBadge.addSubview(verificationStatusField)
-        
-        // Edit button
-        editButton.setTitle("Edit Organization Details", for: .normal)
-        editButton.backgroundColor = darkGreen
-        editButton.setTitleColor(.white, for: .normal)
-        editButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
-        editButton.layer.cornerRadius = 25
-        editButton.addTarget(self, action: #selector(editTapped), for: .touchUpInside)
-        editButton.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(editButton)
+        // Save Button
+        setupButton(saveButton, title: "Save", backgroundColor: darkGreen, textColor: .white, action: #selector(saveTapped))
+        view.addSubview(saveButton)
         
         // Activity indicator
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(activityIndicator)
         
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        // Add keyboard observers
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func setupField(label: UILabel, field: UILabel, title: String) {
-        label.text = title
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = .gray
+    private func setupLabel(_ label: UILabel, text: String) {
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupTextField(_ textField: UITextField, placeholder: String) {
+        textField.placeholder = placeholder
+        textField.borderStyle = .roundedRect
+        textField.layer.cornerRadius = 8
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = UIColor.lightGray.cgColor
+        textField.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupCheckBox(_ button: UIButton, title: String, action: Selector) {
+        // Create a container configuration
+        var config = UIButton.Configuration.plain()
+        config.title = title
+        config.baseForegroundColor = .darkGray
+        config.imagePadding = 8
+        config.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         
-        field.font = UIFont.systemFont(ofSize: 16)
-        field.textColor = .black
-        field.translatesAutoresizingMaskIntoConstraints = false
+        button.configuration = config
+        button.contentHorizontalAlignment = .left
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Set images for normal and selected states
+        let normalImage = UIImage(systemName: "square")?.withTintColor(darkGreen, renderingMode: .alwaysOriginal)
+        let selectedImage = UIImage(systemName: "checkmark.square")?.withTintColor(darkGreen, renderingMode: .alwaysOriginal)
+        
+        button.setImage(normalImage, for: .normal)
+        button.setImage(selectedImage, for: .selected)
+    }
+    
+    private func setupTextView(_ textView: UITextView) {
+        textView.layer.cornerRadius = 8
+        textView.layer.borderWidth = 1
+        textView.layer.borderColor = UIColor.lightGray.cgColor
+        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        textView.text = "A short description of the organization's mission and purpose."
+        textView.textColor = .lightGray
+        textView.delegate = self
+        textView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func setupButton(_ button: UIButton, title: String, backgroundColor: UIColor, textColor: UIColor, action: Selector) {
+        button.setTitle(title, for: .normal)
+        button.backgroundColor = backgroundColor
+        button.setTitleColor(textColor, for: .normal)
+        button.layer.cornerRadius = 25
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        button.addTarget(self, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            // Scroll View
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: editButton.topAnchor, constant: -20),
+            scrollView.bottomAnchor.constraint(equalTo: saveButton.topAnchor, constant: -20),
             
+            // Content View
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
@@ -159,153 +181,264 @@ class OrganizationDetailsViewController: UIViewController {
             organizationNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             organizationNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            organizationNameField.topAnchor.constraint(equalTo: organizationNameLabel.bottomAnchor, constant: 8),
-            organizationNameField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            organizationNameField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            organizationNameTextField.topAnchor.constraint(equalTo: organizationNameLabel.bottomAnchor, constant: 8),
+            organizationNameTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            organizationNameTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            organizationNameTextField.heightAnchor.constraint(equalToConstant: 50),
             
             // Organization Type
-            organizationTypeLabel.topAnchor.constraint(equalTo: organizationNameField.bottomAnchor, constant: 20),
+            organizationTypeLabel.topAnchor.constraint(equalTo: organizationNameTextField.bottomAnchor, constant: 20),
             organizationTypeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             organizationTypeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            organizationTypeField.topAnchor.constraint(equalTo: organizationTypeLabel.bottomAnchor, constant: 8),
-            organizationTypeField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            organizationTypeField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            charityCheckBox.topAnchor.constraint(equalTo: organizationTypeLabel.bottomAnchor, constant: 8),
+            charityCheckBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            charityCheckBox.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            charityCheckBox.heightAnchor.constraint(equalToConstant: 40),
+            
+            communityServiceCheckBox.topAnchor.constraint(equalTo: charityCheckBox.bottomAnchor, constant: 8),
+            communityServiceCheckBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            communityServiceCheckBox.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            communityServiceCheckBox.heightAnchor.constraint(equalToConstant: 40),
+            
+            environmentalProtectionCheckBox.topAnchor.constraint(equalTo: communityServiceCheckBox.bottomAnchor, constant: 8),
+            environmentalProtectionCheckBox.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            environmentalProtectionCheckBox.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            environmentalProtectionCheckBox.heightAnchor.constraint(equalToConstant: 40),
             
             // Description
-            descriptionLabel.topAnchor.constraint(equalTo: organizationTypeField.bottomAnchor, constant: 20),
+            descriptionLabel.topAnchor.constraint(equalTo: environmentalProtectionCheckBox.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            descriptionField.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
-            descriptionField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            descriptionField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            descriptionTextView.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 8),
+            descriptionTextView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            descriptionTextView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            descriptionTextView.heightAnchor.constraint(equalToConstant: 100),
             
             // Contact Person
-            contactPersonLabel.topAnchor.constraint(equalTo: descriptionField.bottomAnchor, constant: 20),
+            contactPersonLabel.topAnchor.constraint(equalTo: descriptionTextView.bottomAnchor, constant: 20),
             contactPersonLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
             contactPersonLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
             
-            contactPersonField.topAnchor.constraint(equalTo: contactPersonLabel.bottomAnchor, constant: 8),
-            contactPersonField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            contactPersonField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            contactPersonTextField.topAnchor.constraint(equalTo: contactPersonLabel.bottomAnchor, constant: 8),
+            contactPersonTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            contactPersonTextField.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            contactPersonTextField.heightAnchor.constraint(equalToConstant: 50),
+            contactPersonTextField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
             
-            // Verification Status
-            verificationStatusLabel.topAnchor.constraint(equalTo: contactPersonField.bottomAnchor, constant: 20),
-            verificationStatusLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            verificationStatusLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            // Save Button
+            saveButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            saveButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            saveButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            saveButton.heightAnchor.constraint(equalToConstant: 50),
             
-            verificationBadge.topAnchor.constraint(equalTo: verificationStatusLabel.bottomAnchor, constant: 8),
-            verificationBadge.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
-            verificationBadge.heightAnchor.constraint(equalToConstant: 32),
-            verificationBadge.widthAnchor.constraint(greaterThanOrEqualToConstant: 100),
-            verificationBadge.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40),
-            
-            verificationStatusField.centerYAnchor.constraint(equalTo: verificationBadge.centerYAnchor),
-            verificationStatusField.leadingAnchor.constraint(equalTo: verificationBadge.leadingAnchor, constant: 12),
-            verificationStatusField.trailingAnchor.constraint(equalTo: verificationBadge.trailingAnchor, constant: -12),
-            
-            // Edit button
-            editButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            editButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            editButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-            editButton.heightAnchor.constraint(equalToConstant: 50)
+            // Activity Indicator
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
     // MARK: - Data Loading
     private func loadOrganizationData() {
-        guard let uid = FirebaseManager.shared.currentUser?.uid else {
-            showAlert(message: "User not logged in")
-            return
-        }
+        guard let uid = FirebaseManager.shared.currentUser?.uid else { return }
         
         activityIndicator.startAnimating()
         
-        let db = Firestore.firestore()
-        db.collection("organizations").document(uid).getDocument { [weak self] snapshot, error in
+        FirebaseManager.shared.fetchOrganizationData(uid: uid) { [weak self] result in
             guard let self = self else { return }
             
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 
-                if let error = error {
-                    print("❌ Error loading organization: \(error.localizedDescription)")
-                    self.showNoOrganizationState()
-                    return
+                switch result {
+                case .success(let data):
+                    self.organizationData = data
+                    self.populateFields(with: data)
+                    print("✅ Organization data loaded")
+                case .failure(let error):
+                    print("❌ Failed to load data: \(error.localizedDescription)")
                 }
-                
-                guard let data = snapshot?.data() else {
-                    print("ℹ️ No organization data found")
-                    self.showNoOrganizationState()
-                    return
-                }
-                
-                self.organizationData = OrganizationData(data: data)
-                self.updateUI()
             }
         }
     }
     
-    private func updateUI() {
-        guard let org = organizationData else { return }
+    private func populateFields(with data: [String: Any]) {
+        if let name = data["name"] as? String {
+            organizationNameTextField.text = name
+        }
         
-        organizationNameField.text = org.name
-        organizationTypeField.text = org.types.joined(separator: ", ")
-        descriptionField.text = org.description
-        contactPersonField.text = org.contactPerson
+        if let types = data["types"] as? [String], let firstType = types.first {
+            organizationTypes = Set([firstType])
+            
+            // Deselect all first
+            charityCheckBox.isSelected = false
+            communityServiceCheckBox.isSelected = false
+            environmentalProtectionCheckBox.isSelected = false
+            
+            // Select only the first type
+            switch firstType {
+            case "Charity":
+                charityCheckBox.isSelected = true
+            case "Community Service":
+                communityServiceCheckBox.isSelected = true
+            case "Environmental Protection":
+                environmentalProtectionCheckBox.isSelected = true
+            default:
+                break
+            }
+        }
         
-        if org.isVerified {
-            verificationStatusField.text = "✓ Verified"
-            verificationBadge.backgroundColor = .systemGreen
-        } else {
-            verificationStatusField.text = "⏳ Pending Verification"
-            verificationBadge.backgroundColor = .systemOrange
+        if let description = data["description"] as? String, !description.isEmpty {
+            descriptionTextView.text = description
+            descriptionTextView.textColor = .black
+        }
+        
+        if let contactPerson = data["contactPerson"] as? String {
+            contactPersonTextField.text = contactPerson
         }
     }
     
-    private func showNoOrganizationState() {
-        organizationNameField.text = "Not registered as organization"
-        organizationTypeField.text = "-"
-        descriptionField.text = "Please contact support to register your organization"
-        contactPersonField.text = "-"
-        verificationStatusField.text = "Not Verified"
-        verificationBadge.backgroundColor = .systemGray
-        editButton.isEnabled = false
-        editButton.alpha = 0.5
+    // MARK: - Keyboard Handling
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardHeight = keyboardFrame.height
+        
+        scrollView.contentInset.bottom = keyboardHeight
+        scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     
     // MARK: - Actions
-    @objc private func editTapped() {
-        let alert = UIAlertController(
-            title: "Edit Organization",
-            message: "To update your organization details, please contact support at support@donate-app.com",
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
+    @objc private func charityTapped() {
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        charityCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Charity")
+    }
+    
+    @objc private func communityServiceTapped() {
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        communityServiceCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Community Service")
+    }
+    
+    @objc private func environmentalProtectionTapped() {
+        // Deselect all checkboxes
+        charityCheckBox.isSelected = false
+        communityServiceCheckBox.isSelected = false
+        environmentalProtectionCheckBox.isSelected = false
+        
+        // Select only this one
+        environmentalProtectionCheckBox.isSelected = true
+        
+        // Clear and set the organization type
+        organizationTypes.removeAll()
+        organizationTypes.insert("Environmental Protection")
+    }
+    
+    @objc private func saveTapped() {
+        guard let name = organizationNameTextField.text, !name.isEmpty else {
+            showAlert(title: "Error", message: "Please enter organization name")
+            return
+        }
+        
+        guard !organizationTypes.isEmpty else {
+            showAlert(title: "Error", message: "Please select at least one organization type")
+            return
+        }
+        
+        let description = descriptionTextView.text ?? ""
+        if description.isEmpty || description == "A short description of the organization's mission and purpose." {
+            showAlert(title: "Error", message: "Please enter a description")
+            return
+        }
+        
+        guard let contactPerson = contactPersonTextField.text, !contactPerson.isEmpty else {
+            showAlert(title: "Error", message: "Please enter contact person name")
+            return
+        }
+        
+        saveData(name: name, types: Array(organizationTypes), description: description, contactPerson: contactPerson)
+    }
+    
+    private func saveData(name: String, types: [String], description: String, contactPerson: String) {
+        guard let uid = FirebaseManager.shared.currentUser?.uid else { return }
+        
+        activityIndicator.startAnimating()
+        saveButton.isEnabled = false
+        
+        var orgData = organizationData ?? [:]
+        orgData["name"] = name
+        orgData["types"] = types
+        orgData["description"] = description
+        orgData["contactPerson"] = contactPerson
+        orgData["updatedAt"] = Timestamp(date: Date())
+        
+        FirebaseManager.shared.saveOrganizationData(uid: uid, organizationData: orgData) { [weak self] result in
+            guard let self = self else { return }
+            
+            DispatchQueue.main.async {
+                self.activityIndicator.stopAnimating()
+                self.saveButton.isEnabled = true
+                
+                switch result {
+                case .success:
+                    self.showAlert(title: "Success", message: "Organization details saved successfully") {
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                case .failure(let error):
+                    self.showAlert(title: "Error", message: "Failed to save: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+            completion?()
+        })
         present(alert, animated: true)
     }
     
-    private func showAlert(message: String) {
-        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
-// MARK: - Organization Data Model
-struct OrganizationData {
-    let name: String
-    let types: [String]
-    let description: String
-    let contactPerson: String
-    let isVerified: Bool
+// MARK: - UITextViewDelegate
+extension OrganizationDetailsViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .lightGray {
+            textView.text = nil
+            textView.textColor = .black
+        }
+    }
     
-    init(data: [String: Any]) {
-        self.name = data["name"] as? String ?? "Unknown"
-        self.types = data["types"] as? [String] ?? []
-        self.description = data["description"] as? String ?? ""
-        self.contactPerson = data["contactPerson"] as? String ?? "Unknown"
-        self.isVerified = data["isVerified"] as? Bool ?? false
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "A short description of the organization's mission and purpose."
+            textView.textColor = .lightGray
+        }
     }
 }

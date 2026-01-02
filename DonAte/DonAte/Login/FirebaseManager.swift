@@ -2,8 +2,9 @@
 //  FirebaseManager.swift
 //  DonAte
 //
-//  ✅ COMPLETE: All methods included, proper UserProfile creation
-//  Created by Claude on 01/01/2026.
+//  ✅ COMPLETE: Added organization data methods
+//  ✅ FIXED: All upload methods use Cloudinary
+//  Updated: January 2, 2026
 //
 
 import Foundation
@@ -234,6 +235,77 @@ class FirebaseManager {
                 completion(.failure(error))
             } else {
                 completion(.success(()))
+            }
+        }
+    }
+    
+    // MARK: - Organization Management (For Collectors)
+    
+    /// Save organization data to Firestore
+    func saveOrganizationData(uid: String, organizationData: [String: Any], completion: @escaping (Result<Void, Error>) -> Void) {
+        var data = organizationData
+        data["uid"] = uid
+        data["createdAt"] = FieldValue.serverTimestamp()
+        data["updatedAt"] = FieldValue.serverTimestamp()
+        data["isVerified"] = false // Default to not verified
+        
+        db.collection("organizations").document(uid).setData(data, merge: true) { error in
+            if let error = error {
+                print("❌ Error saving organization data: \(error.localizedDescription)")
+                completion(.failure(error))
+            } else {
+                print("✅ Organization data saved successfully")
+                completion(.success(()))
+            }
+        }
+    }
+    
+    /// Fetch organization data from Firestore
+    func fetchOrganizationData(uid: String, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+        db.collection("organizations").document(uid).getDocument { snapshot, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            guard let data = snapshot?.data() else {
+                let error = NSError(domain: "FirebaseManager", code: -1, userInfo: [
+                    NSLocalizedDescriptionKey: "No organization data found"
+                ])
+                completion(.failure(error))
+                return
+            }
+            
+            completion(.success(data))
+        }
+    }
+    
+    /// Upload organization verification document using Cloudinary
+    func uploadVerificationDocument(uid: String, image: UIImage, completion: @escaping (Result<String, Error>) -> Void) {
+        print("📤 Uploading verification document via Cloudinary...")
+        
+        CloudinaryManager.shared.uploadProfileImage(image: image, userId: "\(uid)_verification") { [weak self] result in
+            switch result {
+            case .success(let imageURL):
+                print("✅ Verification document uploaded: \(imageURL)")
+                
+                // Save URL to organization document
+                self?.db.collection("organizations").document(uid).updateData([
+                    "verificationDocumentURL": imageURL,
+                    "verificationUploadedAt": FieldValue.serverTimestamp()
+                ]) { error in
+                    if let error = error {
+                        print("⚠️ Document uploaded but Firestore update failed: \(error.localizedDescription)")
+                        completion(.success(imageURL)) // Still return success
+                    } else {
+                        print("✅ Verification document URL saved to Firestore")
+                        completion(.success(imageURL))
+                    }
+                }
+                
+            case .failure(let error):
+                print("❌ Verification document upload failed: \(error.localizedDescription)")
+                completion(.failure(error))
             }
         }
     }

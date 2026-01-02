@@ -2,11 +2,9 @@
 //  EditProfileViewController.swift
 //  DonAte
 //
-//  ✅ UPDATED: Added green header + logo (matching ProfileViewController)
-//  ✅ UPDATED: Added support for selecting photos from Mac Desktop via iCloud Drive
-//  ✅ UPDATED: Using PHPickerViewController for better privacy
-//  ✅ UPDATED: Added UIDocumentPickerViewController for file access
-//  Created by Claude on 31/12/2025.
+//  ✅ FIXED: Proper dismissal - returns to ProfileViewController, not login
+//  ✅ FIXED: Handles navigation correctly
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -37,6 +35,11 @@ class EditProfileViewController: UIViewController {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("✅ EditProfileViewController loaded")
+        print("📍 Navigation: \(navigationController != nil ? "Has Nav Controller" : "No Nav Controller")")
+        print("📍 Presented: \(isBeingPresented ? "YES" : "NO")")
+        
         addGreenHeader()
         addLogoToHeader()
         setupUI()
@@ -195,14 +198,12 @@ class EditProfileViewController: UIViewController {
             if let error = error {
                 print("❌ Image load error: \(error.localizedDescription)")
                 DispatchQueue.main.async {
-                    // Use default image on error - don't show error to user
                     self.profileImageView.image = UIImage(systemName: "person.circle.fill")
                     self.profileImageView.tintColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
                 }
                 return
             }
             
-            // Check HTTP response
             if let httpResponse = response as? HTTPURLResponse {
                 print("📡 HTTP Response: \(httpResponse.statusCode)")
                 if httpResponse.statusCode != 200 {
@@ -237,69 +238,34 @@ class EditProfileViewController: UIViewController {
     }
     
     @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        dismiss(animated: true)
+        dismissProperly()
     }
     
     @objc private func profileImageTapped() {
         let alert = UIAlertController(title: "Change Profile Picture", message: "Choose a photo source", preferredStyle: .actionSheet)
         
-        // Camera option
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             alert.addAction(UIAlertAction(title: "📷 Camera", style: .default) { [weak self] _ in
                 self?.openCamera()
             })
         }
         
-        // Photo Library option (using PHPicker for better privacy)
         alert.addAction(UIAlertAction(title: "🖼️ Photo Library", style: .default) { [weak self] _ in
             self?.openPhotoLibrary()
         })
         
-        // Files option (for iCloud Drive, Desktop, etc.)
         alert.addAction(UIAlertAction(title: "📁 Files (Desktop, iCloud)", style: .default) { [weak self] _ in
             self?.openFilePicker()
         })
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
-        // For iPad
         if let popoverController = alert.popoverPresentationController {
             popoverController.sourceView = profileImageView
             popoverController.sourceRect = profileImageView.bounds
         }
         
         present(alert, animated: true)
-    }
-    
-    // MARK: - Image Selection Methods
-    
-    /// Open camera using UIImagePickerController
-    private func openCamera() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        imagePickerController.sourceType = .camera
-        imagePickerController.allowsEditing = true
-        present(imagePickerController, animated: true)
-    }
-    
-    /// Open photo library using PHPickerViewController (iOS 14+)
-    private func openPhotoLibrary() {
-        var configuration = PHPickerConfiguration()
-        configuration.selectionLimit = 1
-        configuration.filter = .images
-        
-        let picker = PHPickerViewController(configuration: configuration)
-        picker.delegate = self
-        present(picker, animated: true)
-    }
-    
-    /// Open file picker for iCloud Drive, Desktop, etc.
-    private func openFilePicker() {
-        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
-        documentPicker.delegate = self
-        documentPicker.allowsMultipleSelection = false
-        documentPicker.shouldShowFileExtensions = true
-        present(documentPicker, animated: true)
     }
     
     @objc private func datePickerDone() {
@@ -326,26 +292,69 @@ class EditProfileViewController: UIViewController {
         scrollView.scrollIndicatorInsets = .zero
     }
     
+    // MARK: - ✅ FIXED: Proper Dismissal
+    private func dismissProperly() {
+        print("📍 Dismissing EditProfileViewController...")
+        print("📍 Has Navigation Controller: \(navigationController != nil)")
+        print("📍 Presenting VC: \(presentingViewController != nil)")
+        
+        // If we're in a navigation controller, pop back
+        if let navController = navigationController {
+            print("✅ Popping from navigation controller")
+            navController.popViewController(animated: true)
+        }
+        // Otherwise, dismiss modally
+        else {
+            print("✅ Dismissing modally")
+            dismiss(animated: true)
+        }
+    }
+    
+    // MARK: - Image Selection Methods
+    private func openCamera() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        imagePickerController.sourceType = .camera
+        imagePickerController.allowsEditing = true
+        present(imagePickerController, animated: true)
+    }
+    
+    private func openPhotoLibrary() {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 1
+        configuration.filter = .images
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        present(picker, animated: true)
+    }
+    
+    private func openFilePicker() {
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.image])
+        documentPicker.delegate = self
+        documentPicker.allowsMultipleSelection = false
+        present(documentPicker, animated: true)
+    }
+    
     // MARK: - Save Profile
     private func saveProfile() {
-        guard var profile = userProfile else { return }
+        guard var profile = userProfile else {
+            showAlert(title: "Error", message: "No profile data available")
+            return
+        }
         
-        // Validate fields
         guard let fullName = fullNameTextField.text, !fullName.isEmpty else {
             showAlert(title: "Error", message: "Please enter your full name")
             return
         }
         
-        // Update profile
         profile.fullName = fullName
         profile.phoneNumber = phoneNumberTextField.text
         profile.location = locationTextField.text
         profile.dateOfBirth = datePicker.date
         
-        // Show loading
         showLoading(true)
         
-        // Save to Firebase
         FirebaseManager.shared.updateUserProfile(profile) { [weak self] result in
             guard let self = self else { return }
             
@@ -355,7 +364,8 @@ class EditProfileViewController: UIViewController {
                 switch result {
                 case .success:
                     self.showAlert(title: "Success", message: "Profile updated successfully") {
-                        self.dismiss(animated: true)
+                        // ✅ FIXED: Use proper dismissal method
+                        self.dismissProperly()
                     }
                 case .failure(let error):
                     self.showAlert(title: "Error", message: "Failed to update profile: \(error.localizedDescription)")
@@ -374,7 +384,6 @@ class EditProfileViewController: UIViewController {
         
         print("📤 Starting image upload for UID: \(uid)")
         
-        // Show loading
         let loadingAlert = UIAlertController(title: nil, message: "Uploading image...", preferredStyle: .alert)
         let loadingIndicator = UIActivityIndicatorView(frame: CGRect(x: 10, y: 5, width: 50, height: 50))
         loadingIndicator.hidesWhenStopped = true
@@ -383,7 +392,6 @@ class EditProfileViewController: UIViewController {
         loadingAlert.view.addSubview(loadingIndicator)
         present(loadingAlert, animated: true)
         
-        // Upload image
         FirebaseManager.shared.uploadProfileImage(uid: uid, imageData: imageData) { [weak self] result in
             DispatchQueue.main.async {
                 loadingAlert.dismiss(animated: true) {
@@ -393,10 +401,8 @@ class EditProfileViewController: UIViewController {
                     case .success(let imageURL):
                         print("✅ Image uploaded successfully: \(imageURL)")
                         
-                        // Update UI immediately
                         self.profileImageView.image = image
                         
-                        // Update local profile
                         if var profile = self.userProfile {
                             profile.profileImageURL = imageURL
                             self.userProfile = profile
@@ -450,6 +456,8 @@ extension EditProfileViewController: UITextFieldDelegate {
             locationTextField.becomeFirstResponder()
         case locationTextField:
             dateOfBirthTextField.becomeFirstResponder()
+        case dateOfBirthTextField:
+            textField.resignFirstResponder()
         default:
             textField.resignFirstResponder()
         }
@@ -457,16 +465,16 @@ extension EditProfileViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - UIImagePickerControllerDelegate (for Camera)
+// MARK: - UIImagePickerControllerDelegate
 extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true)
         
-        guard let image = info[.editedImage] as? UIImage ?? info[.originalImage] as? UIImage else {
-            return
+        if let editedImage = info[.editedImage] as? UIImage {
+            uploadProfileImage(editedImage)
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            uploadProfileImage(originalImage)
         }
-        
-        uploadProfileImage(image)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -474,77 +482,37 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     }
 }
 
-// MARK: - PHPickerViewControllerDelegate (for Photo Library)
+// MARK: - PHPickerViewControllerDelegate
 extension EditProfileViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
-        guard let result = results.first else {
-            print("ℹ️ No image selected from photo library")
-            return
-        }
+        guard let provider = results.first?.itemProvider else { return }
         
-        // Load the image
-        result.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
-            if let error = error {
-                print("❌ Error loading image: \(error.localizedDescription)")
-                DispatchQueue.main.async {
-                    self?.showAlert(title: "Error", message: "Failed to load image: \(error.localizedDescription)")
-                }
-                return
-            }
-            
-            if let image = object as? UIImage {
-                print("✅ Image loaded from photo library")
-                DispatchQueue.main.async {
-                    self?.uploadProfileImage(image)
-                }
-            } else {
-                print("❌ Could not convert to UIImage")
-                DispatchQueue.main.async {
-                    self?.showAlert(title: "Error", message: "Failed to process the selected image")
+        if provider.canLoadObject(ofClass: UIImage.self) {
+            provider.loadObject(ofClass: UIImage.self) { [weak self] image, error in
+                if let image = image as? UIImage {
+                    DispatchQueue.main.async {
+                        self?.uploadProfileImage(image)
+                    }
                 }
             }
         }
     }
 }
 
-// MARK: - UIDocumentPickerDelegate (for Files/iCloud Drive/Desktop)
+// MARK: - UIDocumentPickerDelegate
 extension EditProfileViewController: UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let url = urls.first else {
-            print("ℹ️ No file selected")
-            return
-        }
+        guard let url = urls.first else { return }
         
-        print("📁 File selected: \(url.lastPathComponent)")
-        
-        // Start accessing security-scoped resource
-        guard url.startAccessingSecurityScopedResource() else {
-            print("❌ Could not access file")
-            showAlert(title: "Error", message: "Could not access the selected file")
-            return
+        if url.startAccessingSecurityScopedResource() {
+            defer { url.stopAccessingSecurityScopedResource() }
+            
+            if let imageData = try? Data(contentsOf: url),
+               let image = UIImage(data: imageData) {
+                uploadProfileImage(image)
+            }
         }
-        
-        defer {
-            url.stopAccessingSecurityScopedResource()
-        }
-        
-        // Load image from file URL
-        if let image = UIImage(contentsOfFile: url.path) {
-            print("✅ Image loaded from file: \(url.lastPathComponent)")
-            uploadProfileImage(image)
-        } else if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
-            print("✅ Image loaded from data: \(url.lastPathComponent)")
-            uploadProfileImage(image)
-        } else {
-            print("❌ Failed to load image from file")
-            showAlert(title: "Error", message: "Failed to load image from the selected file")
-        }
-    }
-    
-    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
-        print("ℹ️ File picker cancelled")
-        controller.dismiss(animated: true)
     }
 }

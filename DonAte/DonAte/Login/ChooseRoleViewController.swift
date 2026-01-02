@@ -2,8 +2,8 @@
 //  ChooseRoleViewController.swift
 //  DonAte
 //
-//  ✅ FIXED: Proper navigation to RegistrationViewController with role passing
-//  Updated: January 1, 2026
+//  ✅ FIXED: Pure programmatic navigation (no storyboard conflicts)
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -129,24 +129,34 @@ class ChooseRoleViewController: UIViewController {
     
     @IBAction func collectorButtonTapped(_ sender: UIButton) {
         selectedRole = "collector"
-        print("✅ Collector role selected")
+        print("✅ Collector role selected - starting collector flow")
         
         // Add visual feedback
         animateButtonTap(sender)
         
-        // Navigate programmatically for collector (multi-page flow)
-        navigateToCollectorFlow()
+        // ✅ Create CollectorDetailsViewController programmatically
+        let collectorDetailsVC = CollectorDetailsViewController()
+        navigationController?.pushViewController(collectorDetailsVC, animated: true)
     }
     
     @IBAction func donorButtonTapped(_ sender: UIButton) {
         selectedRole = "donor"
-        print("✅ Donor role selected")
+        print("✅ Donor role selected - navigating to registration")
         
         // Add visual feedback
         animateButtonTap(sender)
         
-        // The segue will fire automatically from storyboard for donor
-        // We pass the role in prepare(for segue:)
+        // ✅ Load RegistrationViewController from Login storyboard
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+        if let registrationVC = storyboard.instantiateViewController(withIdentifier: "RegistrationViewController") as? RegistrationViewController {
+            registrationVC.userRole = "donor"
+            navigationController?.pushViewController(registrationVC, animated: true)
+            print("✅ Navigating to RegistrationViewController as donor")
+        } else {
+            print("❌ Could not load RegistrationViewController from Login storyboard")
+            print("⚠️ Make sure RegistrationViewController has Storyboard ID: 'RegistrationViewController' in Login.storyboard")
+            showAlert(message: "Navigation error. Please contact support.")
+        }
     }
     
     @objc private func loginTapped() {
@@ -155,26 +165,12 @@ class ChooseRoleViewController: UIViewController {
         navigationController?.dismiss(animated: true)
     }
     
-    // MARK: - Navigation
+    // MARK: - Helper Methods
     
-    private func navigateToCollectorFlow() {
-        // Navigate to collector details page programmatically
-        let collectorDetailsVC = CollectorDetailsViewController()
-        navigationController?.pushViewController(collectorDetailsVC, animated: true)
-    }
-    
-    // ✅ FIXED: Actually pass the role to RegistrationViewController
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        print("🔄 Preparing for segue...")
-        
-        // Check if destination is RegistrationViewController (for donor flow)
-        if let registrationVC = segue.destination as? RegistrationViewController {
-            // ✅ Actually set the userRole property on the destination view controller
-            registrationVC.userRole = selectedRole ?? "donor"
-            print("📤 Passing role to Registration: \(registrationVC.userRole)")
-        } else {
-            print("⚠️ Segue destination is not RegistrationViewController: \(type(of: segue.destination))")
-        }
+    private func showAlert(message: String) {
+        let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     // MARK: - Animations

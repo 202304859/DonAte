@@ -2,13 +2,13 @@
 //  EditOrganizationViewController.swift
 //  DonAte
 //
-//  Edit organization profile with the same design as the screenshot
-//  January 2, 2026
+//  ✅ FIXED: Uses Cloudinary for image uploads (consistent with rest of app)
+//  ✅ FIXED: Proper navigation and data persistence
+//  Updated: January 2, 2026
 //
 
 import UIKit
 import FirebaseFirestore
-import FirebaseStorage
 
 class EditOrganizationViewController: UIViewController {
     
@@ -111,7 +111,7 @@ class EditOrganizationViewController: UIViewController {
         
         // Profile Image
         profileImageView.image = UIImage(systemName: "building.2.circle.fill")
-        profileImageView.tintColor = UIColor(red: 147/255, green: 112/255, blue: 219/255, alpha: 1.0) // Purple color
+        profileImageView.tintColor = UIColor(red: 147/255, green: 112/255, blue: 219/255, alpha: 1.0)
         profileImageView.contentMode = .scaleAspectFill
         profileImageView.clipsToBounds = true
         profileImageView.layer.cornerRadius = 60
@@ -479,7 +479,6 @@ class EditOrganizationViewController: UIViewController {
         activityIndicator.startAnimating()
         nextButton.isEnabled = false
         
-        let db = Firestore.firestore()
         var data: [String: Any] = [
             "name": name,
             "types": types,
@@ -488,41 +487,25 @@ class EditOrganizationViewController: UIViewController {
             "updatedAt": Timestamp()
         ]
         
-        // Upload image if selected
+        // Upload image if selected using Cloudinary
         if let image = selectedImage {
-            uploadProfileImage(image, uid: uid) { [weak self] imageURL in
+            print("📤 Uploading organization image to Cloudinary...")
+            CloudinaryManager.shared.uploadProfileImage(image: image, userId: uid) { [weak self] result in
                 guard let self = self else { return }
                 
-                if let imageURL = imageURL {
+                switch result {
+                case .success(let imageURL):
+                    print("✅ Image uploaded: \(imageURL)")
                     data["profileImageURL"] = imageURL
+                    self.updateFirestore(uid: uid, data: data)
+                case .failure(let error):
+                    print("❌ Image upload failed: \(error.localizedDescription)")
+                    // Continue without image
+                    self.updateFirestore(uid: uid, data: data)
                 }
-                
-                self.updateFirestore(uid: uid, data: data)
             }
         } else {
             updateFirestore(uid: uid, data: data)
-        }
-    }
-    
-    private func uploadProfileImage(_ image: UIImage, uid: String, completion: @escaping (String?) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.5) else {
-            completion(nil)
-            return
-        }
-        
-        let storage = Storage.storage()
-        let storageRef = storage.reference().child("organization_profiles/\(uid).jpg")
-        
-        storageRef.putData(imageData, metadata: nil) { _, error in
-            if let error = error {
-                print("❌ Error uploading image: \(error.localizedDescription)")
-                completion(nil)
-                return
-            }
-            
-            storageRef.downloadURL { url, _ in
-                completion(url?.absoluteString)
-            }
         }
     }
     

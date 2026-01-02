@@ -2,8 +2,9 @@
 //  ChangePasswordViewController.swift
 //  DonAte
 //
-//  ✅ UPDATED: Added green header + logo (matching ProfileViewController)
-//  Created by Claude on 30/12/2025.
+//  ✅ FIXED: Fully programmatic - no storyboard needed
+//  ✅ FIXED: Black screen issue resolved
+//  Updated: January 2, 2026
 //
 
 import UIKit
@@ -11,52 +12,70 @@ import FirebaseAuth
 
 class ChangePasswordViewController: UIViewController {
     
-    // MARK: - IBOutlets
-    @IBOutlet weak var currentPasswordTextField: UITextField!
-    @IBOutlet weak var newPasswordTextField: UITextField!
-    @IBOutlet weak var confirmPasswordTextField: UITextField!
-    @IBOutlet weak var changePasswordButton: UIButton!
-    @IBOutlet weak var cancelButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var passwordStrengthView: UIView!
-    @IBOutlet weak var passwordStrengthLabel: UILabel!
-    @IBOutlet weak var passwordRequirementsLabel: UILabel!
+    // MARK: - UI Properties (Programmatic)
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let logoImageView = UIImageView()
     
-    // MARK: - Properties
-    private let logoImageView = UIImageView() // ✅ Logo image view
+    private let currentPasswordLabel = UILabel()
+    private let currentPasswordTextField = UITextField()
+    private let currentPasswordToggle = UIButton(type: .system)
+    
+    private let newPasswordLabel = UILabel()
+    private let newPasswordTextField = UITextField()
+    private let newPasswordToggle = UIButton(type: .system)
+    
+    private let confirmPasswordLabel = UILabel()
+    private let confirmPasswordTextField = UITextField()
+    private let confirmPasswordToggle = UIButton(type: .system)
+    
+    private let passwordRequirementsLabel = UILabel()
+    private let passwordStrengthView = UIView()
+    private let passwordStrengthLabel = UILabel()
+    
+    private let changePasswordButton = UIButton(type: .system)
+    private let cancelButton = UIButton(type: .system)
+    private let activityIndicator = UIActivityIndicatorView(style: .large)
+    
+    // Colors
+    private let greenColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0)
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        addGreenHeader() // ✅ Add 150px green header
-        addLogoToHeader() // ✅ Add logo to top left
+        
+        print("✅ ChangePasswordViewController loaded")
+        
         setupUI()
+        setupConstraints()
         setupPasswordStrengthIndicator()
     }
     
-    // MARK: - ✅ Add Green Header
-    private func addGreenHeader() {
-        // Create 150px green header at the very top
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
-        headerView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 150)
-        headerView.tag = 999 // Tag to reference later
+    // MARK: - Setup UI
+    private func setupUI() {
+        // CRITICAL: Set white background to fix black screen
+        view.backgroundColor = .white
+        title = "Change Password"
         
-        // Add it behind everything
-        view.insertSubview(headerView, at: 0)
-    }
-    
-    // MARK: - ✅ Add Logo to Header
-    private func addLogoToHeader() {
-        // Configure logo image view
-        logoImageView.image = UIImage(named: "DonAte_Logo_Transparent") // Make sure to add this image to Assets.xcassets
+        // Add Green Header
+        let headerView = UIView()
+        headerView.backgroundColor = greenColor
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(headerView)
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 150)
+        ])
+        
+        // Add Logo
+        logoImageView.image = UIImage(named: "DonAte_Logo_Transparent")
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
-        
-        // Add to view
         view.addSubview(logoImageView)
         
-        // Position in top left corner with padding
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             logoImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -64,34 +83,38 @@ class ChangePasswordViewController: UIViewController {
             logoImageView.heightAnchor.constraint(equalToConstant: 60)
         ])
         
-        // Bring to front
-        view.bringSubviewToFront(logoImageView)
-    }
-    
-    // MARK: - Setup
-    private func setupUI() {
-        title = "Change Password"
+        // Scroll View
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.backgroundColor = .white
+        view.addSubview(scrollView)
         
-        // Configure text fields
-        configureTextField(currentPasswordTextField, placeholder: "Current Password", icon: "lock.fill", isSecure: true)
-        configureTextField(newPasswordTextField, placeholder: "New Password", icon: "lock.fill", isSecure: true)
-        configureTextField(confirmPasswordTextField, placeholder: "Confirm New Password", icon: "lock.fill", isSecure: true)
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.backgroundColor = .white
+        scrollView.addSubview(contentView)
         
-        // Add show/hide password buttons
-        addPasswordToggle(to: currentPasswordTextField)
-        addPasswordToggle(to: newPasswordTextField)
-        addPasswordToggle(to: confirmPasswordTextField)
+        // Current Password
+        setupLabel(currentPasswordLabel, text: "Current Password")
+        configureTextField(currentPasswordTextField, placeholder: "Enter current password", icon: "lock.fill", isSecure: true, toggleButton: currentPasswordToggle)
         
-        // Configure buttons
-        changePasswordButton.layer.cornerRadius = 25
-        changePasswordButton.backgroundColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0) // #B4E7B4
+        // New Password
+        setupLabel(newPasswordLabel, text: "New Password")
+        configureTextField(newPasswordTextField, placeholder: "Enter new password", icon: "lock.fill", isSecure: true, toggleButton: newPasswordToggle)
+        newPasswordTextField.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
         
-        cancelButton.layer.cornerRadius = 25
-        cancelButton.layer.borderWidth = 2
-        cancelButton.layer.borderColor = UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0).cgColor // #B4E7B4
-        cancelButton.setTitleColor(UIColor(red: 0.706, green: 0.906, blue: 0.706, alpha: 1.0), for: .normal) // #B4E7B4
+        // Confirm Password
+        setupLabel(confirmPasswordLabel, text: "Confirm New Password")
+        configureTextField(confirmPasswordTextField, placeholder: "Confirm new password", icon: "lock.fill", isSecure: true, toggleButton: confirmPasswordToggle)
         
-        // Password requirements
+        // Password Strength
+        passwordStrengthView.translatesAutoresizingMaskIntoConstraints = false
+        passwordStrengthView.layer.cornerRadius = 4
+        passwordStrengthView.backgroundColor = .lightGray
+        
+        passwordStrengthLabel.translatesAutoresizingMaskIntoConstraints = false
+        passwordStrengthLabel.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        passwordStrengthLabel.textAlignment = .center
+        
+        // Password Requirements
         passwordRequirementsLabel.text = """
         Password must contain:
         • At least 6 characters
@@ -100,11 +123,57 @@ class ChangePasswordViewController: UIViewController {
         """
         passwordRequirementsLabel.font = UIFont.systemFont(ofSize: 12)
         passwordRequirementsLabel.textColor = .gray
+        passwordRequirementsLabel.numberOfLines = 0
+        passwordRequirementsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        activityIndicator.isHidden = true
+        // Add to content view
+        [currentPasswordLabel, currentPasswordTextField, currentPasswordToggle,
+         newPasswordLabel, newPasswordTextField, newPasswordToggle,
+         confirmPasswordLabel, confirmPasswordTextField, confirmPasswordToggle,
+         passwordStrengthView, passwordStrengthLabel, passwordRequirementsLabel].forEach {
+            contentView.addSubview($0)
+        }
+        
+        // Change Password Button
+        changePasswordButton.setTitle("Change Password", for: .normal)
+        changePasswordButton.backgroundColor = greenColor
+        changePasswordButton.setTitleColor(.white, for: .normal)
+        changePasswordButton.layer.cornerRadius = 25
+        changePasswordButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        changePasswordButton.addTarget(self, action: #selector(changePasswordButtonTapped), for: .touchUpInside)
+        changePasswordButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(changePasswordButton)
+        
+        // Cancel Button
+        cancelButton.setTitle("Cancel", for: .normal)
+        cancelButton.backgroundColor = .white
+        cancelButton.setTitleColor(greenColor, for: .normal)
+        cancelButton.layer.cornerRadius = 25
+        cancelButton.layer.borderWidth = 2
+        cancelButton.layer.borderColor = greenColor.cgColor
+        cancelButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(cancelButton)
+        
+        // Activity Indicator
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.hidesWhenStopped = true
+        view.addSubview(activityIndicator)
+        
+        // Keyboard observers
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    private func configureTextField(_ textField: UITextField, placeholder: String, icon: String, isSecure: Bool = false) {
+    private func setupLabel(_ label: UILabel, text: String) {
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func configureTextField(_ textField: UITextField, placeholder: String, icon: String, isSecure: Bool, toggleButton: UIButton) {
         textField.placeholder = placeholder
         textField.borderStyle = .roundedRect
         textField.layer.cornerRadius = 8
@@ -112,37 +181,27 @@ class ChangePasswordViewController: UIViewController {
         textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.isSecureTextEntry = isSecure
         textField.delegate = self
+        textField.font = UIFont.systemFont(ofSize: 16)
+        textField.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add icon
+        // Add icon on left
         let iconView = UIImageView(image: UIImage(systemName: icon))
         iconView.tintColor = .gray
         iconView.contentMode = .scaleAspectFit
         iconView.frame = CGRect(x: 10, y: 0, width: 20, height: 20)
         
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
-        containerView.addSubview(iconView)
-        textField.leftView = containerView
+        let leftContainer = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 20))
+        leftContainer.addSubview(iconView)
+        textField.leftView = leftContainer
         textField.leftViewMode = .always
         
-        // Add text change observer for new password
-        if textField == newPasswordTextField {
-            textField.addTarget(self, action: #selector(passwordTextChanged), for: .editingChanged)
-        }
-    }
-    
-    private func addPasswordToggle(to textField: UITextField) {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "eye.slash"), for: .normal)
-        button.setImage(UIImage(systemName: "eye"), for: .selected)
-        button.tintColor = .gray
-        button.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-        button.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
-        
-        let containerView = UIView(frame: CGRect(x: 0, y: 0, width: 40, height: 30))
-        containerView.addSubview(button)
-        
-        textField.rightView = containerView
-        textField.rightViewMode = .always
+        // Setup toggle button
+        toggleButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
+        toggleButton.setImage(UIImage(systemName: "eye"), for: .selected)
+        toggleButton.tintColor = .gray
+        toggleButton.addTarget(self, action: #selector(togglePasswordVisibility(_:)), for: .touchUpInside)
+        toggleButton.translatesAutoresizingMaskIntoConstraints = false
+        toggleButton.tag = textField.tag
     }
     
     private func setupPasswordStrengthIndicator() {
@@ -151,26 +210,127 @@ class ChangePasswordViewController: UIViewController {
         passwordStrengthLabel.text = ""
     }
     
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            // Scroll View
+            scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 80),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: changePasswordButton.topAnchor, constant: -20),
+            
+            // Content View
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            
+            // Current Password
+            currentPasswordLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+            currentPasswordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            currentPasswordLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            currentPasswordTextField.topAnchor.constraint(equalTo: currentPasswordLabel.bottomAnchor, constant: 8),
+            currentPasswordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            currentPasswordTextField.trailingAnchor.constraint(equalTo: currentPasswordToggle.leadingAnchor, constant: -8),
+            currentPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            currentPasswordToggle.centerYAnchor.constraint(equalTo: currentPasswordTextField.centerYAnchor),
+            currentPasswordToggle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            currentPasswordToggle.widthAnchor.constraint(equalToConstant: 44),
+            currentPasswordToggle.heightAnchor.constraint(equalToConstant: 44),
+            
+            // New Password
+            newPasswordLabel.topAnchor.constraint(equalTo: currentPasswordTextField.bottomAnchor, constant: 20),
+            newPasswordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            newPasswordLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            newPasswordTextField.topAnchor.constraint(equalTo: newPasswordLabel.bottomAnchor, constant: 8),
+            newPasswordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            newPasswordTextField.trailingAnchor.constraint(equalTo: newPasswordToggle.leadingAnchor, constant: -8),
+            newPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            newPasswordToggle.centerYAnchor.constraint(equalTo: newPasswordTextField.centerYAnchor),
+            newPasswordToggle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            newPasswordToggle.widthAnchor.constraint(equalToConstant: 44),
+            newPasswordToggle.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Password Strength
+            passwordStrengthView.topAnchor.constraint(equalTo: newPasswordTextField.bottomAnchor, constant: 8),
+            passwordStrengthView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            passwordStrengthView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            passwordStrengthView.heightAnchor.constraint(equalToConstant: 8),
+            
+            passwordStrengthLabel.topAnchor.constraint(equalTo: passwordStrengthView.bottomAnchor, constant: 4),
+            passwordStrengthLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            passwordStrengthLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            // Confirm Password
+            confirmPasswordLabel.topAnchor.constraint(equalTo: passwordStrengthLabel.bottomAnchor, constant: 20),
+            confirmPasswordLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            confirmPasswordLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            
+            confirmPasswordTextField.topAnchor.constraint(equalTo: confirmPasswordLabel.bottomAnchor, constant: 8),
+            confirmPasswordTextField.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            confirmPasswordTextField.trailingAnchor.constraint(equalTo: confirmPasswordToggle.leadingAnchor, constant: -8),
+            confirmPasswordTextField.heightAnchor.constraint(equalToConstant: 50),
+            
+            confirmPasswordToggle.centerYAnchor.constraint(equalTo: confirmPasswordTextField.centerYAnchor),
+            confirmPasswordToggle.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            confirmPasswordToggle.widthAnchor.constraint(equalToConstant: 44),
+            confirmPasswordToggle.heightAnchor.constraint(equalToConstant: 44),
+            
+            // Password Requirements
+            passwordRequirementsLabel.topAnchor.constraint(equalTo: confirmPasswordTextField.bottomAnchor, constant: 16),
+            passwordRequirementsLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+            passwordRequirementsLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -20),
+            passwordRequirementsLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+            
+            // Change Password Button
+            changePasswordButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            changePasswordButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            changePasswordButton.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -12),
+            changePasswordButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            // Cancel Button
+            cancelButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            cancelButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            cancelButton.heightAnchor.constraint(equalToConstant: 50),
+            
+            // Activity Indicator
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
     // MARK: - Actions
-    @IBAction func changePasswordButtonTapped(_ sender: UIButton) {
-        changePassword()
-    }
-    
-    @IBAction func cancelButtonTapped(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
-    
     @objc private func togglePasswordVisibility(_ sender: UIButton) {
         sender.isSelected.toggle()
         
-        if let textField = sender.superview?.superview as? UITextField {
-            textField.isSecureTextEntry.toggle()
+        var textField: UITextField?
+        if sender == currentPasswordToggle {
+            textField = currentPasswordTextField
+        } else if sender == newPasswordToggle {
+            textField = newPasswordTextField
+        } else if sender == confirmPasswordToggle {
+            textField = confirmPasswordTextField
         }
+        
+        textField?.isSecureTextEntry.toggle()
     }
     
     @objc private func passwordTextChanged() {
         guard let password = newPasswordTextField.text else { return }
         updatePasswordStrength(password: password)
+    }
+    
+    @objc private func changePasswordButtonTapped() {
+        changePassword()
+    }
+    
+    @objc private func cancelButtonTapped() {
+        navigationController?.popViewController(animated: true)
     }
     
     // MARK: - Password Strength
@@ -271,7 +431,7 @@ class ChangePasswordViewController: UIViewController {
                         self.showAlert(title: "Error", message: "Failed to change password: \(error.localizedDescription)")
                     } else {
                         self.showAlert(title: "Success", message: "Password changed successfully") {
-                            self.dismiss(animated: true)
+                            self.navigationController?.popViewController(animated: true)
                         }
                     }
                 }
@@ -289,16 +449,28 @@ class ChangePasswordViewController: UIViewController {
     
     private func showLoading(_ show: Bool) {
         if show {
-            activityIndicator.isHidden = false
             activityIndicator.startAnimating()
             changePasswordButton.isEnabled = false
             changePasswordButton.alpha = 0.5
         } else {
             activityIndicator.stopAnimating()
-            activityIndicator.isHidden = true
             changePasswordButton.isEnabled = true
             changePasswordButton.alpha = 1.0
         }
+    }
+    
+    // MARK: - Keyboard Handling
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        let keyboardHeight = keyboardFrame.height
+        
+        scrollView.contentInset.bottom = keyboardHeight
+        scrollView.verticalScrollIndicatorInsets.bottom = keyboardHeight
+    }
+    
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        scrollView.contentInset.bottom = 0
+        scrollView.verticalScrollIndicatorInsets.bottom = 0
     }
     
     private func showAlert(title: String, message: String, completion: (() -> Void)? = nil) {
@@ -307,6 +479,10 @@ class ChangePasswordViewController: UIViewController {
             completion?()
         })
         present(alert, animated: true)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
