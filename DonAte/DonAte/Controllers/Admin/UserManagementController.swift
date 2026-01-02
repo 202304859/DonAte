@@ -9,11 +9,21 @@ import UIKit
 
 class UserManagementController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    enum UserManagementMode {
+        case all
+        case registrationApproval
+        case reports
+        case activity
+    }
+    
+
+    private var currentMode: UserManagementMode = .all
+    @IBOutlet weak var filter2: UIButton!
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet var filterButtons: [UIButton]!
     @IBOutlet weak var tableView: UITableView!
     @IBAction func filterButtonTapped(_ sender: UIButton) {
         for button in filterButtons {
-            
             var config = button.configuration
             // when the button is not selected
             button.isSelected = false
@@ -28,6 +38,24 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         selectedConfig?.background.backgroundColor = .color5
         sender.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         sender.configuration = selectedConfig
+        
+        switch sender.configuration?.title{
+            case "All":
+            switchMode(.all)
+        case "Registeration Approval":
+            switchMode(.registrationApproval)
+        case "Reports":
+            switchMode(.reports)
+        case "Activity":
+            switchMode(.activity)
+        default:
+            break
+        }
+    }
+    
+    private func loadHeader<T: UIView>(_ nibName: String) -> T {
+        let nib = UINib(nibName: nibName, bundle: nil)
+        return nib.instantiate(withOwner: nil, options: nil).first as! T
     }
     
     override func viewDidLoad() {
@@ -53,10 +81,36 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.contentInsetAdjustmentBehavior = .never
         
-       
-
+      
+    }
+    
+ 
+    
+    
+   
+    
+    private func switchMode(_ mode: UserManagementMode){
+        currentMode = mode
+        configureSearchForMode()
+        tableView.reloadData()
         
     }
+ 
+    
+
+    
+    private func configureSearchForMode() {
+        switch currentMode {
+        case .registrationApproval:
+            searchBar.isHidden = true
+            filter2.isHidden = true
+        default:
+            searchBar.isHidden = false
+            filter2.isHidden = false
+        }
+    }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
@@ -70,12 +124,54 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         }*/
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-           return 10 // temp
+        switch currentMode {
+            case .all:
+                return 5           //Users.count temp
+            case .registrationApproval:
+                return 5        //pendingApprovals.count
+            case .reports:
+                return 5          //reports.count
+            case .activity:
+                return 5        //activities.count
+            }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
-        return cell
+        switch currentMode {
+        case .all:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UserCell", for: indexPath)
+            return cell
+            
+        case .registrationApproval:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ApprovalCell", for: indexPath)
+            return cell
+            
+        case .reports:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ReportCell", for: indexPath)
+            return cell
+            
+        case .activity:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath)
+            return cell
+        }
+    }
+    
+    func tableView(_ tableView: UITableView,
+                   heightForRowAt indexPath: IndexPath) -> CGFloat {
+
+        switch currentMode {
+        case .all:
+            return 110
+
+        case .registrationApproval:
+            return 220
+
+        case .reports:
+            return 188
+
+        case .activity:
+            return 120
+        }
     }
    
     
