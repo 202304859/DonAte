@@ -8,7 +8,27 @@
 import UIKit
 
 class DAddAddressViewController: UIViewController {
-
+    
+    
+    @IBAction func saveButtonType(_ sender: UIButton) {
+        // 1. Create alert
+            let alert = UIAlertController(
+                title: "Success!",
+                message: "Address added successfully!",
+                preferredStyle: .alert)
+        
+        // 2. OK action
+            let okAction = UIAlertAction(title: "OK", style: .default) { _ in
+                // Navigate back to Profile page
+                self.dismiss(animated: true)
+            }
+        
+        // 3. Add action & show alert
+            alert.addAction(okAction)
+            present(alert, animated: true)
+        }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

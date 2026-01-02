@@ -35,12 +35,7 @@ class DonorImpactViewController: UIViewController {
             navBar.configure(style: .backWithTitle(title: "Impact Summary"))
             navBar.onBackTapped = { [weak self] in
                 self?.navigationController?.popViewController(animated: true)
-                
-                
-                
-                
-                
-                
+               
             }
         }
         

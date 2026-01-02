@@ -6,20 +6,51 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class DonorProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
+    @IBAction func logoutButtonType(_ sender: UIButton) {
+        // 1. Create confirmation alert
+        let alert = UIAlertController(
+            title: "Log Out",
+            message: "Are you sure you want to log out?",
+            preferredStyle: .alert
+        )
+
+        // 2. Cancel action (just closes the alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        // 3. Logout action
+        let logoutAction = UIAlertAction(title: "Log Out", style: .destructive) { _ in
+            // 4. Navigate to Login screen
+            try? Auth.auth().signOut()
+            self.goToLoginScreen()
+            
+            
+        }
+        
+        
+
+        // 5. Add actions
+        alert.addAction(cancelAction)
+        alert.addAction(logoutAction)
+
+        // 6. Show alert
+        present(alert, animated: true)
+
+    }
     
     let items: [ProfileItem] = [
         .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
         .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
         .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "AddressSB"),
         .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "PassSB"),
-        .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "SavedCSB"),
         .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "ImpactSB"),
-        .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "ImpactSB"),
-        .init(title: "Log Out",   iconName: "logoutIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "BioSB"),
+      
 ]
 
     override func viewDidLoad() {
@@ -51,6 +82,11 @@ class DonorProfileViewController: UIViewController {
                 // Do any additional setup after loading the view.
             }
         }
+    
+    func goToLoginScreen() {
+        // Close all screens and return to login
+        self.view.window?.rootViewController?.dismiss(animated: false)
+    }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
