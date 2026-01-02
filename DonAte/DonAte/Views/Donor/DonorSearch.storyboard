@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,16 +16,80 @@
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="Ge4-rj-eHp">
+                                <rect key="frame" x="50" y="233" width="293" height="31"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHz-Gz-dJz">
+                                        <rect key="frame" x="0.0" y="0.0" width="136" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Collectors">
+                                            <backgroundConfiguration key="background" cornerRadius="20" strokeWidth="2">
+                                                <color key="backgroundColor" name="Color 4"/>
+                                                <color key="strokeColor" name="Color 1"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mwa-6h-gtm">
+                                        <rect key="frame" x="157" y="0.0" width="136" height="31"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Donors">
+                                            <backgroundConfiguration key="background" cornerRadius="20" strokeWidth="2">
+                                                <color key="backgroundColor" name="Color 4"/>
+                                                <color key="strokeColor" name="Color 1"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" pointSize="14"/>
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                        </buttonConfiguration>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="pN5-x1-B9U">
+                                <rect key="frame" x="34" y="272" width="325" height="56"/>
+                                <subviews>
+                                    <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="vDz-Jo-Vdh">
+                                        <rect key="frame" x="0.0" y="0.0" width="266" height="56"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="Y6W-OH-hqX" id="HxW-Dq-hOG"/>
+                                        </connections>
+                                    </searchBar>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Filter" translatesAutoresizingMaskIntoConstraints="NO" id="xP1-6X-v9v">
+                                        <rect key="frame" x="291" y="0.0" width="34" height="56"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Ge4-rj-eHp" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="115" id="8y9-dO-q8L"/>
+                            <constraint firstItem="pN5-x1-B9U" firstAttribute="top" secondItem="Ge4-rj-eHp" secondAttribute="bottom" constant="8" symbolic="YES" id="LaU-8M-i2m"/>
+                            <constraint firstItem="Ge4-rj-eHp" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="50" id="U8c-E8-awA"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pN5-x1-B9U" secondAttribute="trailing" constant="34" id="dLR-CO-2EB"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Ge4-rj-eHp" secondAttribute="trailing" constant="50" id="gLe-Mv-fqH"/>
+                            <constraint firstItem="pN5-x1-B9U" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="34" id="za5-6P-2tr"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="21" y="4"/>
+            <point key="canvasLocation" x="20.610687022900763" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Filter" width="34" height="31"/>
+        <namedColor name="Color 1">
+            <color red="0.45490196078431372" green="0.73333333333333328" blue="0.42745098039215684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Color 4">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
