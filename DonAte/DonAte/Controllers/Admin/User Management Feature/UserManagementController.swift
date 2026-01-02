@@ -16,7 +16,17 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         case activity
     }
     
-
+    
+    @IBAction func DissmissInfoTapped(_ sender: Any) {
+        showDismissAlert()
+    }
+    
+    @IBAction func reguestInfoTapped(_ sender: Any) {
+        showRequestInfoAlert()
+    }
+    @IBAction func sendTapped(_ sender: UIButton) {
+        showApprovalAlert()
+    }
     private var currentMode: UserManagementMode = .all
     @IBOutlet weak var filter2: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -81,19 +91,95 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
         
         tableView.contentInsetAdjustmentBehavior = .never
         
+        NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(handleRejection),
+                name: .applicationRejected,
+                object: nil
+            )
+        
       
     }
     
- 
     
     
-   
+    @objc private func handleRejection() {
+        // Remove item from data source
+        // TODO: remove rejected items later when we addd models
+        // Update table
+        tableView.reloadData()
+    }
     
+    
+    private func showRequestInfoAlert() {
+        let alert = UIAlertController(
+            title: "Request Information",
+            message: "Do you want to request additional information from this user?",
+            preferredStyle: .alert
+        )
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        cancel.setValue(UIColor.gray, forKey: "titleTextColor")
+        let confirm = UIAlertAction(title: "Confirm", style: .default) { _ in
+            self.handleRequestInfo()
+        }
+        confirm.setValue(UIColor.color1, forKey: "titleTextColor")
+
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+
+        present(alert, animated: true)
+    }
+    
+    private func handleRequestInfo() {
+        let storyboard = UIStoryboard(name: "UserManagement", bundle: nil)
+        let vc = storyboard.instantiateViewController(
+            withIdentifier: "RequestInfoViewController"
+        )
+
+        vc.modalPresentationStyle = .pageSheet
+        present(vc, animated: true)
+    }
+    
+
     private func switchMode(_ mode: UserManagementMode){
         currentMode = mode
         configureSearchForMode()
         tableView.reloadData()
         
+    }
+    
+    private func showApprovalAlert() {
+        let alert = UIAlertController(
+            title: "Success!",
+            message: "BahrainiYouthKitchen has been approved.", // TODO: for now a placeholder
+            preferredStyle: .alert
+        )
+
+        let close = UIAlertAction(title: "Close", style: .cancel)
+        close.setValue(UIColor.lightGray, forKey: "titleTextColor")
+
+        alert.addAction(close)
+        present(alert, animated: true)
+    }
+    
+    private func showDismissAlert() {
+        let alert = UIAlertController(
+            title: "Dismissal Confirmation",
+            message: "Are you sure you want to dismiss this report?",
+            preferredStyle: .alert
+        )
+
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel)
+        cancel.setValue(UIColor.gray, forKey: "titleTextColor")
+        let confirm = UIAlertAction(title: "Confirm", style: .default)
+        
+        confirm.setValue(UIColor.color1, forKey: "titleTextColor")
+
+        alert.addAction(cancel)
+        alert.addAction(confirm)
+
+        present(alert, animated: true)
     }
  
     
