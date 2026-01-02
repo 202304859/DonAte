@@ -415,7 +415,7 @@
         <!--Profile-->
         <scene sceneID="0ab-sO-pzf">
             <objects>
-                <viewController id="Cgy-XL-dkj" customClass="ProfileViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="Cgy-XL-dkj" customClass="ProfileViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qMb-4S-FRp">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
