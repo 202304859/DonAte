@@ -24,7 +24,7 @@
                                     <constraint firstAttribute="height" constant="150" id="hmK-1r-oaG"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pfp for example only" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-mq-kf4">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AyshaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="Nlk-mq-kf4">
                                 <rect key="frame" x="40" y="179" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="4SM-DV-zIg"/>
@@ -1314,6 +1314,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="AyshaLogo" width="80" height="80"/>
         <image name="BronzeIcon" width="167" height="167"/>
         <image name="Facebook" width="24" height="24"/>
         <image name="greenchart" width="136" height="132"/>

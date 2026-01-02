@@ -1,16 +1,16 @@
 //
-//  DSavedCollectorsViewController.swift
+//  DonorSearchViewController.swift
 //  DonAte
 //
-//  Created by Guest 1 on 02/01/2026.
+//  Created by BP-19-114-03 on 14/12/2025.
 //
 
 import UIKit
 
-class DSavedCollectorsViewController: UIViewController {
-    
-    
+class DCollectorSearchViewController: UIViewController {
+  
     @IBOutlet weak var tableView: UITableView!
+    
     
     // Temporary sample data (to be replaced with Firebase later)
         private let collectors: [(name: String, imageName: String)] = [
@@ -21,16 +21,15 @@ class DSavedCollectorsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-                tableView.dataSource = self
-                tableView.delegate = self
+        tableView.dataSource = self
+        tableView.delegate = self
 
-                // Match the card UI style
-                tableView.separatorStyle = .none
-                tableView.backgroundColor = .clear
+        // Match the card UI style
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = .clear
 
-                // Give cells a visible height
-                tableView.rowHeight = 120
-        
+        // Give cells a visible height
+        tableView.rowHeight = 120
         
         let navBar = CustomNavigationBar()
         navBar.translatesAutoresizingMaskIntoConstraints = false
@@ -43,21 +42,40 @@ class DSavedCollectorsViewController: UIViewController {
             navBar.heightAnchor.constraint(equalToConstant: 150)
         ])
         
-        navBar.configure(style: .backWithTitle(title: "Saved Collectors"))
+        navBar.configure(style: .titleOnly(title: "Search"))
         navBar.onBackTapped = { [weak self] in
             self?.navigationController?.popViewController(animated: true)
+            
         }
+        
     }
-    //this is to remove the automatically added back button.
+        
+        
+        /*
+         // MARK: - Navigation
+         
+         // In a storyboard-based application, you will often want to do a little preparation before navigation
+         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+         }
+         */
+        
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
-        
-    }
-    
 
-extension DSavedCollectorsViewController: UITableViewDataSource, UITableViewDelegate {
+
+override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    navigationController?.setNavigationBarHidden(false, animated: false)
+}
+
+}
+
+extension DCollectorSearchViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // 1) Tell table view how many collectors to show
@@ -93,7 +111,4 @@ extension DSavedCollectorsViewController: UITableViewDataSource, UITableViewDele
         //navigate to collector details under this
     }
 }
-
-    
-
 
