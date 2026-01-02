@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="TabBarController">
+    <device id="retina6_9" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tab Bar Controller-->
+        <scene sceneID="tabBar-scene">
+            <objects>
+                <tabBarController id="TabBarController" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tab-bar">
+                        <rect key="frame" x="0.0" y="0.0" width="430" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.40000000000000002" green="0.80000000000000004" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="DashboardNav" kind="relationship" relationship="viewControllers" id="seg1"/>
+                        <segue destination="PickupsNav" kind="relationship" relationship="viewControllers" id="seg2"/>
+                        <segue destination="MessagesNav" kind="relationship" relationship="viewControllers" id="seg3"/>
+                        <segue destination="NotificationsNav" kind="relationship" relationship="viewControllers" id="seg4"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="first-resp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1000" y="0.0"/>
+        </scene>
+        <!--Dashboard-->
+        <scene sceneID="dash-nav-scene">
+            <objects>
+                <navigationController id="DashboardNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="house" catalog="system" selectedImage="house.fill" id="tab1"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nav1">
+                        <rect key="frame" x="0.0" y="124" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="DashVC" kind="relationship" relationship="rootViewController" id="root1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="resp1" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-101" y="-665"/>
+        </scene>
+        <!--Dashboard View Controller-->
+        <scene sceneID="dash-scene">
+            <objects>
+                <viewController storyboardIdentifier="DashboardViewController" id="DashVC" customClass="DashboardViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view1">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="safe1"/>
+                        <color key="backgroundColor" red="0.94999999999999996" green="0.94999999999999996" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="navitem1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fresp1" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="799" y="-687"/>
+        </scene>
+        <!--Pick ups-->
+        <scene sceneID="pick-nav-scene">
+            <objects>
+                <navigationController id="PickupsNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Pick ups" image="calendar" catalog="system" id="tab2"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nav2">
+                        <rect key="frame" x="0.0" y="124" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="PickVC" kind="relationship" relationship="rootViewController" id="root2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="resp2" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-100" y="0.0"/>
+        </scene>
+        <!--Pickups View Controller-->
+        <scene sceneID="pick-scene">
+            <objects>
+                <viewController storyboardIdentifier="PickupsViewController" id="PickVC" customClass="PickupsViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view2">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="safe2"/>
+                        <color key="backgroundColor" red="0.94999999999999996" green="0.94999999999999996" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="navitem2"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fresp2" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="798" y="-46"/>
+        </scene>
+        <!--Messages-->
+        <scene sceneID="msg-nav-scene">
+            <objects>
+                <navigationController id="MessagesNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Messages" image="message" catalog="system" selectedImage="message.fill" id="tab3"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nav3">
+                        <rect key="frame" x="0.0" y="124" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="MsgVC" kind="relationship" relationship="rootViewController" id="root3"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="resp3" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-136" y="664"/>
+        </scene>
+        <!--Messages View Controller-->
+        <scene sceneID="msg-scene">
+            <objects>
+                <viewController storyboardIdentifier="MessagesViewController" id="MsgVC" customClass="MessagesViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view3">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="safe3"/>
+                        <color key="backgroundColor" red="0.94999999999999996" green="0.94999999999999996" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="navitem3"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fresp3" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="655"/>
+        </scene>
+        <!--Notifications-->
+        <scene sceneID="notif-nav-scene">
+            <objects>
+                <navigationController id="NotificationsNav" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Notifications" image="bell" catalog="system" selectedImage="bell.fill" id="tab4"/>
+                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" id="nav4">
+                        <rect key="frame" x="0.0" y="124" width="440" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="NotifVC" kind="relationship" relationship="rootViewController" id="root4"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="resp4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-155" y="1341"/>
+        </scene>
+        <!--Notifications View Controller-->
+        <scene sceneID="notif-scene">
+            <objects>
+                <viewController storyboardIdentifier="NotificationsViewController" id="NotifVC" customClass="NotificationsViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="view4">
+                        <rect key="frame" x="0.0" y="0.0" width="440" height="956"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="safe4"/>
+                        <color key="backgroundColor" red="0.94999999999999996" green="0.94999999999999996" blue="0.94999999999999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="navitem4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fresp4" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="820" y="1329"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="bell" catalog="system" width="125" height="128"/>
+        <image name="bell.fill" catalog="system" width="123" height="128"/>
+        <image name="calendar" catalog="system" width="128" height="107"/>
+        <image name="house" catalog="system" width="128" height="104"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="message" catalog="system" width="128" height="116"/>
+        <image name="message.fill" catalog="system" width="128" height="114"/>
+    </resources>
+</document>
