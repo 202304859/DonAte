@@ -6,16 +6,64 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class foodTypeViewController: UIViewController {
 
+    let db = Firestore.firestore()
+    var donationId: String!
+    
+    //only one picked
+    var selectedFoodType: String?
+    
+    @IBOutlet weak var otherTextField: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
     
-
+    
+    @IBAction func foodTypeTapped(_ sender: UIButton) {
+        guard let title = sender.currentTitle else {return}
+        
+        //do i even need this tbh??
+        //unselectAllFoodTypeButtons()
+        
+        //select this one
+        sender.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        sender.isSelected = true
+        selectedFoodType = title
+        
+        //other text field
+        if title == "Other"{
+            otherTextField.isEnabled = true
+        }else{
+            otherTextField.isEnabled = false
+            otherTextField.text = ""
+        }
+        
+    }
+    
+    
+    @IBAction func nextTapped(_ sender: UIButton) {
+        guard var typeToSave = selectedFoodType else{
+            print("no food type selected")
+            return
+            //should prob change so they cant go without inputting fields
+        }
+        
+        if typeToSave == "Other", let otherText = otherTextField.text, !otherText.isEmpty {
+            typeToSave = otherText
+        }
+        
+        
+            }
+        }
+    
+    
     /*
     // MARK: - Navigation
 

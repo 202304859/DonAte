@@ -305,6 +305,7 @@
                                     </backgroundConfiguration>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="nextTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="XNY-PV-5ac"/>
                                     <segue destination="kkA-F4-ZAf" kind="push" animates="NO" id="pl5-18-U6B"/>
                                 </connections>
                             </button>
@@ -322,6 +323,9 @@
                                         <state key="selected">
                                             <imageReference key="image" image="checkmark.circle.fill" catalog="system" renderingMode="template"/>
                                         </state>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="I2i-Ru-vDE"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HIt-bD-Zbd">
                                         <rect key="frame" x="0.0" y="42" width="82.666666666666671" height="22"/>
@@ -332,6 +336,9 @@
                                             <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                         </state>
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="NBT-Qi-fGQ"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90f-Cn-Lfn">
                                         <rect key="frame" x="0.0" y="84" width="77.666666666666671" height="22"/>
@@ -342,6 +349,9 @@
                                             <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                         </state>
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="Ed7-rs-xgr"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dRn-Lf-PDz">
                                         <rect key="frame" x="0.0" y="126" width="104.66666666666667" height="22"/>
@@ -352,6 +362,9 @@
                                             <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                         </state>
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="0ct-vw-PTG"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0K-0f-vwN">
                                         <rect key="frame" x="0.0" y="168" width="97.666666666666671" height="22"/>
@@ -362,6 +375,9 @@
                                             <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                         </state>
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="Mqj-l7-FfR"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gy7-zO-5kA">
                                         <rect key="frame" x="0.0" y="210" width="124.66666666666667" height="22"/>
@@ -372,6 +388,9 @@
                                             <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                         </state>
                                         <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                        <connections>
+                                            <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="b1p-DJ-kip"/>
+                                        </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fgs-Sj-C4l">
                                         <rect key="frame" x="0.0" y="251.99999999999994" width="240" height="34"/>
@@ -383,11 +402,14 @@
                                                 </constraints>
                                                 <color key="tintColor" name="Color 1"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
-                                                <state key="normal">
+                                                <state key="normal" title="Other">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <imageReference key="image" image="circle" catalog="system" renderingMode="template"/>
                                                 </state>
                                                 <state key="selected" image="checkmark.circle.fill" catalog="system"/>
+                                                <connections>
+                                                    <action selector="foodTypeTapped:" destination="PKg-I5-rTS" eventType="touchUpInside" id="8xl-JP-Hbk"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="other" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gkH-tK-Dsj">
                                                 <rect key="frame" x="40" y="0.0" width="200" height="34"/>
@@ -417,6 +439,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="6sp-V3-XdJ"/>
+                    <connections>
+                        <outlet property="otherTextField" destination="gkH-tK-Dsj" id="q3F-DB-T9J"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ec8-zA-rYF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
