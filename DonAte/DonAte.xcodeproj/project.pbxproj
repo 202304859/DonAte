@@ -14,11 +14,9 @@
 		9A9AD56B2EF9C0CA001EB8C9 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9AD56A2EF9C0CA001EB8C9 /* FirebaseDatabase */; };
 		9A9AD56D2EF9C0CA001EB8C9 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9AD56C2EF9C0CA001EB8C9 /* FirebaseFirestore */; };
 		9A9AD56F2EF9C0CA001EB8C9 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 9A9AD56E2EF9C0CA001EB8C9 /* FirebaseMessaging */; };
-		9A9AD5712EF9C7B2001EB8C9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9A9AD5702EF9C7B2001EB8C9 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		9A9AD5702EF9C7B2001EB8C9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		D5E41B502EE037FA007853B1 /* DonAte.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DonAte.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -64,7 +62,6 @@
 		D5E41B472EE037FA007853B1 = {
 			isa = PBXGroup;
 			children = (
-				9A9AD5702EF9C7B2001EB8C9 /* GoogleService-Info.plist */,
 				D5E41B522EE037FA007853B1 /* DonAte */,
 				D5E41B512EE037FA007853B1 /* Products */,
 			);
@@ -152,7 +149,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A9AD5712EF9C7B2001EB8C9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
