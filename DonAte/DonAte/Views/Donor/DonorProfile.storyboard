@@ -1183,22 +1183,49 @@
                                     <constraint firstItem="3xG-0x-TKe" firstAttribute="leading" secondItem="LeP-cP-3ee" secondAttribute="leading" id="s0l-1r-EsS"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Gt-fx-0zD">
-                                <rect key="frame" x="50" y="721" width="293" height="45"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="tmM-Ez-phq"/>
-                                </constraints>
-                                <size key="titleShadowOffset" width="28" height="27"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Save">
-                                    <backgroundConfiguration key="background" cornerRadius="24">
-                                        <color key="backgroundColor" name="Color 5"/>
-                                        <color key="strokeColor" name="Color 1"/>
-                                    </backgroundConfiguration>
-                                    <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
-                                    <color key="baseForegroundColor" name="Color 4"/>
-                                </buttonConfiguration>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="Gof-u0-eXR">
+                                <rect key="frame" x="50" y="727" width="293" height="45"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bwR-h7-Oxp">
+                                        <rect key="frame" x="0.0" y="0.0" width="133" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="5Fg-vp-MRa"/>
+                                        </constraints>
+                                        <size key="titleShadowOffset" width="28" height="27"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Delete">
+                                            <backgroundConfiguration key="background" cornerRadius="24">
+                                                <color key="backgroundColor" name="Color 4"/>
+                                                <color key="strokeColor" name="Color 3"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <color key="baseForegroundColor" name="Color 3"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="cancelButtonType:" destination="ZEP-NF-9as" eventType="touchUpInside" id="QlV-fU-SAt"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JNg-n4-YdD">
+                                        <rect key="frame" x="160" y="0.0" width="133" height="45"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="45" id="Znz-wx-bYb"/>
+                                        </constraints>
+                                        <size key="titleShadowOffset" width="28" height="27"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Save">
+                                            <backgroundConfiguration key="background" cornerRadius="24">
+                                                <color key="backgroundColor" name="Color 5"/>
+                                                <color key="strokeColor" name="Color 1"/>
+                                            </backgroundConfiguration>
+                                            <fontDescription key="titleFontDescription" type="system" weight="medium" pointSize="16"/>
+                                            <color key="baseForegroundColor" name="Color 4"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="saveButtonType:" destination="ZEP-NF-9as" eventType="touchUpInside" id="CdT-ts-R6A"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Fen-Ok-tMR"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1206,13 +1233,13 @@
                             <constraint firstItem="gJQ-D7-5UM" firstAttribute="leading" secondItem="Fen-Ok-tMR" secondAttribute="leading" constant="50" id="0yQ-2B-gsJ"/>
                             <constraint firstItem="gJQ-D7-5UM" firstAttribute="top" secondItem="IRV-mZ-R3s" secondAttribute="bottom" constant="15" id="7vM-HF-nSm"/>
                             <constraint firstItem="Fen-Ok-tMR" firstAttribute="trailing" secondItem="IRV-mZ-R3s" secondAttribute="trailing" constant="50" id="92n-RU-NkR"/>
+                            <constraint firstItem="Gof-u0-eXR" firstAttribute="leading" secondItem="Fen-Ok-tMR" secondAttribute="leading" constant="50" id="BXN-Wr-MOU"/>
                             <constraint firstItem="IRV-mZ-R3s" firstAttribute="top" secondItem="Fen-Ok-tMR" secondAttribute="top" constant="141" id="CYU-QE-LUp"/>
-                            <constraint firstItem="4Gt-fx-0zD" firstAttribute="top" secondItem="LeP-cP-3ee" secondAttribute="bottom" constant="50" id="QVa-Kx-kwE"/>
-                            <constraint firstItem="4Gt-fx-0zD" firstAttribute="leading" secondItem="Fen-Ok-tMR" secondAttribute="leading" constant="50" id="W6F-xT-ncN"/>
+                            <constraint firstItem="Fen-Ok-tMR" firstAttribute="trailing" secondItem="Gof-u0-eXR" secondAttribute="trailing" constant="50" id="GhM-sE-4aw"/>
+                            <constraint firstItem="Gof-u0-eXR" firstAttribute="top" secondItem="LeP-cP-3ee" secondAttribute="bottom" constant="56" id="ORr-wp-omZ"/>
                             <constraint firstItem="IRV-mZ-R3s" firstAttribute="leading" secondItem="Fen-Ok-tMR" secondAttribute="leading" constant="50" id="ZCH-iM-a2X"/>
                             <constraint firstItem="Fen-Ok-tMR" firstAttribute="trailing" secondItem="gJQ-D7-5UM" secondAttribute="trailing" constant="50" id="jWm-Qs-Hsz"/>
                             <constraint firstItem="LeP-cP-3ee" firstAttribute="leading" secondItem="Fen-Ok-tMR" secondAttribute="leading" constant="50" id="jXA-HT-R5h"/>
-                            <constraint firstItem="Fen-Ok-tMR" firstAttribute="trailing" secondItem="4Gt-fx-0zD" secondAttribute="trailing" constant="50" id="mhU-Ep-V7T"/>
                             <constraint firstItem="LeP-cP-3ee" firstAttribute="top" secondItem="gJQ-D7-5UM" secondAttribute="bottom" constant="25" id="n2Q-9w-xWq"/>
                             <constraint firstItem="Fen-Ok-tMR" firstAttribute="trailing" secondItem="LeP-cP-3ee" secondAttribute="trailing" constant="50" id="og7-qi-RyR"/>
                         </constraints>

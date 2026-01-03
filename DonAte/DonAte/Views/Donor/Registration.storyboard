@@ -223,6 +223,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2zq-9a-cVe">
                                 <rect key="frame" x="22.999999999999996" y="161" width="61.666666666666657" height="38.333333333333343"/>
+                                <color key="tintColor" name="Color 1"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
@@ -335,7 +336,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="6wB-BE-PkK" eventType="touchUpInside" id="UfF-hA-5Ss"/>
-                                    <segue destination="13i-Ut-RqY" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="tqs-Wp-M4n"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="csS-j6-xFz">
@@ -382,6 +382,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PZW-Ss-FPz">
                                 <rect key="frame" x="29.999999999999996" y="170" width="61.666666666666657" height="38.333333333333343"/>
+                                <color key="tintColor" name="Color 1"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
@@ -610,10 +611,10 @@
             </objects>
             <point key="canvasLocation" x="964" y="-1"/>
         </scene>
-        <!--Registration View Controller-->
+        <!--New Donor Address View Controller-->
         <scene sceneID="9X3-TN-pWA">
             <objects>
-                <viewController id="13i-Ut-RqY" customClass="RegistrationViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="NewDonorAddressViewController" id="13i-Ut-RqY" customClass="NewDonorAddressViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FVR-mB-96w">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -623,7 +624,7 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="18" translatesAutoresizingMaskIntoConstraints="NO" id="yef-cd-ry8" userLabel="progress stack view">
-                                <rect key="frame" x="133.66666666666666" y="800" width="125.99999999999997" height="18"/>
+                                <rect key="frame" x="133.66666666666666" y="766" width="125.99999999999997" height="18"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progress circle" translatesAutoresizingMaskIntoConstraints="NO" id="rBR-H1-U2X">
                                         <rect key="frame" x="0.0" y="0.0" width="18" height="18"/>
@@ -666,6 +667,7 @@
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cqd-UN-OVR">
                                 <rect key="frame" x="29.999999999999996" y="170" width="61.666666666666657" height="38.333333333333343"/>
+                                <color key="tintColor" name="Color 1"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Back"/>
                                 <connections>
@@ -821,7 +823,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="27" translatesAutoresizingMaskIntoConstraints="NO" id="awF-Ua-0kZ">
-                                <rect key="frame" x="50" y="721" width="293" height="45"/>
+                                <rect key="frame" x="50" y="687" width="293" height="45"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwZ-0q-rhT">
                                         <rect key="frame" x="0.0" y="0.0" width="133" height="45"/>
@@ -858,7 +860,7 @@
                                             <color key="baseForegroundColor" name="Color 4"/>
                                         </buttonConfiguration>
                                         <connections>
-                                            <segue destination="3Jy-BS-o7C" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="sig-iZ-QIG"/>
+                                            <action selector="registerButtonTapped:" destination="13i-Ut-RqY" eventType="touchUpInside" id="x2W-XQ-4Wo"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -895,6 +897,14 @@
                             <constraint firstItem="l9C-bB-xjC" firstAttribute="trailing" secondItem="dVS-A8-b1m" secondAttribute="trailing" id="vUc-Po-q8U"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addressNameTextField" destination="pd0-ih-4YQ" id="kWh-Yf-OKR"/>
+                        <outlet property="blockNoTextField" destination="v4c-Nh-N9Q" id="sED-Bw-egI"/>
+                        <outlet property="houseNotextField" destination="W9W-ZV-E5w" id="ifb-J9-XRI"/>
+                        <outlet property="phoneNumberTextField" destination="cSH-4e-cRx" id="k2c-9z-LaW"/>
+                        <outlet property="roadNoTextField" destination="c0Y-61-b0X" id="JsF-Fr-TMn"/>
+                        <outlet property="townCityTextField" destination="Fo8-XS-VQD" id="weG-85-p0E"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QQz-SO-2gN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -910,8 +920,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tqs-Wp-M4n"/>
-        <segue reference="sig-iZ-QIG"/>
         <segue reference="1wx-Oi-zhc"/>
         <segue reference="RNq-bo-6Jv"/>
     </inferredMetricsTieBreakers>

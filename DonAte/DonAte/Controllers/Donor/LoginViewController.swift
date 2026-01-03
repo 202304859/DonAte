@@ -38,7 +38,7 @@ class LoginViewController: UIViewController {
                 return
             }
 
-            // 5) Save user ID (optional but matches tutor flow)
+            // 5) Save user ID
             if let userID = authResult?.user.uid {
                 UserDefaults.standard.set(userID, forKey: UserDefaultsKeys.userID)
             }
