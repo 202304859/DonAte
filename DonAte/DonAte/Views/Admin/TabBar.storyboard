@@ -72,6 +72,16 @@
             </objects>
             <point key="canvasLocation" x="-1732" y="1977"/>
         </scene>
+        <!--DonationManagement-->
+        <scene sceneID="D5c-Ta-Kfq">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="DonationManagement" storyboardName="DonationManagement" referencedIdentifier="DonationManagement" id="jRk-dT-wU8" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="szr-DC-EMl"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oUK-hw-bBA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1069" y="1977"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="a8h-Cr-WAj">
             <objects>
@@ -81,6 +91,9 @@
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <connections>
+                        <segue destination="jRk-dT-wU8" kind="relationship" relationship="rootViewController" id="efe-uR-7hm"/>
+                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VJh-a6-Pkf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

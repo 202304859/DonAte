@@ -197,7 +197,7 @@ class UserManagementController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     
-    
+    // to remove the default back
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             navigationController?.setNavigationBarHidden(true, animated: false)
