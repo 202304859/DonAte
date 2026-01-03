@@ -194,7 +194,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="JEE-QA-0ns"/>
                     <connections>
-                        <outlet property="tableView" destination="3xI-2G-mCH" id="Vfs-Wr-ao9"/>
+                        <outlet property="tableView" destination="3xI-2G-mCH" id="RxN-mT-2zh"/>
                         <outletCollection property="filterButtons" destination="OCh-0u-ze1" collectionClass="NSMutableArray" id="Ua4-Uc-d9k"/>
                         <outletCollection property="filterButtons" destination="wDL-Kj-qDS" collectionClass="NSMutableArray" id="KXt-wA-gQG"/>
                         <outletCollection property="filterButtons" destination="cc1-rq-Bcv" collectionClass="NSMutableArray" id="gml-bK-GZF"/>
