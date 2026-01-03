@@ -70,7 +70,7 @@ class DonorProfileViewController: UIViewController {
         .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "AddressSB"),
         .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "PassSB"),
         .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "SavedCSB"),
-        .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "ImpactSB"),
+        .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "MessagesSB"),
         .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "BioSB"),
       
 ]

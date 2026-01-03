@@ -3,6 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +12,7 @@
         <!--DonAte-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="DonorDashboardController" id="Y6W-OH-hqX" customClass="DonorDashboardController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="DonorDashboardController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,10 +89,12 @@
             <objects>
                 <tabBarController storyboardIdentifier="donor_tab" automaticallyAdjustsScrollViewInsets="NO" id="oBd-LY-0cx" customClass="DonorTabBarController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6bQ-Hz-1Rv">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="6bQ-Hz-1Rv" customClass="CustomTabBar" customModule="DonAte" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" name="Color 2"/>
                     </tabBar>
                     <connections>
                         <segue destination="By5-MI-wq5" kind="relationship" relationship="viewControllers" id="y6j-KK-gbh"/>
@@ -109,7 +112,7 @@
         <scene sceneID="vtD-q4-Lff">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="By5-MI-wq5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="homekit" catalog="system" id="Gb5-oz-ctb"/>
+                    <tabBarItem key="tabBarItem" title="" image="CL-Home" selectedImage="CL-HomeSelected" id="Gb5-oz-ctb"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LTb-4O-Hlh">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -168,7 +171,7 @@
         <scene sceneID="aHe-lo-FK4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NJn-uY-uap" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="magnifyingglass" catalog="system" id="1nY-6a-lqh"/>
+                    <tabBarItem key="tabBarItem" title="" image="Search" selectedImage="SearchSelected" id="1nY-6a-lqh"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="TTi-Xv-2b1">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -187,7 +190,7 @@
         <scene sceneID="uaA-Qh-zLY">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yh4-9T-AeE" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="plus.circle" catalog="system" id="cyv-gU-vdf"/>
+                    <tabBarItem key="tabBarItem" title="" image="Add" selectedImage="AddSelected" id="cyv-gU-vdf"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="xVZ-an-FtU">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -206,7 +209,7 @@
         <scene sceneID="IxN-bb-jhQ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="sjX-Yu-ZD6" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="bell" catalog="system" id="heo-aj-Upu"/>
+                    <tabBarItem key="tabBarItem" title="" image="CL-Notifications" selectedImage="CL-NotificationsSelected" id="heo-aj-Upu"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="rc5-ra-E25">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -225,7 +228,7 @@
         <scene sceneID="9HB-hj-VSl">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jld-SP-Dao" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="person" catalog="system" id="lVY-4L-8fq"/>
+                    <tabBarItem key="tabBarItem" title="" image="CL-Profile" selectedImage="CL-ProfileSelected" id="lVY-4L-8fq"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="FcK-qe-LGc">
                         <rect key="frame" x="0.0" y="118" width="393" height="44"/>
@@ -275,11 +278,19 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bell" catalog="system" width="125" height="128"/>
-        <image name="homekit" catalog="system" width="128" height="104"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
-        <image name="person" catalog="system" width="128" height="121"/>
-        <image name="plus.circle" catalog="system" width="128" height="123"/>
+        <image name="Add" width="54.666667938232422" height="63"/>
+        <image name="AddSelected" width="54.666667938232422" height="63"/>
+        <image name="CL-Home" width="73.333335876464844" height="63"/>
+        <image name="CL-HomeSelected" width="73.333335876464844" height="63"/>
+        <image name="CL-Notifications" width="73.333335876464844" height="63"/>
+        <image name="CL-NotificationsSelected" width="73.333335876464844" height="63"/>
+        <image name="CL-Profile" width="73.333335876464844" height="63"/>
+        <image name="CL-ProfileSelected" width="73.333335876464844" height="63"/>
+        <image name="Search" width="54.666667938232422" height="63"/>
+        <image name="SearchSelected" width="54.666667938232422" height="63"/>
+        <namedColor name="Color 2">
+            <color red="1" green="0.61960784313725492" blue="0.61960784313725492" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

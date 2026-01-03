@@ -164,10 +164,10 @@
             </objects>
             <point key="canvasLocation" x="956.48854961832058" y="3.5211267605633805"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Verify Password View Controller-->
         <scene sceneID="4PL-VK-5tW">
             <objects>
-                <viewController id="FTe-aR-8kx" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="FTe-aR-8kx" customClass="VerifyPasswordViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rOt-KN-MDE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -206,7 +206,8 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="loginBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="wv8-as-2H8"/>
-                                    <segue destination="d8O-9Y-07X" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="VRa-Ec-SJF"/>
+                                    <action selector="submitButtonTapped:" destination="FTe-aR-8kx" eventType="touchUpInside" id="pp0-cH-ieJ"/>
+                                    <segue destination="d8O-9Y-07X" kind="presentation" identifier="goToNewPassword" animates="NO" modalPresentationStyle="fullScreen" id="VRa-Ec-SJF"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="TX1-nj-BxH">
@@ -340,15 +341,22 @@
                             <constraint firstItem="kfU-r7-Fxc" firstAttribute="trailing" secondItem="8Iw-cR-yzd" secondAttribute="trailing" constant="30" id="ylY-Cm-jSa"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="fNameTextField" destination="Vf7-3j-sT4" id="yju-F5-I6u"/>
+                        <outlet property="lNameTextField" destination="HRx-KD-ymF" id="TXm-a2-mbx"/>
+                        <outlet property="phoneNumberTextField" destination="Vsh-Z2-leb" id="K83-YW-UAP"/>
+                        <outlet property="submitButton" destination="tQH-kS-HX5" id="rCh-VR-19T"/>
+                        <outlet property="userNameTextField" destination="Fa3-0x-a1n" id="iWH-Wf-8Ju"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f79-jf-3jq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1754.9618320610687" y="3.5211267605633805"/>
         </scene>
-        <!--Login View Controller-->
+        <!--New Password View Controller-->
         <scene sceneID="xHU-Pz-FLG">
             <objects>
-                <viewController id="d8O-9Y-07X" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="d8O-9Y-07X" customClass="NewPasswordViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xu8-Xc-YSs">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

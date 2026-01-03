@@ -331,7 +331,7 @@
         <!--View Collector Page View Controller-->
         <scene sceneID="I3v-MZ-jtb">
             <objects>
-                <viewController id="Fvp-XE-0Cw" customClass="ViewCollectorPageViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewCollectorPageViewController" id="Fvp-XE-0Cw" customClass="ViewCollectorPageViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wm6-aK-WQ5">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="783"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
