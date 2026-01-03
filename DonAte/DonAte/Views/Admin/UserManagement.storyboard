@@ -1141,16 +1141,8 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c41-fC-OWj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="VDi-Up-yU4">
-                    <connections>
-                        <action selector="toggleAccordion" destination="hFr-9l-uqh" id="YB3-GK-DjO"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="Lww-vn-H32">
-                    <connections>
-                        <action selector="toggleAccordion" destination="KbZ-Wu-Ajl" id="kmL-yC-33u"/>
-                    </connections>
-                </tapGestureRecognizer>
+                <tapGestureRecognizer id="VDi-Up-yU4"/>
+                <tapGestureRecognizer id="Lww-vn-H32"/>
             </objects>
             <point key="canvasLocation" x="1697" y="-6"/>
         </scene>

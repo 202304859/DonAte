@@ -69,7 +69,7 @@ class DonationsManagement2ViewController: UIViewController, UITableViewDataSourc
             }
             
             // to make 'All' selected by default
-            if let firstButton = filterButtons.last {
+            if let firstButton = filterButtons.first {
                 filterButtonTapped(firstButton)
             }
             
@@ -83,7 +83,7 @@ class DonationsManagement2ViewController: UIViewController, UITableViewDataSourc
     
     private func switchMode(_ mode: donationManagementMode){
         currentMode = mode
-        
+        tableView.reloadData()
         
     }
     
@@ -99,7 +99,7 @@ class DonationsManagement2ViewController: UIViewController, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch currentMode {
         case .all:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AllCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             return cell
             
         case .pendingApproval:
@@ -111,15 +111,9 @@ class DonationsManagement2ViewController: UIViewController, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
-
-        switch currentMode {
-        case .all:
-            return 160
-
-        case .pendingApproval:
-            return 160
+            return 110
         }
-    }
+    
         
         /*
          // MARK: - Navigation
