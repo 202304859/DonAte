@@ -9,7 +9,8 @@ import UIKit
 
 
 class AdminDashboardController: UIViewController {
-    
+    @IBOutlet var circleViews: [UIView]!
+
     override func viewDidLoad() {
             super.viewDidLoad()
         let navBar = CustomNavigationBar()
@@ -24,6 +25,12 @@ class AdminDashboardController: UIViewController {
             ])
 
         navBar.configure(style: .dashboard)
+        
+        for view in circleViews {
+            view.layer.cornerRadius = view.frame.width / 2
+            view.layer.borderColor = UIColor.color1.cgColor
+            view.layer.borderWidth = 2
+        }
 
 
             
