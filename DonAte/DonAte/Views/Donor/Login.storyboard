@@ -12,7 +12,7 @@
         <!--Login View Controller-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginViewController" id="Y6W-OH-hqX" customClass="LoginViewController" customModule="DonAte" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -97,7 +97,7 @@
                                     <color key="baseForegroundColor" name="Color 4"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="loginBtnPressed:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="pPO-sx-uYe"/>
+                                    <action selector="loginButtonTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="u06-sR-AJt"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="-54" translatesAutoresizingMaskIntoConstraints="NO" id="oav-ib-TTy">
@@ -155,6 +155,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="SeQ-7s-FSz"/>
                     <connections>
+                        <outlet property="emailTextField" destination="CGq-BI-KNJ" id="phs-25-yhm"/>
+                        <outlet property="passwordTextField" destination="BLB-US-IGo" id="hEx-dw-S5s"/>
                         <segue destination="seQ-Ru-PsX" kind="show" id="Xa8-NM-u3p"/>
                     </connections>
                 </viewController>

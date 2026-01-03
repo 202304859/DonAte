@@ -334,6 +334,7 @@
                                     <color key="baseForegroundColor" name="Color 4"/>
                                 </buttonConfiguration>
                                 <connections>
+                                    <action selector="nextButtonTapped:" destination="6wB-BE-PkK" eventType="touchUpInside" id="UfF-hA-5Ss"/>
                                     <segue destination="13i-Ut-RqY" kind="presentation" animates="NO" modalPresentationStyle="fullScreen" id="tqs-Wp-M4n"/>
                                 </connections>
                             </button>
@@ -596,6 +597,14 @@
                             <constraint firstItem="UHt-RI-cFz" firstAttribute="trailing" secondItem="ZJ9-bX-iA4" secondAttribute="trailing" constant="30" id="sdZ-UZ-Ggp"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="confirmPasswordTextField" destination="OIc-Dx-mGl" id="D4b-4c-I5Y"/>
+                        <outlet property="emailTextField" destination="B4o-5l-Ev8" id="ge8-4M-RC2"/>
+                        <outlet property="fNameTextField" destination="AnW-Lg-7Xe" id="Hnu-U5-8Bs"/>
+                        <outlet property="lNameTextField" destination="21s-6e-cuE" id="ygo-bB-OCl"/>
+                        <outlet property="passwordTextField" destination="Ro6-wg-z1g" id="WjR-5v-pO6"/>
+                        <outlet property="phoneNumberTextField" destination="QnA-IS-ODQ" id="Twi-ZT-BGW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rv1-ly-9ra" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -901,9 +910,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="tqs-Wp-M4n"/>
         <segue reference="sig-iZ-QIG"/>
         <segue reference="1wx-Oi-zhc"/>
-        <segue reference="TZy-gY-EvK"/>
+        <segue reference="RNq-bo-6Jv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="checkmark.square" catalog="system" width="128" height="114"/>

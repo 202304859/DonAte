@@ -12,36 +12,58 @@ class DonorProfileViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
 
     @IBAction func logoutButtonType(_ sender: UIButton) {
-        // 1. Create confirmation alert
+
+        // 1) Create confirmation alert
         let alert = UIAlertController(
             title: "Log Out",
             message: "Are you sure you want to log out?",
             preferredStyle: .alert
         )
 
-        // 2. Cancel action (just closes the alert)
+        // 2) Cancel action (closes alert)
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
 
-        // 3. Logout action
-        let logoutAction = UIAlertAction(title: "Log Out", style: .destructive) { _ in
-            // 4. Navigate to Login screen
-            try? Auth.auth().signOut()
-            self.goToLoginScreen()
-            
-            
-        }
-        
-        
+        // 3) Logout action
+        let logoutAction = UIAlertAction(title: "Log Out", style: .destructive) { [weak self] _ in
+            guard let self = self else { return }
 
-        // 5. Add actions
+            do {
+                // 4) Sign out from Firebase
+                try Auth.auth().signOut()
+
+                // 5) Clear saved user id (if you used it)
+                UserDefaults.standard.removeObject(forKey: UserDefaultsKeys.userID)
+
+                // 6) Navigate to Login screen
+                self.goToLoginScreen()
+            } catch {
+                print("Sign out failed:", error.localizedDescription)
+            }
+        }
+
+        // 7) Add actions
         alert.addAction(cancelAction)
         alert.addAction(logoutAction)
 
-        // 6. Show alert
+        // 8) Show alert
         present(alert, animated: true)
-
     }
-    
+
+    private func goToLoginScreen() {
+        // 1) Load storyboard
+        let storyboard = UIStoryboard(name: "Login", bundle: nil)
+
+        // 2) Create login screen
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+
+        // 3) Set login as root so the user can’t go back
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = loginVC
+            window.makeKeyAndVisible()
+        }
+    }
+
     let items: [ProfileItem] = [
         .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
         .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
@@ -55,6 +77,12 @@ class DonorProfileViewController: UIViewController {
 
     override func viewDidLoad() {
             super.viewDidLoad()
+        
+        // Print current user information
+       /* if let user = Auth.auth().currentUser {
+        print("Logged in as: \(user.email ?? "No email")")
+        print("User ID: \(user.uid)")*/
+        //i am not sure about the above code, i will test later
         
             let navBar = CustomNavigationBar()
             navBar.translatesAutoresizingMaskIntoConstraints = false
@@ -83,10 +111,6 @@ class DonorProfileViewController: UIViewController {
             }
         }
     
-    func goToLoginScreen() {
-        // Close all screens and return to login
-        self.view.window?.rootViewController?.dismiss(animated: false)
-    }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)

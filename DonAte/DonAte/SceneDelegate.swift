@@ -6,11 +6,38 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    func scene(
+    scene: UIScene, willConnectTo session:
+    UISceneSession, options connectionOptions:
+    UIScene.ConnectionOptions) {
+    guard let windowScene = (scene as? UIWindowScene) else
+    { return }
+    window = UIWindow(windowScene: windowScene)
+    setRootViewController()
+    window?.makeKeyAndVisible()
+    }
+    private func setRootViewController() {
+    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+    // Check if user ID exists in UserDefaults
+    if let userID = UserDefaults.standard.string(forKey: UserDefaultsKeys.userID), Auth.auth().currentUser != nil {
+    // User is logged in - show Home screen
+    if let homeVC = storyboard.instantiateViewController(withIdentifier: "DonorDashboardController") as? DonorDashboardController {
+    window?.rootViewController = homeVC
+    }
+    } else {
+    if let loginVC =
+    storyboard.instantiateViewController(withIdentifier:
+    "LoginViewController") as? LoginViewController {
+    window?.rootViewController = loginVC
+    }
+    }
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the /Users/bp-36-201-05/Desktop/DonAte/DonAte/DonAte/ViewController.swiftprovided UIWindowScene `scene`.
