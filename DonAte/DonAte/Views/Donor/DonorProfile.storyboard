@@ -115,7 +115,7 @@
                                     <color key="baseForegroundColor" name="Color 3"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="saveButtonType:" destination="6o4-fh-o1n" eventType="touchUpInside" id="BK0-Df-Am1"/>
+                                    <action selector="logoutButtonType:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eZB-L8-QoC"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1384,8 +1384,8 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xBX-In-V1F" customClass="CardsView" customModule="DonAte" customModuleProvider="target">
                                                     <rect key="frame" x="24" y="10" width="345" height="135"/>
                                                     <subviews>
-                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="AyshaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="AW1-ay-rZy">
-                                                            <rect key="frame" x="8" y="0.0" width="80" height="80"/>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AyshaLogo" translatesAutoresizingMaskIntoConstraints="NO" id="AW1-ay-rZy">
+                                                            <rect key="frame" x="8" y="5" width="80" height="80"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="80" id="Ef3-Qi-lLf"/>
                                                                 <constraint firstAttribute="height" constant="80" id="xNC-N0-OBK"/>
@@ -1401,7 +1401,7 @@
                                                             <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiH-GQ-gTd">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kiH-GQ-gTd">
                                                             <rect key="frame" x="112" y="11" width="345" height="58"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="highlightedColor"/>
@@ -1409,12 +1409,14 @@
                                                     </subviews>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstItem="kiH-GQ-gTd" firstAttribute="leading" secondItem="xBX-In-V1F" secondAttribute="leading" constant="16" id="4bL-aB-wt0"/>
+                                                        <constraint firstItem="kiH-GQ-gTd" firstAttribute="leading" secondItem="xBX-In-V1F" secondAttribute="leading" constant="112" id="4bL-aB-wt0"/>
                                                         <constraint firstAttribute="bottom" secondItem="c6R-IH-ZTF" secondAttribute="bottom" constant="7" id="8Ca-8O-Yvk"/>
-                                                        <constraint firstItem="kiH-GQ-gTd" firstAttribute="top" secondItem="xBX-In-V1F" secondAttribute="top" constant="16" id="Biw-gI-URw"/>
-                                                        <constraint firstItem="c6R-IH-ZTF" firstAttribute="leading" secondItem="kiH-GQ-gTd" secondAttribute="leading" id="P4e-3J-9lq"/>
-                                                        <constraint firstItem="c6R-IH-ZTF" firstAttribute="top" secondItem="kiH-GQ-gTd" secondAttribute="bottom" constant="8" id="eME-H0-5tX"/>
-                                                        <constraint firstAttribute="trailing" secondItem="kiH-GQ-gTd" secondAttribute="trailing" constant="-16" id="kAu-hb-NJq"/>
+                                                        <constraint firstItem="kiH-GQ-gTd" firstAttribute="top" secondItem="xBX-In-V1F" secondAttribute="top" constant="11" id="Biw-gI-URw"/>
+                                                        <constraint firstItem="c6R-IH-ZTF" firstAttribute="leading" secondItem="kiH-GQ-gTd" secondAttribute="leading" constant="-96" id="P4e-3J-9lq"/>
+                                                        <constraint firstItem="c6R-IH-ZTF" firstAttribute="top" secondItem="kiH-GQ-gTd" secondAttribute="bottom" constant="13" id="eME-H0-5tX"/>
+                                                        <constraint firstItem="AW1-ay-rZy" firstAttribute="centerY" secondItem="kiH-GQ-gTd" secondAttribute="centerY" constant="5" id="ec3-f8-gnV"/>
+                                                        <constraint firstItem="AW1-ay-rZy" firstAttribute="leading" secondItem="xBX-In-V1F" secondAttribute="leadingMargin" id="ioR-JR-RYg"/>
+                                                        <constraint firstAttribute="trailing" secondItem="kiH-GQ-gTd" secondAttribute="trailing" constant="-112" id="kAu-hb-NJq"/>
                                                     </constraints>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
