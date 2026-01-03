@@ -11,7 +11,7 @@ import Firebase
 class foodGroupsViewController: UIViewController {
     
     let db = Firestore.firestore()
-    var donationId: String! // passed from previous screeeen
+    //var donationId: String! // passed from previous screeeen
     var selectedGroups: [String] = [] //store raw strings
     
     
@@ -62,14 +62,14 @@ class foodGroupsViewController: UIViewController {
         }
         
         //save to firestore under the draft donation
-        db.collection("Donations").document(donationId).updateData(["food.foodGroup": groupsToSave]) {
-            error in
-            if let error = error {
-                print("Error saving food groups:",error.localizedDescription)
-            }else{
-                print("Food groups saved: ", groupsToSave)
+        //db.collection("Donations").document(donationId).updateData(["food.foodGroup": groupsToSave]) {
+            //error in
+            //if let error = error {
+              //  print("Error saving food groups:",error.localizedDescription)
+            //}else{
+               // print("Food groups saved: ", groupsToSave)
                 //self.goToFoodType()
-            }
+           // }
         }
         
         func goToFoodType(){
@@ -89,4 +89,4 @@ class foodGroupsViewController: UIViewController {
     }
     */
 
-}
+
