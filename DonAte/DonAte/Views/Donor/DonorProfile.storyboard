@@ -143,6 +143,7 @@
                     </view>
                     <connections>
                         <outlet property="tableView" destination="Iv2-CD-nW3" id="qew-A7-onu"/>
+                        <outlet property="usernameLabel" destination="20o-BA-37m" id="aYu-ZS-ctJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -713,19 +714,6 @@
                                     <constraint firstAttribute="height" constant="150" id="wqB-AH-x0y"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pfp for example only" translatesAutoresizingMaskIntoConstraints="NO" id="sAU-5I-GBP">
-                                <rect key="frame" x="40" y="179" width="80" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="HOc-f9-0zx"/>
-                                    <constraint firstAttribute="width" constant="80" id="o2W-rD-hwK"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Change picture" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ld-hr-3to">
-                                <rect key="frame" x="150" y="212" width="86.666666666666686" height="14.333333333333343"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="zVj-1E-pcY">
                                 <rect key="frame" x="50" y="297.66666666666669" width="293" height="57.666666666666686"/>
                                 <subviews>
@@ -891,11 +879,7 @@
                             <constraint firstItem="zVj-1E-pcY" firstAttribute="leading" secondItem="WKs-AA-w2u" secondAttribute="leading" constant="50" id="BOp-jF-WOh"/>
                             <constraint firstItem="WKs-AA-w2u" firstAttribute="trailing" secondItem="lis-j4-Vug" secondAttribute="trailing" constant="50" id="Cwa-DR-luX"/>
                             <constraint firstItem="WKs-AA-w2u" firstAttribute="trailing" secondItem="zVj-1E-pcY" secondAttribute="trailing" constant="50" id="FC9-aR-AkS"/>
-                            <constraint firstItem="1ld-hr-3to" firstAttribute="leading" secondItem="sAU-5I-GBP" secondAttribute="trailing" constant="30" id="Fkf-3a-VIt"/>
-                            <constraint firstItem="sAU-5I-GBP" firstAttribute="leading" secondItem="WKs-AA-w2u" secondAttribute="leading" constant="40" id="J9b-c4-rgM"/>
-                            <constraint firstItem="zVj-1E-pcY" firstAttribute="top" secondItem="sAU-5I-GBP" secondAttribute="bottom" constant="38.670000000000002" id="OQa-xt-TN2"/>
-                            <constraint firstItem="1ld-hr-3to" firstAttribute="top" secondItem="Xhb-ew-QTC" secondAttribute="bottom" constant="62" id="QAL-7V-tEF"/>
-                            <constraint firstItem="sAU-5I-GBP" firstAttribute="top" secondItem="Xhb-ew-QTC" secondAttribute="bottom" constant="29" id="QjH-9k-v8g"/>
+                            <constraint firstItem="WKs-AA-w2u" firstAttribute="bottom" secondItem="b8Z-11-otC" secondAttribute="bottom" constant="83.666666666666629" id="IX6-sn-dAD"/>
                             <constraint firstItem="b8Z-11-otC" firstAttribute="leading" secondItem="3fZ-5e-6GL" secondAttribute="leadingMargin" constant="50" id="SEJ-Dt-I0u"/>
                             <constraint firstItem="lis-j4-Vug" firstAttribute="top" secondItem="zVj-1E-pcY" secondAttribute="bottom" constant="25" id="U8t-Gn-P1R"/>
                             <constraint firstItem="WKs-AA-w2u" firstAttribute="trailing" secondItem="Xhb-ew-QTC" secondAttribute="trailing" id="Ucx-9f-8MZ"/>
@@ -906,6 +890,13 @@
                         </constraints>
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="X3D-AJ-XOg" id="1LV-nF-KW2"/>
+                        <outlet property="firstNameTextField" destination="Rdc-pn-He9" id="ox6-TE-XDN"/>
+                        <outlet property="lastNameTextField" destination="ZSz-ff-gaK" id="HV9-RS-A9k"/>
+                        <outlet property="phoneNumberTextField" destination="xYf-HW-XA6" id="Kfq-x6-VDB"/>
+                        <outlet property="userNameTextField" destination="pjn-p0-FZX" id="3ch-D9-Uwy"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hSw-JY-FY9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

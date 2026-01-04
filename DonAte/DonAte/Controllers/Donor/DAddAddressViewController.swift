@@ -11,7 +11,52 @@ import FirebaseFirestore
 
 class DAddAddressViewController: UIViewController {
 
-    // Connect these outlets to your Add Address screen UI
+    
+
+    private let towns = [
+        "A'ali",
+        "Adliya",
+        "Al Hidd",
+        "Al Sayh",
+        "Askar",
+        "Awali",
+        "Barbar",
+        "Budaiya",
+        "Busaiteen",
+        "Durrat Al Bahrain",
+        "Galali",
+        "Hajiyat",
+        "Hamad Town",
+        "Hamala",
+        "Isa Town",
+        "Janabiya",
+        "Juffair",
+        "Karazakan",
+        "Malkiya",
+        "Manama",
+        "Muharraq",
+        "Riffa",
+        "Sadad",
+        "Salman City",
+        "Salmabad",
+        "Sanabis",
+        "Sanad",
+        "Saar",
+        "Sitra",
+        "Tubli",
+        "Zallaq",
+        "Zinj"
+    ]
+
+    private let townPicker = UIPickerView()
+
+    @objc private func donePickingTown() {
+        // 1) Close the picker
+        townCityTextField.resignFirstResponder()
+    }
+
+    
+
     @IBOutlet weak var addressNameTextField: UITextField!
     @IBOutlet weak var phoneNumberTextField: UITextField!
     @IBOutlet weak var townCityTextField: UITextField!
@@ -19,12 +64,16 @@ class DAddAddressViewController: UIViewController {
     @IBOutlet weak var roadNoTextField: UITextField!
     @IBOutlet weak var blockNoTextField: UITextField!
 
+    
+
     private let db = Firestore.firestore()
+
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Keep your header code (same as your current file) :contentReference[oaicite:2]{index=2}
+       
         let navBar = CustomNavigationBar()
         navBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navBar)
@@ -40,7 +89,29 @@ class DAddAddressViewController: UIViewController {
         navBar.onBackTapped = { [weak self] in
             self?.dismiss(animated: true)
         }
+
+        
+
+        // 1) Set picker delegate + data source
+        townPicker.delegate = self
+        townPicker.dataSource = self
+        townCityTextField.delegate = self
+
+        // 2) Use picker as the keyboard for the town/city text field
+        townCityTextField.inputView = townPicker
+
+        // 3) Add toolbar with Done button
+        let toolbar = UIToolbar()
+        toolbar.sizeToFit()
+
+        let done = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(donePickingTown))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+
+        toolbar.setItems([space, done], animated: false)
+        townCityTextField.inputAccessoryView = toolbar
     }
+
+    // MARK: - Actions
 
     @IBAction func saveButtonType(_ sender: UIButton) {
         // 1) Make sure user is logged in
@@ -83,7 +154,7 @@ class DAddAddressViewController: UIViewController {
             return
         }
 
-        // 4) Create the new address map (same structure as your Firestore screenshot)
+        // 4) Create the new address map
         let addressId = "addr_" + UUID().uuidString.prefix(8)
 
         let phoneDigits = phoneRaw.filter { $0.isNumber }
@@ -119,7 +190,7 @@ class DAddAddressViewController: UIViewController {
                     return
                 }
 
-                // 6) Show success then dismiss (same behavior as your current file) :contentReference[oaicite:3]{index=3}
+                // 6) Show success then dismiss
                 let alert = UIAlertController(
                     title: "Success!",
                     message: "Address added successfully!",
@@ -136,16 +207,59 @@ class DAddAddressViewController: UIViewController {
         }
     }
 
-    // Helper: ensure exactly 8 digits (Bahrain style)
+    
+
+    // ensure exactly 8 digits
     private func isValidPhone8Digits(_ phone: String) -> Bool {
+        // 1) Keep digits only
         let digitsOnly = phone.filter { $0.isNumber }
+
+        // 2) Ensure exactly 8 digits
         return digitsOnly.count == 8
     }
 
-    // Helper: quick alert
+    // quick alert
     private func showAlert(title: String, message: String) {
+        // 1) Create alert
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+
+        // 2) Add OK action
         alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+        // 3) Present alert
         present(alert, animated: true)
+    }
+}
+
+
+extension DAddAddressViewController: UIPickerViewDelegate, UIPickerViewDataSource {
+
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        // 1) One column of towns
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        // 2) Number of towns
+        return towns.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        // 3) Town name at that row
+        return towns[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        // 4) Put selected town into the text field
+        townCityTextField.text = towns[row]
+    }
+}
+
+
+extension DAddAddressViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        // 1) Prevent typing in Town/City field (picker only)
+        if textField == townCityTextField { return false }
+        return true
     }
 }

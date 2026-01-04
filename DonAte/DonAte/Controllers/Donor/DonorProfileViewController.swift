@@ -7,9 +7,16 @@
 
 import UIKit
 import FirebaseAuth
+import FirebaseFirestore
 
 class DonorProfileViewController: UIViewController {
+
     @IBOutlet weak var tableView: UITableView!
+
+    
+    @IBOutlet weak var usernameLabel: UILabel!
+
+    private let db = Firestore.firestore()
 
     @IBAction func logoutButtonType(_ sender: UIButton) {
 
@@ -65,75 +72,78 @@ class DonorProfileViewController: UIViewController {
     }
 
     let items: [ProfileItem] = [
-        .init(title: "Impact summary",   iconName: "impactIcon",   storyboardID: "ImpactSB"),
-        .init(title: "Your Donations",   iconName: "donationsIcon",   storyboardID: "ImpactSB"),
-        .init(title: "Saved Addresses",   iconName: "addressIcon",   storyboardID: "AddressSB"),
-        .init(title: "Change Password",   iconName: "passIcon",   storyboardID: "PassSB"),
-        .init(title: "Saved Collectors",   iconName: "savedIcon",   storyboardID: "SavedCSB"),
-        .init(title: "Messages",   iconName: "messageIcon",   storyboardID: "MessagesSB"),
-        .init(title: "Biometric Authentication",   iconName: "bioIcon",   storyboardID: "BioSB"),
-      
-]
+        .init(title: "Impact summary", iconName: "impactIcon", storyboardID: "ImpactSB"),
+        .init(title: "Your Donations", iconName: "donationsIcon", storyboardID: "ImpactSB"),
+        .init(title: "Saved Addresses", iconName: "addressIcon", storyboardID: "AddressSB"),
+        .init(title: "Change Password", iconName: "passIcon", storyboardID: "PassSB"),
+        .init(title: "Saved Collectors", iconName: "savedIcon", storyboardID: "SavedCSB"),
+        .init(title: "Messages", iconName: "messageIcon", storyboardID: "MessagesSB"),
+        .init(title: "Biometric Authentication", iconName: "bioIcon", storyboardID: "BioSB"),
+    ]
 
     override func viewDidLoad() {
-            super.viewDidLoad()
+        super.viewDidLoad()
+
+        let navBar = CustomNavigationBar()
+        navBar.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(navBar)
+
+        NSLayoutConstraint.activate([
+            navBar.topAnchor.constraint(equalTo: view.topAnchor),
+            navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            navBar.heightAnchor.constraint(equalToConstant: 150)
+        ])
+
         
-        // Print current user information
-       /* if let user = Auth.auth().currentUser {
-        print("Logged in as: \(user.email ?? "No email")")
-        print("User ID: \(user.uid)")*/
-        //i am not sure about the above code, i will test later
-        
-            let navBar = CustomNavigationBar()
-            navBar.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(navBar)
-            
-            NSLayoutConstraint.activate([
-                navBar.topAnchor.constraint(equalTo: view.topAnchor),
-                navBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                navBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                navBar.heightAnchor.constraint(equalToConstant: 150)
-            ])
-            
-            navBar.configure(style: .titleOnly(title: "Donor Profile"))
-           navBar.onBackTapped = { [weak self] in
-                self?.navigationController?.popViewController(animated: true)
-              
-        
-        
-               
-           
-                
-                
-                
-                
-                // Do any additional setup after loading the view.
-            }
+        navBar.configure(style: .titleOnly(title: "Donor Profile"))
+        navBar.onBackTapped = { [weak self] in
+            self?.navigationController?.popViewController(animated: true)
         }
-    
-        
-        override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-            navigationController?.setNavigationBarHidden(true, animated: false)
-        }
-    
+
+        tableView.dataSource = self
+        tableView.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+
+        // Refresh the username every time the screen appears
+        fetchAndShowUsername()
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         navigationController?.setNavigationBarHidden(false, animated: false)
     }
 
-  
+    private func fetchAndShowUsername() {
+        // 1) Ensure logged in
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+
+        // 2) Read user doc and display username
+        db.collection("Users").document(uid).getDocument { [weak self] snapshot, error in
+            guard let self = self else { return }
+
+            if let error = error {
+                print("Fetch username failed:", error.localizedDescription)
+                return
+            }
+
+            let data = snapshot?.data() ?? [:]
+            let username = (data["username"] as? String ?? "").trimmingCharacters(in: .whitespacesAndNewlines)
+            self.usernameLabel.text = username
+        }
+    }
+
     struct ProfileItem {
         let title: String
         let iconName: String
         let storyboardID: String
     }
-    
-    
-
-
 }
+
 extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -147,9 +157,7 @@ extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate
         cell.textLabel?.text = item.title
         cell.imageView?.image = UIImage(named: item.iconName)
         cell.accessoryType = .disclosureIndicator
-        cell.accessoryType = .disclosureIndicator
         cell.tintColor = .donorRed
-
 
         return cell
     }
@@ -161,12 +169,10 @@ extension DonorProfileViewController: UITableViewDataSource, UITableViewDelegate
         if let vc = storyboard?.instantiateViewController(withIdentifier: item.storyboardID) {
             navigationController?.pushViewController(vc, animated: true)
         }
-        
-        
     }
 }
 
-extension UIColor {  //i just realized that the color didnt change, ill look into this when i get the time
+extension UIColor {  // i just realized that the color didnt change, ill look into this when i get the time
     static let donorRed = UIColor(
         red: 240/255,
         green: 91/255,

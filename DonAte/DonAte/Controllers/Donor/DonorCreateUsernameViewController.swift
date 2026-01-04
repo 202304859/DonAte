@@ -12,7 +12,6 @@ final class DonorCreateUsernameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Keep your header code
         let navBar = CustomNavigationBar()
         navBar.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(navBar)
@@ -32,26 +31,24 @@ final class DonorCreateUsernameViewController: UIViewController {
 
     @IBAction private func nextButtonTapped(_ sender: UIButton) {
 
-        // 1) Must be logged in (registration created the account)
-        guard let uid = Auth.auth().currentUser?.uid else {
+        guard let user = Auth.auth().currentUser else {
             showAlert(title: "Error", message: "Please register/login first.")
             return
         }
 
-        // 2) Read + normalize
+        // Helpful debug 
+        print("CreateUsername uid:", user.uid, "isAnonymous:", user.isAnonymous)
+
         let raw = userNameTextField.text ?? ""
         let username = raw.trimmingCharacters(in: .whitespacesAndNewlines).lowercased()
 
-        // 3) Validate
         guard isValidUsername(username) else {
-            showAlert(title: "Invalid Username",
-                      message: "Use 3–20 characters: letters, numbers, underscore, or dot.")
+            showAlert(title: "Invalid Username", message: "Use 3–20 characters: letters, numbers, underscore, or dot.")
             return
         }
 
         setLoading(true)
 
-        // 4) Check availability
         checkUsernameAvailability(username) { [weak self] result in
             guard let self = self else { return }
             self.setLoading(false)
@@ -59,32 +56,43 @@ final class DonorCreateUsernameViewController: UIViewController {
             switch result {
             case .success(let isAvailable):
                 if !isAvailable {
-                    self.showAlert(title: "Username Taken",
-                                   message: "That username already exists. Please choose another one.")
+                    self.showAlert(title: "Username Taken", message: "That username already exists. Please choose another one.")
                     return
                 }
 
-                // 5) Save username to this user's Firestore document
-                self.db.collection("Users").document(uid).updateData(["username": username]) { err in
+                // Save username (merge:true works whether or not the doc exists yet)
+                let uid = user.uid
+                self.db.collection("Users").document(uid).setData(
+                    ["username": username],
+                    merge: true
+                ) { err in
                     if let err = err {
+                        print("Username save failed:", err.localizedDescription)
                         self.showAlert(title: "Save Failed", message: err.localizedDescription)
                         return
                     }
 
-                    // 6) Go to Add Address via segue
-                    self.performSegue(withIdentifier: "goToNewDonorAddress", sender: nil)
+                    // Success alert, then go next screen
+                    let alert = UIAlertController(
+                        title: "Success!",
+                        message: "Username created successfully!",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                        self.performSegue(withIdentifier: "goToNewDonorAddress", sender: nil)
+                    })
+                    self.present(alert, animated: true)
                 }
 
-            case .failure:
-                self.showAlert(title: "Can't Verify Username",
-                               message: "We couldn't check usernames right now. Please try again.")
+            case .failure(let error):
+                print("Username check failed:", error.localizedDescription)
+                self.showAlert(title: "Can't Verify Username", message: error.localizedDescription)
             }
         }
     }
 
     private func checkUsernameAvailability(_ username: String,
-                                           completion: @escaping (Result<Bool, Error>) -> Void) {
-
+                                          completion: @escaping (Result<Bool, Error>) -> Void) {
         db.collection("Users")
             .whereField("username", isEqualTo: username)
             .limit(to: 1)
@@ -95,13 +103,14 @@ final class DonorCreateUsernameViewController: UIViewController {
                     return
                 }
 
-                let isTaken = !(snapshot?.documents.isEmpty ?? true)
-                completion(.success(!isTaken))
+                let taken = !(snapshot?.documents.isEmpty ?? true)
+                completion(.success(!taken))
             }
     }
 
     private func isValidUsername(_ username: String) -> Bool {
         guard username.count >= 3 && username.count <= 20 else { return false }
+
         let allowed = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz0123456789_.")
         return username.unicodeScalars.allSatisfy { allowed.contains($0) }
     }

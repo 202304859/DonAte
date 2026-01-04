@@ -222,11 +222,11 @@
                                     <segue destination="13i-Ut-RqY" kind="presentation" identifier="goToNewDonorAddress" animates="NO" modalPresentationStyle="fullScreen" id="3uO-cp-0rm"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tsx-7P-OvQ" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tsx-7P-OvQ" customClass="CustomNavigationBar" customModule="DonAte" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="142"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Create Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7W-kh-mNw">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create Username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l7W-kh-mNw">
                                 <rect key="frame" x="30" y="164" width="333" height="27.666666666666657"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="23"/>
                                 <color key="textColor" name="Color 1"/>
@@ -273,6 +273,7 @@
                             <constraint firstItem="Si2-hO-g65" firstAttribute="leading" secondItem="ADo-sE-xVl" secondAttribute="leading" constant="30" id="Bb5-Q6-QIP"/>
                             <constraint firstItem="l7W-kh-mNw" firstAttribute="leading" secondItem="ADo-sE-xVl" secondAttribute="leading" constant="30" id="ExS-om-6tB"/>
                             <constraint firstItem="NZS-r2-3L7" firstAttribute="centerX" secondItem="3Ak-NL-SVG" secondAttribute="centerX" id="H26-Ek-Vrc"/>
+                            <constraint firstItem="Si2-hO-g65" firstAttribute="top" secondItem="l7W-kh-mNw" secondAttribute="bottom" constant="27.666666666666686" id="J8B-wo-Tc0"/>
                             <constraint firstItem="Tsx-7P-OvQ" firstAttribute="top" secondItem="3Ak-NL-SVG" secondAttribute="top" id="MLL-1G-Klc"/>
                             <constraint firstItem="ADo-sE-xVl" firstAttribute="trailing" secondItem="Si2-hO-g65" secondAttribute="trailing" constant="30" id="RG0-uD-VrK"/>
                             <constraint firstItem="l7W-kh-mNw" firstAttribute="top" secondItem="Tsx-7P-OvQ" secondAttribute="bottom" constant="22" id="Sw7-WP-eoV"/>
